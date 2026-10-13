@@ -16,7 +16,7 @@ const TERMS: { md: number; n: [string, string, string]; a: [string, string, stri
   { md: 723, n: ["大暑", "大暑", "Major Heat"], a: ["熱時少辯，讓火有出口就得。", "热时少辩，让火有出口即可。", "In heat, argue less; let fire have an exit."] },
   { md: 807, n: ["立秋", "立秋", "Start of Autumn"], a: ["把窗拉開，讓一絲涼入肺。", "把窗拉开，让一丝凉入肺。", "Open the window; let a thread of cool into the lung."] },
   { md: 823, n: ["處暑", "处暑", "End of Heat"], a: ["熱開始退，步伐可以再慢。", "热开始退，步伐可以再慢。", "Heat is leaving; the step can be slower."] },
-  { md: 907, n: ["白露", "白露", "White Dew"], a: ["肩頸要暖，唔好對住風坐耐。", "肩颈要暖，不要对著风坐久。", "Keep neck and shoulders warm; don’t sit in a draft."] },
+  { md: 907, n: ["白露", "白露", "White Dew"], a: ["肩頸要暖，唔好對住風坐耐。", "肩颈要暖，不要对着风坐久。", "Keep neck and shoulders warm; don’t sit in a draft."] },
   { md: 923, n: ["秋分", "秋分", "Autumnal Equinox"], a: ["收多過開。把一樁事放下。", "收多于开。把一桩事放下。", "Gather more than you start. Set one matter down."] },
   { md: 1008, n: ["寒露", "寒露", "Cold Dew"], a: ["早臥，湧泉搓熱。", "早卧，涌泉搓热。", "Lie down earlier; rub Yongquan until warm."] },
   { md: 1023, n: ["霜降", "霜降", "Frost Descent"], a: ["護肺護鼻，少吹冷風。", "护肺护鼻，少吹冷风。", "Guard lung and nose; less cold wind."] },
