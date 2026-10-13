@@ -4,12 +4,13 @@ import { CrayonFrame } from "@/components/crayon-margin";
 import { DayGuide } from "@/components/day-guide";
 import { SiteQr } from "@/components/site-qr";
 import { ViewCount } from "@/components/view-count";
-import { useCopy } from "@/i18n/lang";
+import { useCopy, useLang } from "@/i18n/lang";
 
 export const Route = createFileRoute("/")({ component: Home });
 
 function Home() {
   const copy = useCopy();
+  const { lang } = useLang();
   const { ui, home } = copy;
   return (
     <main className="min-h-screen bg-bg text-ink">
@@ -97,6 +98,19 @@ function Home() {
             <p className="mt-6 text-sm text-accent">{home.anmeiGo}</p>
           </div>
         </Link>
+      </section>
+
+      <section className="px-6 pb-8 md:px-12">
+        <div className="grid gap-4 md:grid-cols-2">
+          <Link to="/jieqi" className="rounded-card border border-line bg-paper p-7 text-ink no-underline">
+            <p className="text-xs tracking-[0.22em] text-accent">節氣 · 形神</p>
+            <h2 className="mt-2 font-serif text-2xl">{lang === "yue" ? "呢個節氣，心點過" : "這個節氣，心怎麼過"}</h2>
+          </Link>
+          <Link to="/faq" className="rounded-card border border-line bg-paper p-7 text-ink no-underline">
+            <p className="text-xs tracking-[0.22em] text-accent">{lang === "yue" ? "常見問題" : "常見問題"}</p>
+            <h2 className="mt-2 font-serif text-2xl">{lang === "yue" ? "第一次面診之前" : "第一次面診之前"}</h2>
+          </Link>
+        </div>
       </section>
 
       <section className="px-6 pb-20 md:px-12">
