@@ -1,0 +1,257 @@
+import { Link } from "@tanstack/react-router";
+import type { ReactNode } from "react";
+import { ClinicContact } from "@/components/clinic-contact";
+import { CrayonFrame } from "@/components/crayon-margin";
+import { DayGuide } from "@/components/day-guide";
+import { ViewCount } from "@/components/view-count";
+import { useCopy } from "@/i18n/lang";
+
+type NavItem = { href: string; label: string };
+
+const ROOMS = [
+  { id: "anshen", to: "/anshen" },
+  { id: "jieyu", to: "/jieyu" },
+  { id: "anmei", to: "/anmei" },
+] as const;
+
+function roomLabel(copy: ReturnType<typeof useCopy>, id: (typeof ROOMS)[number]["id"]) {
+  if (id === "anshen") return copy.home.anshenT;
+  if (id === "jieyu") return copy.home.jieyuT;
+  return copy.home.anmeiT;
+}
+
+function RoomJump({
+  theme,
+  tone,
+}: {
+  theme: "anshen" | "jieyu" | "anmei";
+  tone: "light" | "solid" | "footer";
+}) {
+  const copy = useCopy();
+  const cls =
+    tone === "footer"
+      ? "inline-flex min-h-11 items-center rounded-full border border-mist/40 px-4 py-2 text-sm text-paper no-underline"
+      : tone === "solid"
+        ? "inline-flex min-h-11 shrink-0 items-center rounded-full border border-line bg-paper px-4 py-2 text-sm text-ink no-underline"
+        : "inline-flex min-h-11 items-center rounded-full border border-line bg-paper px-4 py-2 text-sm text-ink no-underline shadow-sm";
+  return (
+    <>
+      {ROOMS.filter((r) => r.id !== theme).map((r) => (
+        <Link key={r.id} to={r.to} className={cls}>
+          {roomLabel(copy, r.id)}
+        </Link>
+      ))}
+    </>
+  );
+}
+
+export function ClinicLayout({
+  theme,
+  title,
+  kicker,
+  lede,
+  nav,
+  bgSrc,
+  children,
+  footerName,
+  footerNote,
+}: {
+  theme: "anshen" | "jieyu" | "anmei";
+  title: string;
+  kicker: string;
+  lede: string;
+  nav: readonly NavItem[];
+  bgSrc: string;
+  children: ReactNode;
+  footerName: string;
+  footerNote: string;
+}) {
+  const copy = useCopy();
+  const ui = copy.ui;
+  const musicCredit =
+    theme === "anshen"
+      ? copy.anshen.musicCredit
+      : theme === "jieyu"
+        ? copy.jieyu.musicCredit
+        : copy.anmei.musicCredit;
+  return (
+    <div data-theme={theme} className="min-h-screen bg-bg text-ink">
+      <header className="relative flex min-h-[78vh] items-end overflow-hidden px-6 pb-16 pt-16 md:items-center md:px-10 md:pt-24">
+        <img
+          src={bgSrc}
+          alt=""
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[center_40%]"
+        />
+        <div
+          className="absolute inset-0 bg-linear-to-t from-bg/85 via-bg/30 to-transparent md:hidden"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0 hidden bg-linear-to-r from-bg/60 via-bg/20 to-transparent md:block"
+          aria-hidden
+        />
+        <div className="relative z-10 mx-auto w-full max-w-3xl">
+          <div className="mb-8 flex flex-wrap gap-2">
+            <Link
+              to="/"
+              className="inline-flex min-h-11 items-center rounded-full border border-line bg-paper px-5 py-2 text-sm text-ink no-underline shadow-sm"
+            >
+              {ui.back}
+            </Link>
+            <RoomJump theme={theme} tone="light" />
+          </div>
+          <p className="text-xs tracking-[0.28em] text-accent">{kicker}</p>
+          <h1 className="mt-3 font-serif text-6xl font-semibold md:text-7xl">{title}</h1>
+          <p className="mt-4 max-w-xl text-lg text-ink">{lede}</p>
+          <div className="mt-8 max-w-xl">
+            <DayGuide />
+          </div>
+        </div>
+      </header>
+
+      <nav
+        className="sticky z-20 border-b border-line bg-bg/90 backdrop-blur-md"
+        style={{ top: "var(--site-top)" }}
+      >
+        <div className="mx-auto flex max-w-3xl items-center gap-4 px-6 py-2 pr-28 md:px-10">
+          <div className="flex shrink-0 flex-wrap items-center gap-2">
+            <Link
+              to="/"
+              className="inline-flex min-h-11 shrink-0 items-center rounded-full bg-bg-deep px-4 py-2 text-sm text-paper no-underline"
+            >
+              {ui.back}
+            </Link>
+            <RoomJump theme={theme} tone="solid" />
+          </div>
+          <ul className="flex gap-5 overflow-x-auto py-1 text-sm whitespace-nowrap">
+            {nav.map((item) => (
+              <li key={item.href}>
+                <a href={item.href} className="text-ink no-underline">
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+
+      <CrayonFrame theme={theme}>
+        <div className="px-6 md:px-10">{children}</div>
+      </CrayonFrame>
+
+      <footer className="mt-8 bg-bg-deep px-6 py-12 text-mist md:px-10">
+        <div className="mx-auto max-w-3xl">
+          <p className="font-serif font-semibold">{footerName}</p>
+          <ClinicContact />
+          <p className="mt-3 max-w-xl text-sm opacity-75">{footerNote}</p>
+          <ViewCount page={theme} />
+          <p className="mt-2 text-xs opacity-60">{musicCredit}</p>
+          <div className="mt-6 flex flex-wrap gap-2">
+            <Link
+              to="/"
+              className="inline-flex min-h-11 items-center rounded-full border border-mist/40 px-5 py-2 text-sm text-paper no-underline"
+            >
+              {ui.back}
+            </Link>
+            <RoomJump theme={theme} tone="footer" />
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+export function QuietPhoto({ src, alt }: { src: string; alt: string }) {
+  return (
+    <figure className="my-8 overflow-hidden rounded-card border border-line">
+      <img src={src} alt={alt} className="h-52 w-full object-cover md:h-72" />
+    </figure>
+  );
+}
+
+export function Section({
+  id,
+  kicker,
+  title,
+  children,
+}: {
+  id: string;
+  kicker: string;
+  title: string;
+  children: ReactNode;
+}) {
+  return (
+    <section id={id} className="border-t border-line py-16">
+      <p className="mb-2 text-xs tracking-[0.22em] text-accent">{kicker}</p>
+      <h2 className="mb-4 font-serif text-3xl">{title}</h2>
+      {children}
+    </section>
+  );
+}
+
+export function CardGrid({
+  items,
+}: {
+  items: readonly { title: string; body: string }[];
+}) {
+  return (
+    <div className="mt-6 grid gap-4 sm:grid-cols-2">
+      {items.map((item) => (
+        <article
+          key={item.title}
+          className="rounded-card border border-line bg-paper p-5"
+        >
+          <h3 className="font-serif text-lg">{item.title}</h3>
+          <p className="mt-2 text-sm text-muted">{item.body}</p>
+        </article>
+      ))}
+    </div>
+  );
+}
+
+export function GhostButton({
+  children,
+  onClick,
+  type = "button",
+}: {
+  children: ReactNode;
+  onClick?: () => void;
+  type?: "button" | "submit";
+}) {
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      className="min-h-11 rounded-full border border-line bg-paper px-4 py-2 text-sm text-ink"
+    >
+      {children}
+    </button>
+  );
+}
+
+export function SolidButton({
+  children,
+  onClick,
+  onPointerDown,
+  onPointerUp,
+  onPointerLeave,
+}: {
+  children: ReactNode;
+  onClick?: () => void;
+  onPointerDown?: () => void;
+  onPointerUp?: () => void;
+  onPointerLeave?: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
+      onPointerLeave={onPointerLeave}
+      className="min-h-11 rounded-full bg-bg-deep px-5 py-2.5 text-sm tracking-widest text-paper"
+    >
+      {children}
+    </button>
+  );
+}

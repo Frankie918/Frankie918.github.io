@@ -1,0 +1,28 @@
+身心課堂 圖片同音樂連結
+網站：https://lion-amber-lion-mist.grok.me
+路徑都係相對網站根目錄。原始碼係 React / TypeScript（TanStack Start），唔係單一 HTML 檔。
+樣式：src/styles.css
+頁面殼：src/routes/__root.tsx
+頁面：src/routes/index.tsx、anshen.tsx、jieyu.tsx、anmei.tsx、listen.tsx、qr.tsx
+
+圖片
+https://lion-amber-lion-mist.grok.me/bg-home.jpg
+https://lion-amber-lion-mist.grok.me/bg-anshen.jpg
+https://lion-amber-lion-mist.grok.me/bg-jieyu.jpg
+https://lion-amber-lion-mist.grok.me/bg-anmei.jpg
+https://lion-amber-lion-mist.grok.me/still-anshen.jpg
+https://lion-amber-lion-mist.grok.me/still-jieyu.jpg
+https://lion-amber-lion-mist.grok.me/still-anmei.jpg
+https://lion-amber-lion-mist.grok.me/kwh-logo.png
+https://lion-amber-lion-mist.grok.me/kwh-mark.png
+https://lion-amber-lion-mist.grok.me/kwh-foot.jpg
+https://lion-amber-lion-mist.grok.me/og.jpg
+https://lion-amber-lion-mist.grok.me/qr-frame.jpg
+https://lion-amber-lion-mist.grok.me/favicon.svg
+
+音樂
+https://lion-amber-lion-mist.grok.me/audio/calm.mp3          首頁卡農，公有領域
+https://lion-amber-lion-mist.grok.me/audio/pingsha.mp3       安神《平沙落雁》古琴，Charlie Huang，CC BY 2.5
+https://lion-amber-lion-mist.grok.me/audio/yangguan.mp3      解鬱《陽關三疊》古琴，Charlie Huang，CC BY-SA 3.0
+https://lion-amber-lion-mist.grok.me/audio/zuiyu.mp3         安寐《醉漁唱晚》古琴，Charlie Huang，CC BY-SA 3.0
+https://lion-amber-lion-mist.grok.me/audio/listen/qiufeng.mp3 試聽《秋風詞》古琴，Charlie Huang，CC BY 2.5
