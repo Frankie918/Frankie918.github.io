@@ -31,7 +31,7 @@ const BODY: Record<RoomId, Dot[]> = {
     { id: "taichong", left: "38%", top: "95%" },
   ],
   jieyu: [
-    { id: "qimen", left: "40%", top: "38%" },
+    { id: "qimen", left: "40%", top: "33%" },
     { id: "neiguan", left: "17.5%", top: "54%" },
     { id: "hegu", left: "13%", top: "65%" },
     { id: "taichong", left: "38%", top: "95%" },
@@ -84,8 +84,8 @@ function EarOutline() {
 export function PointMap({ room }: { room: RoomId }) {
   const p = useCopy().play;
   const pts = p.maps[room] as Record<string, { t: string; d: string }>;
-  const [mode, setMode] = useState<"ear" | "body">("ear");
-  const [id, setId] = useState(EAR[room][0].id);
+  const [mode, setMode] = useState<"ear" | "body">(room === "jieyu" ? "body" : "ear");
+  const [id, setId] = useState(room === "jieyu" ? BODY[room][0].id : EAR[room][0].id);
   const dots = mode === "ear" ? EAR[room] : BODY[room];
   const item = lookup(pts, id) ?? lookup(pts, dots[0].id);
 

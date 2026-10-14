@@ -8,6 +8,8 @@ const IMG: Record<string, string> = {
   taichong: "foot-top",
   sanyinjiao: "ankle",
   yongquan: "sole",
+  hegu: "hand-back",
+  qimen: "chest",
 };
 
 const ALT = {
