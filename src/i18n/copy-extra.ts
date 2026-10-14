@@ -1117,7 +1117,6 @@ export const CMN = {
       "我不是負擔。",
       "吃每一口，都是養我自己。",
       "無人催我開花。",
-      "想睡我就睡一陣，醒了再算。",
       "空，不等於沒有我。",
       "我不要用「振作」打自己。",
       "霧天也有路，我只是看不遠。",
@@ -1161,7 +1160,8 @@ export const CMN = {
       "節奏回來，鐘數會慢慢跟。",
       "天花板我已經很熟，我不必再盯著它。",
       "腳夠暖，我就容易入睡一些。",
-      "我回床，是因為有睡意，不是因為鐘。"
+      "我回床，是因為有睡意，不是因為鐘。",
+      "想睡我就睡一陣，醒了再算。"
     ]
   }};
 export const EN = {
@@ -2253,7 +2253,6 @@ export const EN = {
       "I am not a burden.",
       "Each mouthful is still feeding myself.",
       "No one is hurrying me to bloom.",
-      "If I want to sleep, I sleep a while. Waking can wait.",
       "Empty is not the same as gone.",
       "I will not use “cheer up” to hit myself.",
       "There is still a path in fog. I simply cannot see far.",
@@ -2297,6 +2296,7 @@ export const EN = {
       "When rhythm returns, the hours follow.",
       "I already know the ceiling. I need not keep staring.",
       "If the feet are warm, sleep comes a little easier.",
-      "I return to bed because I am sleepy, not because of the clock."
+      "I return to bed because I am sleepy, not because of the clock.",
+      "If I want to sleep, I sleep a while. Waking can wait."
     ]
   }};

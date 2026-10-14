@@ -49,7 +49,6 @@ export const JIEYU_LINES = [
   "我唔係負擔。",
   "食每一口，都係養我自己。",
   "無人催我開花。",
-  "想瞓我就瞓一陣，醒咗再算。",
   "空，唔等於冇我。",
   "我唔好用「振作」打自己。",
   "霧天都有路，我只係睇唔遠。",
@@ -95,65 +94,34 @@ export const ANMEI_LINES = [
   "天花板我已經好熟，我唔使再盯住佢。",
   "隻腳夠暖，我就容易入睡多啲。",
   "我返床，係因為有睡意，唔係因為鐘。",
+  "想瞓我就瞓一陣，醒咗再算。",
 ];
 
-/** Short 10-second micro-actions shown under a revealed line. */
-export const QUIET_ACTIONS = {
-  yue: [
-    "沉一沉肩",
-    "慢呼一口氣",
-    "鬆一鬆牙關",
-    "把眉心放開",
-    "手心按一按心口",
-    "腳掌踩實地板",
-    "眨眼兩下，望遠少少",
-    "把手指伸直再開",
-    "舌頭放離上顎",
-    "頸慢慢轉一轉",
-    "把坐姿鬆一寸",
-    "輕拍兩下大腿",
-  ],
-  cmn: [
-    "沉一沉肩",
-    "慢呼一口氣",
-    "鬆一鬆牙關",
-    "把眉心放開",
-    "手心按一按心口",
-    "腳掌踩實地板",
-    "眨眼兩下，望遠一點",
-    "把手指伸直再開",
-    "舌頭放離上顎",
-    "頸慢慢轉一轉",
-    "把坐姿松一寸",
-    "輕拍兩下大腿",
-  ],
-  en: [
-    "Drop the shoulders a little",
-    "Breathe out slowly once",
-    "Unclench the jaw",
-    "Ease the brow",
-    "Palm on the chest, press lightly",
-    "Press both feet into the floor",
-    "Blink twice; look far for a moment",
-    "Stretch the fingers, then open",
-    "Let the tongue rest from the palate",
-    "Turn the neck once, slowly",
-    "Loosen how you sit by an inch",
-    "Pat both thighs twice, gently",
-  ],
-} as const;
+export type QuietRoom = "anshen" | "jieyu" | "anmei" | "home";
 
-export const QUIET_ACTIONS_MORNING = {
-  yue: ["伸一伸腰", "望一望窗外光", "喝一口暖水", "把窗簾拉開一半"],
-  cmn: ["伸一伸腰", "望一望窗外光", "喝一口暖水", "把窗簾拉開一半"],
-  en: ["Stretch the back once", "Look at the light outside", "Sip warm water", "Open the curtain halfway"],
-} as const;
-
-export const QUIET_ACTIONS_NIGHT = {
-  yue: ["把燈再暗一格", "腳心搓一搓暖", "被角拉好少少", "手機反轉放遠"],
-  cmn: ["把燈再暗一格", "腳心搓一搓暖", "被角拉好一點", "手機反轉放遠"],
-  en: ["Dim the lamp one more step", "Rub the soles warm", "Tuck the quilt a little", "Phone face-down, out of reach"],
-} as const;
+/** Short 10-second micro-actions, one pool per room theme. */
+export const QUIET_ACTIONS: Record<QuietRoom, Record<"yue" | "cmn" | "en", readonly string[]>> = {
+  anshen: {
+    yue: ["雙腳踩實地面", "慢呼一口氣", "鬆一鬆牙關", "把眉心放開", "手心按一按心口", "沉一沉肩", "數三樣見到嘅嘢"],
+    cmn: ["雙腳踩實地面", "慢呼一口氣", "鬆一鬆牙關", "把眉心放開", "手心按一按心口", "沉一沉肩", "數三樣看見的東西"],
+    en: ["Press both feet into the floor", "Breathe out slowly once", "Unclench the jaw", "Ease the brow", "Palm on the chest, press lightly", "Drop the shoulders", "Name three things you can see"],
+  },
+  jieyu: {
+    yue: ["伸一伸胸口", "拉開窗簾", "企起身行三步", "雙手向上伸一伸", "望一望窗外光", "轉一轉肩膊", "喝一口暖水"],
+    cmn: ["伸一伸胸口", "拉開窗簾", "站起來走三步", "雙手向上伸一伸", "望一望窗外的光", "轉一轉肩膀", "喝一口暖水"],
+    en: ["Open the chest a little", "Draw the curtain open", "Stand and take three steps", "Reach both arms up", "Look at the light outside", "Roll the shoulders", "Sip warm water"],
+  },
+  anmei: {
+    yue: ["調暗燈", "放低手機", "腳心搓一搓暖", "被角拉好少少", "慢慢呼長一口氣", "鬆開眉心同牙關"],
+    cmn: ["調暗燈", "放下手機", "腳心搓一搓暖", "被角拉好一點", "慢慢呼長一口氣", "鬆開眉心和牙關"],
+    en: ["Dim the light", "Put the phone down", "Rub the soles warm", "Tuck the quilt a little", "One long slow exhale", "Ease the brow and jaw"],
+  },
+  home: {
+    yue: ["慢呼一口氣", "沉一沉肩", "雙腳踩實地面", "伸一伸胸口", "望一望遠處"],
+    cmn: ["慢呼一口氣", "沉一沉肩", "雙腳踩實地面", "伸一伸胸口", "望一望遠處"],
+    en: ["Breathe out slowly once", "Drop the shoulders", "Press both feet into the floor", "Open the chest a little", "Look far for a moment"],
+  },
+};
 
 /** 1–2 quiet mind-body lines per 節氣 (keyed by Traditional han name from jieqi.ts). */
 export const JIEQI_QUIET_LINES: Record<
@@ -286,6 +254,7 @@ export type ClassicalCard = {
   quote: string;
   source: string;
   plain: { yue: string; cmn: string; en: string };
+  rooms: readonly QuietRoom[];
 };
 
 /** Occasional classical lines (~15% of taps). Culture, not treatment. */
@@ -298,6 +267,7 @@ export const CLASSICAL_QUIET: readonly ClassicalCard[] = [
       cmn: "心靜少欲，氣就會自己跟回來。",
       en: "When the mind is quiet and wants little, qi follows of its own.",
     },
+    rooms: ["anshen", "home"],
   },
   {
     quote: "精神內守，病安從來",
@@ -307,6 +277,7 @@ export const CLASSICAL_QUIET: readonly ClassicalCard[] = [
       cmn: "神守回裏面，許多嘈音就遠了。",
       en: "When spirit keeps to the inside, much noise stays farther off.",
     },
+    rooms: ["anshen"],
   },
   {
     quote: "陰平陽秘，精神乃治",
@@ -316,6 +287,7 @@ export const CLASSICAL_QUIET: readonly ClassicalCard[] = [
       cmn: "陰陽大致平穩，精神才易安頓。",
       en: "When yin and yang stay roughly even, spirit settles more easily.",
     },
+    rooms: ["anmei", "home"],
   },
   {
     quote: "致虛極，守靜篤",
@@ -325,6 +297,7 @@ export const CLASSICAL_QUIET: readonly ClassicalCard[] = [
       cmn: "空到盡、靜到實，才有回轉的位置。",
       en: "Reach emptiness fully; keep stillness deep — then there is room to turn.",
     },
+    rooms: ["anshen", "anmei"],
   },
   {
     quote: "知止而後有定",
@@ -334,26 +307,55 @@ export const CLASSICAL_QUIET: readonly ClassicalCard[] = [
       cmn: "知道哪裏停，心才定得下。",
       en: "Knowing where to stop, the mind can settle.",
     },
+    rooms: ["jieyu", "home"],
+  },
+  {
+    quote: "陽氣盡則臥，陰氣盡則寤",
+    source: "《黃帝內經》",
+    plain: {
+      yue: "陽氣收埋就想瞓，陰氣退咗就醒，跟返個節奏就得。",
+      cmn: "陽氣收藏就想睡，陰氣退了就醒，跟著節奏就好。",
+      en: "When yang withdraws we lie down; when yin withdraws we wake. Follow the rhythm.",
+    },
+    rooms: ["anmei"],
+  },
+  {
+    quote: "流水不腐，戶樞不蠹",
+    source: "《呂氏春秋》",
+    plain: {
+      yue: "郁少少，氣就唔會滯住。",
+      cmn: "動一點，氣就不會滯住。",
+      en: "Flowing water stays fresh; a used hinge does not rot. A little movement keeps qi from stalling.",
+    },
+    rooms: ["jieyu", "home"],
   },
 ];
 
 export type QuietLang = "yue" | "cmn" | "en";
 
-export function pickQuietAction(lang: QuietLang, hour: number, last = -1): { text: string; index: number } {
-  const base = QUIET_ACTIONS[lang];
-  const timed =
-    hour >= 23 || hour < 5
-      ? QUIET_ACTIONS_NIGHT[lang]
-      : hour >= 6 && hour < 10
-        ? QUIET_ACTIONS_MORNING[lang]
-        : null;
-  const pool = timed && Math.random() < 0.45 ? [...timed, ...base] : [...base];
+export function pickQuietAction(room: QuietRoom, lang: QuietLang, last = -1): { text: string; index: number } {
+  const pool = QUIET_ACTIONS[room][lang];
   let i = last;
   if (pool.length <= 1) i = 0;
   else while (i === last) i = Math.floor(Math.random() * pool.length);
-  return { text: pool[i] ?? base[0], index: i };
+  return { text: pool[i] ?? pool[0]!, index: i };
 }
 
-export function jieqiQuietFor(han: string, lang: QuietLang): readonly string[] {
-  return JIEQI_QUIET_LINES[han]?.[lang] ?? [];
+/** Indices (per term) of bedtime-themed 節氣 lines: shown only in 安寐. */
+const JIEQI_SLEEP_IDX: Record<string, readonly number[]> = {
+  大寒: [0],
+  寒露: [0],
+  霜降: [1],
+  立冬: [0],
+};
+
+export function jieqiQuietFor(han: string, lang: QuietLang, room: QuietRoom): readonly string[] {
+  const all = JIEQI_QUIET_LINES[han]?.[lang] ?? [];
+  const sleep = JIEQI_SLEEP_IDX[han] ?? [];
+  if (room === "anmei") return all;
+  return all.filter((_, i) => !sleep.includes(i));
+}
+
+export function classicalFor(room: QuietRoom): readonly ClassicalCard[] {
+  return CLASSICAL_QUIET.filter((c) => c.rooms.includes(room));
 }

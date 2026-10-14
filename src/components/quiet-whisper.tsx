@@ -4,10 +4,11 @@ import { useLang } from "@/i18n/lang";
 import { todayInMacau } from "@/lib/almanac";
 import { jieqiOf } from "@/lib/jieqi";
 import {
-  CLASSICAL_QUIET,
+  classicalFor,
   jieqiQuietFor,
   pickQuietAction,
   type QuietLang,
+  type QuietRoom,
 } from "@/lib/quiet-lines";
 
 type Reveal =
@@ -21,14 +22,10 @@ function pickNext(len: number, last: number) {
   return i;
 }
 
-function localHour() {
-  return new Date().getHours();
-}
-
-function roomFromPath(path: string): "anshen" | "jieyu" | "anmei" | "home" {
+function roomFromPath(path: string): QuietRoom {
   if (path.startsWith("/jieyu")) return "jieyu";
   if (path.startsWith("/anshen")) return "anshen";
-  if (path.startsWith("/anmei")) return "anmei";
+  if (path.startsWith("/anmei") || path.startsWith("/listen")) return "anmei";
   return "home";
 }
 
@@ -100,58 +97,35 @@ export function QuietWhisper() {
     ];
   }
 
-  function pickSourceLines(hour: number): readonly string[] {
-    const room = roomFromPath(path);
-    const roomLines = linesForRoom(room);
-    // Night (≥23 or before 5): bias toward 安寐, but keep room lines sometimes.
-    if (hour >= 23 || hour < 5) {
-      if (room === "anmei") return roomLines;
-      return Math.random() < 0.55 ? copy.lines.anmei : roomLines;
-    }
-    // Morning (06–10): bias toward lighter 安神 / get-up friendly lines.
-    if (hour >= 6 && hour < 10) {
-      if (room === "anshen") return roomLines;
-      return Math.random() < 0.5 ? copy.lines.anshen : roomLines;
-    }
-    return roomLines;
-  }
-
   function reveal() {
-    const hour = localHour();
-    const actionPick = pickQuietAction(qlang, hour, lastAction.current);
+    const room = roomFromPath(path);
+    const actionPick = pickQuietAction(room, qlang, lastAction.current);
     lastAction.current = actionPick.index;
     const action = actionPick.text;
     const roll = Math.random();
 
-    // ~15% classical quote + plain paraphrase
-    if (roll < 0.15) {
-      const i = pickNext(CLASSICAL_QUIET.length, lastClassical.current);
+    // ~15% classical quote that fits this room
+    const quotes = classicalFor(room);
+    if (roll < 0.15 && quotes.length > 0) {
+      const i = pickNext(quotes.length, lastClassical.current);
       lastClassical.current = i;
-      const c = CLASSICAL_QUIET[i]!;
-      setCard({
-        kind: "classical",
-        quote: c.quote,
-        plain: c.plain[qlang],
-        source: c.source,
-        action,
-      });
+      const c = quotes[i]!;
+      setCard({ kind: "classical", quote: c.quote, plain: c.plain[qlang], source: c.source, action });
       return;
     }
 
-    // ~12% solar-term line (reuse jieqiOf + todayInMacau)
+    // ~12% current 節氣 line (bedtime-themed ones only in 安寐)
     if (roll < 0.27) {
       const { month, day } = todayInMacau();
       const { han } = jieqiOf(month, day, qlang);
-      const jq = jieqiQuietFor(han, qlang);
+      const jq = jieqiQuietFor(han, qlang, room);
       if (jq.length > 0) {
-        const i = pickNext(jq.length, lastLine.current);
-        lastLine.current = i;
-        setCard({ kind: "line", text: jq[i]!, action });
+        setCard({ kind: "line", text: jq[Math.floor(Math.random() * jq.length)]!, action });
         return;
       }
     }
 
-    const lines = pickSourceLines(hour);
+    const lines = linesForRoom(room);
     const i = pickNext(lines.length, lastLine.current);
     lastLine.current = i;
     setCard({ kind: "line", text: lines[i] ?? "", action });
