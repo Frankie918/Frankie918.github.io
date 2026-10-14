@@ -270,6 +270,12 @@
   background: var(--color-warm);
 }
 
+.acu-closeup {
+  display: block;
+  height: auto;
+  object-fit: contain;
+}
+
 @keyframes point-pulse {
   0% {
     box-shadow: 0 0 0 0 rgb(63 107 92 / 0.45);

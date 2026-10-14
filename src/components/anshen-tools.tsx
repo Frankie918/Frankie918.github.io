@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { GhostButton, SolidButton } from "@/components/clinic-layout";
 import { patchNote } from "@/lib/today-note";
 import { useCopy } from "@/i18n/lang";
+import { AcuCloseUp, AcuHint, BodySilhouette } from "@/components/acu-figure";
 
 const POINT_STYLE = {
   baihui: { left: "50%", top: "2%" },
-  yintang: { left: "50%", top: "12%" },
-  shenmen: { left: "18%", top: "52%" },
-  neiguan: { left: "18%", top: "62%" },
-  taichong: { left: "38%", top: "94%" },
+  yintang: { left: "50%", top: "7.5%" },
+  shenmen: { left: "15%", top: "60%" },
+  neiguan: { left: "17.5%", top: "54%" },
+  taichong: { left: "38%", top: "95%" },
 } as const;
 
 type PointId = keyof typeof POINT_STYLE;
@@ -52,9 +53,7 @@ export function FivePoints() {
     <div className="mt-6 grid gap-5 md:grid-cols-2">
       <div className="rounded-card border border-line bg-paper p-6">
         <div className="relative mx-auto h-72 w-44">
-          <div className="mx-auto size-16 rounded-full bg-mist" />
-          <div className="mx-auto h-4 w-4 bg-mist" />
-          <div className="mx-auto h-36 w-24 rounded-[2.5rem] bg-mist" />
+          <BodySilhouette />
           {(Object.keys(POINT_STYLE) as PointId[]).map((key) => (
             <button
               key={key}
@@ -67,10 +66,26 @@ export function FivePoints() {
             />
           ))}
         </div>
+        <div className="mt-4 flex flex-wrap justify-center gap-2">
+          {(Object.keys(POINT_STYLE) as PointId[]).map((key) => (
+            <button
+              key={key}
+              type="button"
+              className={`min-h-10 rounded-full px-3 text-sm ${
+                id === key ? "bg-accent text-paper" : "border border-line text-ink"
+              }`}
+              onClick={() => setId(key)}
+            >
+              {c.points[key].t}
+            </button>
+          ))}
+        </div>
+        <AcuHint />
       </div>
       <div className="rounded-card border border-line bg-paper p-6">
         <h3 className="font-serif text-xl">{point.t}</h3>
         <p className="mt-2 text-muted">{point.d}</p>
+        <AcuCloseUp id={id} name={point.t} />
         <p className="mt-2 text-sm text-muted">{c.breath}</p>
         <div className="mt-4">
           <SolidButton onPointerDown={startHold} onPointerUp={stop} onPointerLeave={stop}>

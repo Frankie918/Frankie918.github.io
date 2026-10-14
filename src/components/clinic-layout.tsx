@@ -191,18 +191,21 @@ export function Section({
 
 export function CardGrid({
   items,
+  extra,
 }: {
   items: readonly { title: string; body: string }[];
+  extra?: (index: number, title: string) => ReactNode;
 }) {
   return (
     <div className="mt-6 grid gap-4 sm:grid-cols-2">
-      {items.map((item) => (
+      {items.map((item, i) => (
         <article
           key={item.title}
           className="rounded-card border border-line bg-paper p-5"
         >
           <h3 className="font-serif text-lg">{item.title}</h3>
           <p className="mt-2 text-sm text-muted">{item.body}</p>
+          {extra?.(i, item.title)}
         </article>
       ))}
     </div>

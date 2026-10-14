@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { loadNotes, patchNote, type RoomId } from "@/lib/today-note";
 import { useCopy } from "@/i18n/lang";
+import { AcuCloseUp, AcuHint, BodySilhouette } from "@/components/acu-figure";
 
 type Dot = { id: string; left: string; top: string };
 
@@ -24,22 +25,22 @@ const EAR: Record<RoomId, Dot[]> = {
 
 const BODY: Record<RoomId, Dot[]> = {
   anshen: [
-    { id: "yintang", left: "50%", top: "12%" },
-    { id: "shenmen", left: "18%", top: "52%" },
-    { id: "neiguan", left: "18%", top: "62%" },
-    { id: "taichong", left: "38%", top: "94%" },
+    { id: "yintang", left: "50%", top: "7.5%" },
+    { id: "shenmen", left: "15%", top: "60%" },
+    { id: "neiguan", left: "17.5%", top: "54%" },
+    { id: "taichong", left: "38%", top: "95%" },
   ],
   jieyu: [
-    { id: "qimen", left: "28%", top: "42%" },
-    { id: "neiguan", left: "18%", top: "58%" },
-    { id: "hegu", left: "14%", top: "68%" },
-    { id: "taichong", left: "38%", top: "94%" },
+    { id: "qimen", left: "40%", top: "38%" },
+    { id: "neiguan", left: "17.5%", top: "54%" },
+    { id: "hegu", left: "13%", top: "65%" },
+    { id: "taichong", left: "38%", top: "95%" },
   ],
   anmei: [
-    { id: "shenmen", left: "18%", top: "52%" },
-    { id: "neiguan", left: "18%", top: "62%" },
-    { id: "sanyinjiao", left: "36%", top: "82%" },
-    { id: "yongquan", left: "48%", top: "96%" },
+    { id: "shenmen", left: "15%", top: "60%" },
+    { id: "neiguan", left: "17.5%", top: "54%" },
+    { id: "sanyinjiao", left: "46%", top: "88%" },
+    { id: "yongquan", left: "62%", top: "97%" },
   ],
 };
 
@@ -103,14 +104,20 @@ export function PointMap({ room }: { room: RoomId }) {
           <button
             type="button"
             className={`min-h-11 rounded-full px-4 text-sm ${mode === "ear" ? "bg-bg-deep text-paper" : "border border-line"}`}
-            onClick={() => setMode("ear")}
+            onClick={() => {
+              setMode("ear");
+              if (!EAR[room].some((d) => d.id === id)) setId(EAR[room][0].id);
+            }}
           >
             {p.mapEar}
           </button>
           <button
             type="button"
             className={`min-h-11 rounded-full px-4 text-sm ${mode === "body" ? "bg-bg-deep text-paper" : "border border-line"}`}
-            onClick={() => setMode("body")}
+            onClick={() => {
+              setMode("body");
+              if (!BODY[room].some((d) => d.id === id)) setId(BODY[room][0].id);
+            }}
           >
             {p.mapBody}
           </button>
@@ -132,9 +139,7 @@ export function PointMap({ room }: { room: RoomId }) {
           </div>
         ) : (
           <div className="relative mx-auto h-72 w-44">
-            <div className="mx-auto size-16 rounded-full bg-mist" />
-            <div className="mx-auto h-4 w-4 bg-mist" />
-            <div className="mx-auto h-36 w-24 rounded-[2.5rem] bg-mist" />
+            <BodySilhouette />
             {dots.map((d) => (
               <button
                 key={d.id}
@@ -148,10 +153,26 @@ export function PointMap({ room }: { room: RoomId }) {
             ))}
           </div>
         )}
+        <div className="mt-4 flex flex-wrap justify-center gap-2">
+          {dots.map((d) => (
+            <button
+              key={d.id}
+              type="button"
+              className={`min-h-10 rounded-full px-3 text-sm ${
+                id === d.id ? "bg-accent text-paper" : "border border-line text-ink"
+              }`}
+              onClick={() => pick(d.id)}
+            >
+              {lookup(pts, d.id)?.t ?? d.id}
+            </button>
+          ))}
+        </div>
+        {mode === "body" && <AcuHint />}
       </div>
       <div className="rounded-card border border-line bg-paper p-6">
         <h3 className="font-serif text-xl">{item?.t}</h3>
         <p className="mt-2 text-muted">{item?.d}</p>
+        {mode === "body" && item && <AcuCloseUp id={id} name={item.t} />}
         <p className="mt-3 text-xs text-muted">{p.mapNote}</p>
       </div>
     </div>

@@ -5,6 +5,9 @@ import { FollowLessons } from "@/components/follow-lessons";
 import { PlayBlock } from "@/components/play-block";
 import { PointMap } from "@/components/point-map";
 import { useCopy } from "@/i18n/lang";
+import { AcuCloseUp } from "@/components/acu-figure";
+
+const PRESS_IDS = ["shenmen", "neiguan", "sanyinjiao", "yongquan"];
 
 export const Route = createFileRoute("/anmei")({ component: AnmeiPage });
 
@@ -62,7 +65,10 @@ function AnmeiPage() {
         <CardGrid items={c.ys} />
         <h3 className="mt-8 font-serif text-xl">{c.pressT}</h3>
         <p className="mt-2 text-sm text-muted">{c.pressLead}</p>
-        <CardGrid items={c.press} />
+        <CardGrid
+          items={c.press}
+          extra={(i, t) => <AcuCloseUp id={PRESS_IDS[i] ?? ""} name={t} />}
+        />
       </Section>
 
       <Section id="acu" kicker={c.acuK} title={c.acuT}>
