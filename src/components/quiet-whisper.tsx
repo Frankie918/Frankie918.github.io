@@ -1,5 +1,18 @@
 import { useEffect, useRef, useState } from "react";
-import { useCopy } from "@/i18n/lang";
+import { useRouterState } from "@tanstack/react-router";
+import { useLang } from "@/i18n/lang";
+import { todayInMacau } from "@/lib/almanac";
+import { jieqiOf } from "@/lib/jieqi";
+import {
+  CLASSICAL_QUIET,
+  jieqiQuietFor,
+  pickQuietAction,
+  type QuietLang,
+} from "@/lib/quiet-lines";
+
+type Reveal =
+  | { kind: "line"; text: string; action: string }
+  | { kind: "classical"; quote: string; plain: string; source: string; action: string };
 
 function pickNext(len: number, last: number) {
   if (len <= 1) return 0;
@@ -8,13 +21,29 @@ function pickNext(len: number, last: number) {
   return i;
 }
 
-export function QuietWhisper({ lines }: { lines: readonly string[] }) {
-  const last = useRef(-1);
+function localHour() {
+  return new Date().getHours();
+}
+
+function roomFromPath(path: string): "anshen" | "jieyu" | "anmei" | "home" {
+  if (path.startsWith("/jieyu")) return "jieyu";
+  if (path.startsWith("/anshen")) return "anshen";
+  if (path.startsWith("/anmei")) return "anmei";
+  return "home";
+}
+
+export function QuietWhisper() {
+  const lastLine = useRef(-1);
+  const lastAction = useRef(-1);
+  const lastClassical = useRef(-1);
   const orb = useRef<HTMLButtonElement>(null);
   const raf = useRef(0);
-  const [text, setText] = useState<string | null>(null);
+  const [card, setCard] = useState<Reveal | null>(null);
   const [still, setStill] = useState(false);
-  const ui = useCopy().ui;
+  const { lang, copy } = useLang();
+  const path = useRouterState({ select: (s) => s.location.pathname });
+  const ui = copy.ui;
+  const qlang = lang as QuietLang;
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -60,11 +89,78 @@ export function QuietWhisper({ lines }: { lines: readonly string[] }) {
     return () => cancelAnimationFrame(raf.current);
   }, []);
 
-  function reveal() {
-    const i = pickNext(lines.length, last.current);
-    last.current = i;
-    setText(lines[i] ?? null);
+  function linesForRoom(room: ReturnType<typeof roomFromPath>): readonly string[] {
+    if (room === "jieyu") return copy.lines.jieyu;
+    if (room === "anshen") return copy.lines.anshen;
+    if (room === "anmei") return copy.lines.anmei;
+    return [
+      ...copy.lines.anshen.slice(0, 13),
+      ...copy.lines.jieyu.slice(0, 13),
+      ...copy.lines.anmei.slice(0, 12),
+    ];
   }
+
+  function pickSourceLines(hour: number): readonly string[] {
+    const room = roomFromPath(path);
+    const roomLines = linesForRoom(room);
+    // Night (≥23 or before 5): bias toward 安寐, but keep room lines sometimes.
+    if (hour >= 23 || hour < 5) {
+      if (room === "anmei") return roomLines;
+      return Math.random() < 0.55 ? copy.lines.anmei : roomLines;
+    }
+    // Morning (06–10): bias toward lighter 安神 / get-up friendly lines.
+    if (hour >= 6 && hour < 10) {
+      if (room === "anshen") return roomLines;
+      return Math.random() < 0.5 ? copy.lines.anshen : roomLines;
+    }
+    return roomLines;
+  }
+
+  function reveal() {
+    const hour = localHour();
+    const actionPick = pickQuietAction(qlang, hour, lastAction.current);
+    lastAction.current = actionPick.index;
+    const action = actionPick.text;
+    const roll = Math.random();
+
+    // ~15% classical quote + plain paraphrase
+    if (roll < 0.15) {
+      const i = pickNext(CLASSICAL_QUIET.length, lastClassical.current);
+      lastClassical.current = i;
+      const c = CLASSICAL_QUIET[i]!;
+      setCard({
+        kind: "classical",
+        quote: c.quote,
+        plain: c.plain[qlang],
+        source: c.source,
+        action,
+      });
+      return;
+    }
+
+    // ~12% solar-term line (reuse jieqiOf + todayInMacau)
+    if (roll < 0.27) {
+      const { month, day } = todayInMacau();
+      const { han } = jieqiOf(month, day, qlang);
+      const jq = jieqiQuietFor(han, qlang);
+      if (jq.length > 0) {
+        const i = pickNext(jq.length, lastLine.current);
+        lastLine.current = i;
+        setCard({ kind: "line", text: jq[i]!, action });
+        return;
+      }
+    }
+
+    const lines = pickSourceLines(hour);
+    const i = pickNext(lines.length, lastLine.current);
+    lastLine.current = i;
+    setCard({ kind: "line", text: lines[i] ?? "", action });
+  }
+
+  const mark =
+    lang === "en"
+      ? `${ui.site} · tcmmacau.github.io`
+      : `${ui.site} · tcmmacau.github.io`;
 
   return (
     <div className="quiet-orb-stage" aria-live="polite">
@@ -80,12 +176,26 @@ export function QuietWhisper({ lines }: { lines: readonly string[] }) {
           <span className="quiet-tap">{ui.tap}</span>
         </span>
       </button>
-      {text && (
+      {card && (
         <div className="quiet-card">
-          <p className="font-serif text-lg text-ink">{text}</p>
-          <button type="button" className="mt-3 text-xs tracking-[0.18em] text-accent" onClick={() => setText(null)}>
+          {card.kind === "classical" ? (
+            <>
+              <p className="font-serif text-lg text-ink quiet-card-quote">「{card.quote}」</p>
+              <p className="quiet-card-plain">{card.plain}</p>
+              <p className="quiet-card-source">{card.source}</p>
+            </>
+          ) : (
+            <p className="font-serif text-lg text-ink">{card.text}</p>
+          )}
+          <p className="quiet-card-action">{card.action}</p>
+          <button
+            type="button"
+            className="mt-3 text-xs tracking-[0.18em] text-accent"
+            onClick={() => setCard(null)}
+          >
             {ui.close}
           </button>
+          <p className="quiet-card-mark">{mark}</p>
         </div>
       )}
     </div>

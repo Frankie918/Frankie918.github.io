@@ -21,19 +21,6 @@ export function SiteAtmosphere() {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const copy = useCopy();
   const listen = path.startsWith("/listen");
-  const lines = listen
-    ? copy.lines.anmei
-    : path.startsWith("/jieyu")
-      ? copy.lines.jieyu
-      : path.startsWith("/anshen")
-        ? copy.lines.anshen
-        : path.startsWith("/anmei")
-          ? copy.lines.anmei
-          : [
-              ...copy.lines.anshen.slice(0, 13),
-              ...copy.lines.jieyu.slice(0, 13),
-              ...copy.lines.anmei.slice(0, 12),
-            ];
   const music = musicFor(path, copy);
 
   useEffect(() => {
@@ -50,7 +37,7 @@ export function SiteAtmosphere() {
 
   return (
     <>
-      {!listen && <QuietWhisper lines={lines} />}
+      {!listen && <QuietWhisper />}
       {!listen && <AmbientMusic src={music.src} onLabel={music.onLabel} />}
     </>
   );

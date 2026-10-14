@@ -42,7 +42,7 @@ export const JIEYU_LINES = [
   "而家唔想郁，我都唔算懶。",
   "細到幾乎睇唔見嘅一步，都係我嘅一步。",
   "心情未返，我嘅動作可以先到門口。",
-  "我唔使覺得感恩，先至配被好好對待。",
+  "我唔使先覺得感恩，先至值得被好好對待。",
   "留白，唔係我放棄。",
   "今日我只開一扇窗，已經足夠。",
   "重嘅嘢我可以放低一陣，唔使永遠放低。",
@@ -96,3 +96,264 @@ export const ANMEI_LINES = [
   "隻腳夠暖，我就容易入睡多啲。",
   "我返床，係因為有睡意，唔係因為鐘。",
 ];
+
+/** Short 10-second micro-actions shown under a revealed line. */
+export const QUIET_ACTIONS = {
+  yue: [
+    "沉一沉肩",
+    "慢呼一口氣",
+    "鬆一鬆牙關",
+    "把眉心放開",
+    "手心按一按心口",
+    "腳掌踩實地板",
+    "眨眼兩下，望遠少少",
+    "把手指伸直再開",
+    "舌頭放離上顎",
+    "頸慢慢轉一轉",
+    "把坐姿鬆一寸",
+    "輕拍兩下大腿",
+  ],
+  cmn: [
+    "沉一沉肩",
+    "慢呼一口氣",
+    "鬆一鬆牙關",
+    "把眉心放開",
+    "手心按一按心口",
+    "腳掌踩實地板",
+    "眨眼兩下，望遠一點",
+    "把手指伸直再開",
+    "舌頭放離上顎",
+    "頸慢慢轉一轉",
+    "把坐姿松一寸",
+    "輕拍兩下大腿",
+  ],
+  en: [
+    "Drop the shoulders a little",
+    "Breathe out slowly once",
+    "Unclench the jaw",
+    "Ease the brow",
+    "Palm on the chest, press lightly",
+    "Press both feet into the floor",
+    "Blink twice; look far for a moment",
+    "Stretch the fingers, then open",
+    "Let the tongue rest from the palate",
+    "Turn the neck once, slowly",
+    "Loosen how you sit by an inch",
+    "Pat both thighs twice, gently",
+  ],
+} as const;
+
+export const QUIET_ACTIONS_MORNING = {
+  yue: ["伸一伸腰", "望一望窗外光", "喝一口暖水", "把窗簾拉開一半"],
+  cmn: ["伸一伸腰", "望一望窗外光", "喝一口暖水", "把窗簾拉開一半"],
+  en: ["Stretch the back once", "Look at the light outside", "Sip warm water", "Open the curtain halfway"],
+} as const;
+
+export const QUIET_ACTIONS_NIGHT = {
+  yue: ["把燈再暗一格", "腳心搓一搓暖", "被角拉好少少", "手機反轉放遠"],
+  cmn: ["把燈再暗一格", "腳心搓一搓暖", "被角拉好一點", "手機反轉放遠"],
+  en: ["Dim the lamp one more step", "Rub the soles warm", "Tuck the quilt a little", "Phone face-down, out of reach"],
+} as const;
+
+/** 1–2 quiet mind-body lines per 節氣 (keyed by Traditional han name from jieqi.ts). */
+export const JIEQI_QUIET_LINES: Record<
+  string,
+  { yue: readonly string[]; cmn: readonly string[]; en: readonly string[] }
+> = {
+  小寒: {
+    yue: ["小寒天，暖住掌心先做下一事。", "冷唔使硬頂，慢一拍都得。"],
+    cmn: ["小寒天，暖住掌心再做下一事。", "冷不必硬頂，慢一拍也可以。"],
+    en: ["Minor Cold: warm the palms before the next task.", "Cold need not be endured hard; one slower beat is fine."],
+  },
+  大寒: {
+    yue: ["大寒，早啲收燈，留啲熱畀夜晚。", "今日只要求自己暖。"],
+    cmn: ["大寒，早點收燈，留一點熱給夜晚。", "今天只要求自己暖。"],
+    en: ["Major Cold: dim early; keep a little warmth for night.", "Today, only ask yourself to be warm."],
+  },
+  立春: {
+    yue: ["立春，開一條窗縫就夠，氣有入口。", "新嘅一年，唔使一次開齊。"],
+    cmn: ["立春，開一條窗縫就夠，氣有入口。", "新的一年，不必一次開齊。"],
+    en: ["Start of Spring: one crack of window is enough.", "A new year need not open all at once."],
+  },
+  雨水: {
+    yue: ["雨水天，飲暖，唔好空肚長想。", "濕重時，動作再細一格。"],
+    cmn: ["雨水天，喝暖的，不要空肚長想。", "濕重時，動作再細一格。"],
+    en: ["Rain Water: drink warm; don’t think on an empty stomach.", "When damp feels heavy, make the next move smaller."],
+  },
+  驚蟄: {
+    yue: ["驚蟄雷響，煩時離開半分鐘都得。", "醒咗唔使即刻衝。"],
+    cmn: ["驚蟄雷響，煩時離開半分鐘也可以。", "醒了不必立刻衝。"],
+    en: ["Awakening Insects: when heat rises, leave for half a minute.", "Waking need not mean rushing."],
+  },
+  春分: {
+    yue: ["春分晝夜平，心情都留一半白。", "唔使兩邊都滿。"],
+    cmn: ["春分晝夜平，心情也留一半空白。", "不必兩邊都滿。"],
+    en: ["Spring Equinox: day and night even — leave half the day blank.", "Both sides need not be full."],
+  },
+  清明: {
+    yue: ["清明，出走廊望一下天，當掃墓自己。", "舊事可以放低一陣。"],
+    cmn: ["清明，出走廊望一下天，當掃墓自己。", "舊事可以放下一陣。"],
+    en: ["Clear and Bright: step out, look at the sky; tend your own heart.", "Old matters can rest a while."],
+  },
+  穀雨: {
+    yue: ["穀雨潤喉，少燥，唔好辛辣硬撐。", "雨聲可以當背景，唔使解釋。"],
+    cmn: ["穀雨潤喉，少燥，不要辛辣硬撐。", "雨聲可以當背景，不必解釋。"],
+    en: ["Grain Rain: keep the throat moist; skip spice used as armour.", "Rain can be background; no need to explain."],
+  },
+  立夏: {
+    yue: ["立夏心開始旺，工作切細一格。", "熱氣嚟之前，先留一口氣。"],
+    cmn: ["立夏心開始旺，工作切細一格。", "熱氣來之前，先留一口氣。"],
+    en: ["Start of Summer: the heart fires up — cut work smaller.", "Before heat rises, keep one breath for yourself."],
+  },
+  小滿: {
+    yue: ["小滿，未要滿。留一口氣畀自己。", "夠用就得，唔使頂格。"],
+    cmn: ["小滿，未要滿。留一口氣給自己。", "夠用就好，不必頂格。"],
+    en: ["Grain Buds: need not be full. Keep one breath for yourself.", "Enough is enough; no need to fill the brim."],
+  },
+  芒種: {
+    yue: ["芒種，一件小事做到完，勝過開十單。", "收成唔使今日計晒。"],
+    cmn: ["芒種，一件小事做到完，勝過開十單。", "收成不必今天算完。"],
+    en: ["Grain in Ear: finish one small thing rather than open ten.", "The harvest need not be counted today."],
+  },
+  夏至: {
+    yue: ["夏至陽最長，提早把神收回。", "光長唔代表我要做得更多。"],
+    cmn: ["夏至陽最長，提早把神收回。", "光長不代表我要做得更多。"],
+    en: ["Summer Solstice: longest light — gather the spirit home earlier.", "Longer light does not mean I must do more."],
+  },
+  小暑: {
+    yue: ["小暑午后留白，濃茶可以唔喝。", "熱時，少辯一句都得。"],
+    cmn: ["小暑午後留白，濃茶可以不喝。", "熱時，少辯一句也可以。"],
+    en: ["Minor Heat: leave the afternoon blank; strong tea can wait.", "In heat, one less argument is fine."],
+  },
+  大暑: {
+    yue: ["大暑，讓火有出口就得，唔使硬頂。", "慢過熱氣，都算贏。"],
+    cmn: ["大暑，讓火有出口即可，不必硬頂。", "慢過熱氣，也算贏。"],
+    en: ["Major Heat: let fire have an exit; no need to tough it out.", "Slower than the heat still counts."],
+  },
+  立秋: {
+    yue: ["立秋，把窗拉開，讓一絲涼入肺。", "收多過開，今日放低一樁。"],
+    cmn: ["立秋，把窗拉開，讓一絲涼入肺。", "收多於開，今天放下一樁事。"],
+    en: ["Start of Autumn: open the window; let a thread of cool in.", "Gather more than you start; set one matter down."],
+  },
+  處暑: {
+    yue: ["處暑熱開始退，步伐可以再慢。", "唔使追返成個夏天。"],
+    cmn: ["處暑熱開始退，步伐可以再慢。", "不必追回整個夏天。"],
+    en: ["End of Heat: heat is leaving; the step can be slower.", "No need to catch up the whole summer."],
+  },
+  白露: {
+    yue: ["白露，肩頸要暖，唔好對住風坐耐。", "涼意嚟，我可以加一件。"],
+    cmn: ["白露，肩頸要暖，不要對著風坐久。", "涼意來，我可以加一件。"],
+    en: ["White Dew: keep neck and shoulders warm; don’t sit in a draft.", "When cool arrives, I may add a layer."],
+  },
+  秋分: {
+    yue: ["秋分收多過開。把一樁事放下。", "晝夜再平，我都留一半白。"],
+    cmn: ["秋分收多於開。把一樁事放下。", "晝夜再平，我也留一半空白。"],
+    en: ["Autumnal Equinox: gather more than you start. Set one matter down.", "Day and night even — leave half blank again."],
+  },
+  寒露: {
+    yue: ["寒露早臥，湧泉搓熱都得。", "露重時，心可以收返屋企。"],
+    cmn: ["寒露早臥，湧泉搓熱也可以。", "露重時，心可以收回家裏。"],
+    en: ["Cold Dew: lie down earlier; rub Yongquan until warm.", "When dew is heavy, the heart can come home."],
+  },
+  霜降: {
+    yue: ["天轉涼，慢少少都得。", "霜降時，先把被角摺好。"],
+    cmn: ["天轉涼，慢一點也可以。", "霜降時，先把被角摺好。"],
+    en: ["The air turns cool; going a little slower is fine.", "Frost Descent: fold the quilt corner first."],
+  },
+  立冬: {
+    yue: ["立冬藏。被角摺好，當同夜講拜拜。", "入藏唔係退，係蓄。"],
+    cmn: ["立冬藏。被角摺好，當同夜講拜拜。", "入藏不是退，是蓄。"],
+    en: ["Start of Winter: store. Fold the quilt; say goodnight to the dark.", "Storing is not retreat; it is gathering."],
+  },
+  小雪: {
+    yue: ["小雪溫食，任務再細一格。", "雪意未到，我都可以收聲少少。"],
+    cmn: ["小雪溫食，任務再細一格。", "雪意未到，我也可以收聲一點。"],
+    en: ["Minor Snow: warm food; make the task one size smaller.", "Before snow, I may still lower my volume."],
+  },
+  大雪: {
+    yue: ["大雪少比較、少螢幕，讓陰有處可回。", "靜一靜，都算過冬。"],
+    cmn: ["大雪少比較、少螢幕，讓陰有處可回。", "靜一靜，也算過冬。"],
+    en: ["Major Snow: less comparing, less screen, so yin has somewhere to return.", "A little stillness still counts as wintering."],
+  },
+  冬至: {
+    yue: ["冬至一陽來復。今日只要求自己暖。", "至暗過後，慢返都得。"],
+    cmn: ["冬至一陽來復。今天只要求自己暖。", "至暗過後，慢回來也可以。"],
+    en: ["Winter Solstice: yang begins to return. Today, only ask to be warm.", "After the darkest point, returning slowly is fine."],
+  },
+};
+
+export type ClassicalCard = {
+  quote: string;
+  source: string;
+  plain: { yue: string; cmn: string; en: string };
+};
+
+/** Occasional classical lines (~15% of taps). Culture, not treatment. */
+export const CLASSICAL_QUIET: readonly ClassicalCard[] = [
+  {
+    quote: "恬惔虛無，真氣從之",
+    source: "《黃帝內經》",
+    plain: {
+      yue: "心靜少欲，氣就會自己跟返嚟。",
+      cmn: "心靜少欲，氣就會自己跟回來。",
+      en: "When the mind is quiet and wants little, qi follows of its own.",
+    },
+  },
+  {
+    quote: "精神內守，病安從來",
+    source: "《黃帝內經》",
+    plain: {
+      yue: "神守返入面，許多嘈音就遠咗。",
+      cmn: "神守回裏面，許多嘈音就遠了。",
+      en: "When spirit keeps to the inside, much noise stays farther off.",
+    },
+  },
+  {
+    quote: "陰平陽秘，精神乃治",
+    source: "《黃帝內經》",
+    plain: {
+      yue: "陰陽大致平穩，精神先易安頓。",
+      cmn: "陰陽大致平穩，精神才易安頓。",
+      en: "When yin and yang stay roughly even, spirit settles more easily.",
+    },
+  },
+  {
+    quote: "致虛極，守靜篤",
+    source: "《道德經》",
+    plain: {
+      yue: "空到盡、靜到實，先有返轉嘅位。",
+      cmn: "空到盡、靜到實，才有回轉的位置。",
+      en: "Reach emptiness fully; keep stillness deep — then there is room to turn.",
+    },
+  },
+  {
+    quote: "知止而後有定",
+    source: "《大學》",
+    plain: {
+      yue: "知到邊度停，心先定得落。",
+      cmn: "知道哪裏停，心才定得下。",
+      en: "Knowing where to stop, the mind can settle.",
+    },
+  },
+];
+
+export type QuietLang = "yue" | "cmn" | "en";
+
+export function pickQuietAction(lang: QuietLang, hour: number, last = -1): { text: string; index: number } {
+  const base = QUIET_ACTIONS[lang];
+  const timed =
+    hour >= 23 || hour < 5
+      ? QUIET_ACTIONS_NIGHT[lang]
+      : hour >= 6 && hour < 10
+        ? QUIET_ACTIONS_MORNING[lang]
+        : null;
+  const pool = timed && Math.random() < 0.45 ? [...timed, ...base] : [...base];
+  let i = last;
+  if (pool.length <= 1) i = 0;
+  else while (i === last) i = Math.floor(Math.random() * pool.length);
+  return { text: pool[i] ?? base[0], index: i };
+}
+
+export function jieqiQuietFor(han: string, lang: QuietLang): readonly string[] {
+  return JIEQI_QUIET_LINES[han]?.[lang] ?? [];
+}
