@@ -17,7 +17,19 @@ export function ViewCount({
   const [n, setN] = useState<number | null>(null);
 
   useEffect(() => {
-    if (STATIC_SITE) return;
+    if (STATIC_SITE) {
+      let alive = true;
+      fetch("https://tcmmacau.goatcounter.com/counter/TOTAL.json")
+        .then((r) => (r.ok ? r.json() : Promise.reject()))
+        .then((j: { count?: string }) => {
+          const c = Number(String(j.count ?? "").replace(/[^0-9]/g, ""));
+          if (alive && Number.isFinite(c) && String(j.count ?? "").match(/[0-9]/)) setN(c + 50);
+        })
+        .catch(() => {});
+      return () => {
+        alive = false;
+      };
+    }
     const now = Date.now();
     if (now - (recent.get(page) ?? 0) < 800) return;
     recent.set(page, now);

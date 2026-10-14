@@ -43,6 +43,9 @@ export const Route = createRootRoute({
     <html lang="zh-Hant" className="antialiased" suppressHydrationWarning>
       <head>
         <HeadContent />
+        {import.meta.env.VITE_STATIC_SITE === "true" && (
+          <script data-goatcounter="https://tcmmacau.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+        )}
       </head>
       <body>
         <PreviewHostBridge />
