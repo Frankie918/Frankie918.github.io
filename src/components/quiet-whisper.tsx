@@ -3,10 +3,11 @@ import { useRouterState } from "@tanstack/react-router";
 import { useLang } from "@/i18n/lang";
 import { todayInMacau } from "@/lib/almanac";
 import { jieqiOf } from "@/lib/jieqi";
+import { browserBagStore, dealFromBag } from "@/lib/quiet-bag";
 import {
+  QUIET_ACTIONS,
   classicalFor,
   jieqiQuietFor,
-  pickQuietAction,
   type QuietLang,
   type QuietRoom,
 } from "@/lib/quiet-lines";
@@ -14,13 +15,6 @@ import {
 type Reveal =
   | { kind: "line"; text: string; action: string }
   | { kind: "classical"; quote: string; plain: string; source: string; action: string };
-
-function pickNext(len: number, last: number) {
-  if (len <= 1) return 0;
-  let i = last;
-  while (i === last) i = Math.floor(Math.random() * len);
-  return i;
-}
 
 function roomFromPath(path: string): QuietRoom {
   if (path.startsWith("/jieyu")) return "jieyu";
@@ -30,9 +24,6 @@ function roomFromPath(path: string): QuietRoom {
 }
 
 export function QuietWhisper() {
-  const lastLine = useRef(-1);
-  const lastAction = useRef(-1);
-  const lastClassical = useRef(-1);
   const orb = useRef<HTMLButtonElement>(null);
   const raf = useRef(0);
   const [card, setCard] = useState<Reveal | null>(null);
@@ -99,36 +90,27 @@ export function QuietWhisper() {
 
   function reveal() {
     const room = roomFromPath(path);
-    const actionPick = pickQuietAction(room, qlang, lastAction.current);
-    lastAction.current = actionPick.index;
-    const action = actionPick.text;
-    const roll = Math.random();
+    const store = browserBagStore();
+    const actions = QUIET_ACTIONS[room][qlang];
+    const ai = dealFromBag(`qw-act-${room}-${qlang}`, actions, store);
+    const action = actions[ai] ?? "";
 
-    // ~15% classical quote that fits this room
-    const quotes = classicalFor(room);
-    if (roll < 0.15 && quotes.length > 0) {
-      const i = pickNext(quotes.length, lastClassical.current);
-      lastClassical.current = i;
-      const c = quotes[i]!;
-      setCard({ kind: "classical", quote: c.quote, plain: c.plain[qlang], source: c.source, action });
-      return;
-    }
-
-    // ~12% current 節氣 line (bedtime-themed ones only in 安寐)
-    if (roll < 0.27) {
-      const { month, day } = todayInMacau();
-      const { han } = jieqiOf(month, day, qlang);
-      const jq = jieqiQuietFor(han, qlang, room);
-      if (jq.length > 0) {
-        setCard({ kind: "line", text: jq[Math.floor(Math.random() * jq.length)]!, action });
-        return;
-      }
-    }
-
-    const lines = linesForRoom(room);
-    const i = pickNext(lines.length, lastLine.current);
-    lastLine.current = i;
-    setCard({ kind: "line", text: lines[i] ?? "", action });
+    const { month, day } = todayInMacau();
+    const { han } = jieqiOf(month, day, qlang);
+    const deck: Reveal[] = [
+      ...linesForRoom(room).map((text) => ({ kind: "line" as const, text, action })),
+      ...jieqiQuietFor(han, qlang, room).map((text) => ({ kind: "line" as const, text, action })),
+      ...classicalFor(room).map((c) => ({
+        kind: "classical" as const,
+        quote: c.quote,
+        plain: c.plain[qlang],
+        source: c.source,
+        action,
+      })),
+    ];
+    const keys = deck.map((c) => (c.kind === "line" ? `l:${c.text}` : `c:${c.quote}`));
+    const i = dealFromBag(`qw-deck-${room}-${qlang}`, keys, store);
+    setCard(deck[i] ?? null);
   }
 
   const mark =
