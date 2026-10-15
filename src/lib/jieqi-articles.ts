@@ -159,6 +159,7 @@ export type JieqiArticle = {
 export const JIEQI_ARTICLES: Record<string, JieqiArticle> = {
   寒露: {
     room: "/anmei",
+    card: "/jieqi/hanlu",
     yue: {
       title: "寒露：露水轉涼，心都想早啲收",
       paras: [
