@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ClinicContact } from "@/components/clinic-contact";
 import { CrayonFrame } from "@/components/crayon-margin";
 import { DayGuide } from "@/components/day-guide";
+import { MonthlyPracticeCard } from "@/components/monthly-practice";
 import { SiteQr } from "@/components/site-qr";
 import { ViewCount } from "@/components/view-count";
 import { useCopy, useLang } from "@/i18n/lang";
@@ -112,6 +113,7 @@ function Home() {
             <h2 className="mt-2 font-serif text-2xl">{lang === "yue" ? "第一次面診之前" : "第一次面診之前"}</h2>
             <p className="mt-4 text-sm text-accent">{lang === "yue" ? "睇問與答 →" : "看問與答 →"}</p>
           </Link>
+          <MonthlyPracticeCard />
         </div>
       </section>
 
