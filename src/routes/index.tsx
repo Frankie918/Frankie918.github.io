@@ -6,7 +6,6 @@ import { MonthlyPracticeCard } from "@/components/monthly-practice";
 import { useEffect, useState } from "react";
 import { jieqiOf } from "@/lib/jieqi";
 import { JIEQI_ARTICLES } from "@/lib/jieqi-articles";
-import { SiteQr } from "@/components/site-qr";
 import { ViewCount } from "@/components/view-count";
 import { useCopy, useLang } from "@/i18n/lang";
 
@@ -131,17 +130,6 @@ function Home() {
         </div>
       </section>
 
-      <section className="px-6 pb-20 md:px-12">
-        <div className="rounded-card border border-line bg-paper p-7 md:flex md:items-center md:gap-10">
-          <div className="mx-auto w-full max-w-56 shrink-0 md:mx-0">
-            <SiteQr size={208} download />
-          </div>
-          <div className="mt-6 md:mt-0">
-            <p className="text-xs tracking-[0.22em] text-accent">{home.qrK}</p>
-            <h2 className="mt-2 font-serif text-3xl">{home.qrT}</h2>
-          </div>
-        </div>
-      </section>
       </CrayonFrame>
 
       <footer className="bg-bg-deep px-6 py-10 text-sm text-mist md:px-12">
