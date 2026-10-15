@@ -44,8 +44,8 @@ export function JieqiShareCard({ card, term, lang }: { card: string; term: strin
   return (
     <figure className="mt-8">
       <picture>
-        <source srcSet={`${card}-web.webp`} type="image/webp" />
-        <img src={`${card}-web.jpg`} alt={alt} loading="lazy" className="w-full rounded-card border border-line" />
+        <source srcSet={`${card}.webp`} type="image/webp" />
+        <img src={jpg} alt={alt} loading="lazy" className="w-full rounded-card border border-line" />
       </picture>
       <figcaption className="mt-3 flex gap-5 text-sm">
         <a href={jpg} download={file} onClick={() => track(card)} className="text-accent no-underline">

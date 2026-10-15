@@ -114,8 +114,8 @@ function Home() {
           <Link to="/jieqi" className="rounded-card border border-line bg-paper p-7 text-ink no-underline">
             {termCard ? (
               <picture>
-                <source srcSet={`${termCard}-web.webp`} type="image/webp" />
-                <img src={`${termCard}-web.jpg`} alt="" loading="lazy" className="mb-5 aspect-video w-full rounded-card border border-line object-cover" />
+                <source srcSet={`${termCard}.webp`} type="image/webp" />
+                <img src={`${termCard}.jpg`} alt="" loading="lazy" className="mb-5 aspect-video w-full rounded-card border border-line object-cover" />
               </picture>
             ) : null}
             <p className="text-xs tracking-[0.22em] text-accent">節氣 · 形神</p>
