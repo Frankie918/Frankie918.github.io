@@ -122,7 +122,7 @@ function Home() {
             <p className="mt-4 text-sm text-accent">{lang === "yue" ? "睇節氣短文 →" : "看節氣短文 →"}</p>
           </Link>
           <Link to="/faq" className="rounded-card border border-line bg-paper p-7 text-ink no-underline">
-            <img src="/faq-tea.webp" alt="" loading="lazy" className="mb-5 aspect-video w-full rounded-card border border-line object-cover" />
+            <img src="/faq-tea-2.webp" alt="" loading="lazy" className="mb-5 aspect-video w-full rounded-card border border-line object-cover" />
             <p className="text-xs tracking-[0.22em] text-accent">{lang === "yue" ? "常見問題" : "常見問題"}</p>
             <h2 className="mt-2 font-serif text-2xl">{lang === "yue" ? "第一次面診之前" : "第一次面診之前"}</h2>
             <p className="mt-4 text-sm text-accent">{lang === "yue" ? "睇問與答 →" : "看問與答 →"}</p>
