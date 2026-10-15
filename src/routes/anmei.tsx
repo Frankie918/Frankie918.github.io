@@ -19,7 +19,7 @@ function AnmeiPage() {
       title={c.title}
       kicker={c.kicker}
       lede={c.lede}
-      bgSrc="/bg-anmei.jpg"
+      bgSrc="/bg-anmei.jpg?v=4"
       nav={c.nav}
       footerName={c.footerName}
       footerNote={c.footerNote}
@@ -27,7 +27,7 @@ function AnmeiPage() {
       <Section id="view" kicker={c.viewK} title={c.viewT}>
         <p>{c.viewP1}</p>
         <p className="mt-3 text-muted">{c.viewP2}</p>
-        <QuietPhoto src="/still-anmei.jpg" alt={c.photo} />
+        <QuietPhoto src="/still-anmei.jpg?v=4" alt={c.photo} />
         <CardGrid items={c.soils} />
       </Section>
 

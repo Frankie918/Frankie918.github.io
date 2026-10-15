@@ -16,7 +16,7 @@ function AnshenPage() {
       title={c.title}
       kicker={c.kicker}
       lede={c.lede}
-      bgSrc="/bg-anshen.jpg?v=3"
+      bgSrc="/bg-anshen.jpg?v=4"
       nav={c.nav}
       footerName={c.footerName}
       footerNote={c.footerNote}
@@ -24,7 +24,7 @@ function AnshenPage() {
       <Section id="view" kicker={c.viewK} title={c.viewT}>
         <p>{c.viewP1}</p>
         <p className="mt-3 text-muted">{c.viewP2}</p>
-        <QuietPhoto src="/still-anshen.jpg" alt={c.photo} />
+        <QuietPhoto src="/still-anshen.jpg?v=4" alt={c.photo} />
       </Section>
 
       <Section id="types" kicker={c.typesK} title={c.typesT}>

@@ -24,7 +24,7 @@ function Home() {
     <main className="min-h-screen bg-bg text-ink">
       <header className="relative flex min-h-[70vh] items-end overflow-hidden px-6 pt-20 pb-16 md:items-center md:px-12 md:pt-28">
         <img
-          src="/bg-home.jpg?v=3"
+          src="/bg-home.jpg?v=4"
           alt=""
           className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[center_40%]"
         />
@@ -36,6 +36,7 @@ function Home() {
           className="absolute inset-0 hidden bg-linear-to-r from-bg/60 via-bg/20 to-transparent md:block"
           aria-hidden
         />
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-b from-transparent to-bg" aria-hidden />
         <div className="relative z-10 mx-auto w-full max-w-3xl">
           <p className="text-xs tracking-[0.32em] text-accent">{home.kicker}</p>
           <h1 className="mt-4 font-serif text-6xl font-semibold md:text-8xl">{ui.site}</h1>
@@ -74,7 +75,7 @@ function Home() {
           to="/anshen"
           className="group overflow-hidden rounded-card border border-line bg-paper no-underline text-ink"
         >
-          <img src="/bg-anshen.jpg?v=3" alt="" className="h-36 w-full object-cover" />
+          <img src="/bg-anshen.jpg?v=4" alt="" className="h-36 w-full object-cover" />
           <div className="p-6">
             <p className="text-xs tracking-[0.22em] text-accent">{home.anshenK}</p>
             <h2 className="mt-2 font-serif text-4xl">{home.anshenT}</h2>
@@ -86,7 +87,7 @@ function Home() {
           to="/jieyu"
           className="group overflow-hidden rounded-card border border-line bg-paper no-underline text-ink"
         >
-          <img src="/bg-jieyu.jpg?v=3" alt="" className="h-36 w-full object-cover" />
+          <img src="/bg-jieyu.jpg?v=4" alt="" className="h-36 w-full object-cover" />
           <div className="p-6">
             <p className="text-xs tracking-[0.22em] text-accent">{home.jieyuK}</p>
             <h2 className="mt-2 font-serif text-4xl">{home.jieyuT}</h2>
@@ -98,7 +99,7 @@ function Home() {
           to="/anmei"
           className="group overflow-hidden rounded-card border border-line bg-paper no-underline text-ink"
         >
-          <img src="/bg-anmei.jpg" alt="" className="h-36 w-full object-cover" />
+          <img src="/bg-anmei.jpg?v=4" alt="" className="h-36 w-full object-cover" />
           <div className="p-6">
             <p className="text-xs tracking-[0.22em] text-accent">{home.anmeiK}</p>
             <h2 className="mt-2 font-serif text-4xl">{home.anmeiT}</h2>
