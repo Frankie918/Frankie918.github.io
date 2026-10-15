@@ -121,10 +121,18 @@ function Home() {
             <h2 className="mt-2 font-serif text-2xl">{lang === "yue" ? "呢個節氣，心點過" : "這個節氣，心怎麼過"}</h2>
             <p className="mt-4 text-sm text-accent">{lang === "yue" ? "睇節氣短文 →" : "看節氣短文 →"}</p>
           </Link>
-          <Link to="/faq" className="rounded-card border border-line bg-paper p-7 text-ink no-underline">
+          <Link to="/faq" className="flex flex-col rounded-card border border-line bg-paper p-7 text-ink no-underline">
             <p className="text-xs tracking-[0.22em] text-accent">{lang === "yue" ? "常見問題" : "常見問題"}</p>
             <h2 className="mt-2 font-serif text-2xl">{lang === "yue" ? "第一次面診之前" : "第一次面診之前"}</h2>
-            <p className="mt-4 text-sm text-accent">{lang === "yue" ? "睇問與答 →" : "看問與答 →"}</p>
+            <ul className="mt-6 flex-1 space-y-4 font-serif text-base leading-relaxed">
+              {(lang === "yue"
+                ? ["中醫身心門診主要睇啲咩？", "同精神科有咩唔同？", "第一次面診要準備啲咩？", "咩情況要盡快求助？"]
+                : ["中醫身心門診主要看什麼？", "和精神科有什麼不同？", "第一次面診要準備什麼？", "什麼情況要盡快求助？"]
+              ).map((q) => (
+                <li key={q} className="border-b border-line pb-3">{q}</li>
+              ))}
+            </ul>
+            <p className="mt-6 text-sm text-accent">{lang === "yue" ? "睇問與答 →" : "看問與答 →"}</p>
           </Link>
           <MonthlyPracticeCard />
         </div>
