@@ -150,6 +150,8 @@ export const JIEQI_FOOD: Record<string, { yue: SeasonFood; cmn: SeasonFood; urls
 
 export type JieqiArticle = {
   room: Room;
+  /** Optional share card base path (no extension). Needs public<card>.webp + .jpg. */
+  card?: string;
   yue: { title: string; paras: string[]; roomLine: string; source: string };
   cmn: { title: string; paras: string[]; roomLine: string; source: string };
 };
@@ -182,6 +184,7 @@ export const JIEQI_ARTICLES: Record<string, JieqiArticle> = {
   },
   霜降: {
     room: "/jieyu",
+    card: "/jieqi/shuangjiang",
     yue: {
       title: "霜降：草木黃落，心事都可以落地",
       paras: [

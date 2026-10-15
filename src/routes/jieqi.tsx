@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useCopy, useLang } from "@/i18n/lang";
 import { jieqiOf } from "@/lib/jieqi";
 import { JIEQI_ARTICLES, JIEQI_FOOD } from "@/lib/jieqi-articles";
+import { JieqiShareCard } from "@/components/jieqi-share-card";
 
 export const Route = createFileRoute("/jieqi")({ component: JieqiPage });
 
@@ -31,6 +32,7 @@ function JieqiPage() {
         {A && art ? (
           <>
             <h1 className="mt-3 font-serif text-4xl leading-snug">{A.title}</h1>
+            {art.card ? <JieqiShareCard card={art.card} term={han} lang={lang} /> : null}
             <div className="mt-8 space-y-5 leading-relaxed">
               {A.paras.map((p) => (
                 <p key={p}>{p}</p>

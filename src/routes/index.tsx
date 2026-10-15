@@ -3,6 +3,9 @@ import { ClinicContact } from "@/components/clinic-contact";
 import { CrayonFrame } from "@/components/crayon-margin";
 import { DayGuide } from "@/components/day-guide";
 import { MonthlyPracticeCard } from "@/components/monthly-practice";
+import { useEffect, useState } from "react";
+import { jieqiOf } from "@/lib/jieqi";
+import { JIEQI_ARTICLES } from "@/lib/jieqi-articles";
 import { SiteQr } from "@/components/site-qr";
 import { ViewCount } from "@/components/view-count";
 import { useCopy, useLang } from "@/i18n/lang";
@@ -12,6 +15,11 @@ export const Route = createFileRoute("/")({ component: Home });
 function Home() {
   const copy = useCopy();
   const { lang } = useLang();
+  const [termCard, setTermCard] = useState<string | null>(null);
+  useEffect(() => {
+    const d = new Date();
+    setTermCard(JIEQI_ARTICLES[jieqiOf(d.getMonth() + 1, d.getDate(), "yue").han]?.card ?? null);
+  }, []);
   const { ui, home } = copy;
   return (
     <main className="min-h-screen bg-bg text-ink">
@@ -104,6 +112,12 @@ function Home() {
       <section className="px-6 pb-8 md:px-12">
         <div className="grid gap-4 md:grid-cols-2">
           <Link to="/jieqi" className="rounded-card border border-line bg-paper p-7 text-ink no-underline">
+            {termCard ? (
+              <picture>
+                <source srcSet={`${termCard}.webp`} type="image/webp" />
+                <img src={`${termCard}.jpg`} alt="" loading="lazy" className="mb-5 aspect-video w-full rounded-card border border-line object-cover" />
+              </picture>
+            ) : null}
             <p className="text-xs tracking-[0.22em] text-accent">節氣 · 形神</p>
             <h2 className="mt-2 font-serif text-2xl">{lang === "yue" ? "呢個節氣，心點過" : "這個節氣，心怎麼過"}</h2>
             <p className="mt-4 text-sm text-accent">{lang === "yue" ? "睇節氣短文 →" : "看節氣短文 →"}</p>
