@@ -24,7 +24,7 @@ jobs:
         env:
           VITE_STATIC_SITE: "true"
           VITE_AUTH_ENABLED: "false"
-      - run: cp dist/client/index.html dist/client/404.html && touch dist/client/.nojekyll
+      - run: node scripts/sitemap.mjs && cp dist/client/index.html dist/client/404.html && touch dist/client/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist/client
