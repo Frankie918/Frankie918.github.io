@@ -17,6 +17,7 @@ export const Route = createRootRoute({
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: APP_NAME },
       { name: "theme-color", content: "#1A2834" },
+      { name: "google-site-verification", content: "ojtUX0FdGkb4_Ue0kVxt7y_Isx33ZsAYVhNIzlcHqIQ" },
       {
         name: "description",
         content: "身心課堂：安神、解鬱、安寐。中醫教育，慢慢嚟。",
