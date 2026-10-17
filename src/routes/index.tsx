@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ClinicContact } from "@/components/clinic-contact";
+import { BookingCard } from "@/components/booking-card";
 import { CrayonFrame } from "@/components/crayon-margin";
 import { DayGuide } from "@/components/day-guide";
 import { MonthlyPracticeCard } from "@/components/monthly-practice";
@@ -133,6 +134,8 @@ function Home() {
       </section>
 
       </CrayonFrame>
+
+      <BookingCard />
 
       <footer className="bg-bg-deep px-6 py-10 text-sm text-mist md:px-12">
         <div className="mx-auto max-w-3xl">

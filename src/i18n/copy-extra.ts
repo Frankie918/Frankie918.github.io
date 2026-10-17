@@ -54,6 +54,17 @@ export const CMN = {
 		langYue: "廣東話",
 		langCmn: "普通話",
 		langEn: "English",
+		booking: {
+			nav: "預約掛號",
+			kicker: "預約掛號",
+			title: "想來面診，可以慢慢預約",
+			have: "有「鏡湖通」：按「網上預約（鏡湖通）」，會去到掛號入口。目前先連去網頁版掛號；日後醫院提供深連結，會改為直達中醫科。",
+			none: "未有「鏡湖通」：請先下載並註冊，完成後回來再按預約掣。",
+			login: "網頁版可能需要重新登入；「鏡湖通」入面一般會保持登入。",
+			primary: "網上預約（鏡湖通）",
+			ios: "下載鏡湖通（蘋果）",
+			android: "下載鏡湖通（安卓）"
+		},
 		footerHome: "用藥與針灸須由註冊中醫師面診。若功能明顯受損，請同時求助精神健康服務。身心課堂不收集病歷。",
 		views: "瀏覽量"
 	},
@@ -1190,6 +1201,17 @@ export const EN = {
 		langYue: "Cantonese",
 		langCmn: "Written Chinese",
 		langEn: "English",
+		booking: {
+			nav: "Booking",
+			kicker: "Booking",
+			title: "Booking an in-person visit, at an easy pace",
+			have: "If you have the Kiang Wu app: tap “Online booking (Kiang Wu)” to go to the registration entrance. For now it opens the web registration page; when the hospital provides a deep link, it will go straight to the TCM department.",
+			none: "If you do not have the app yet: please download and register first, then come back and tap booking again.",
+			login: "The web version may ask you to sign in again; the app usually keeps you signed in.",
+			primary: "Online booking (Kiang Wu)",
+			ios: "Download app (Apple)",
+			android: "Download app (Android)"
+		},
 		footerHome: "Herbs and acupuncture must be prescribed in person by a registered Chinese medicine practitioner. If daily function is clearly impaired, also seek mental-health care. This site does not collect medical records.",
 		views: "Visits"
 	},

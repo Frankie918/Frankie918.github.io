@@ -2,6 +2,7 @@ import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-r
 import { AuthProvider } from "@/lib/auth/provider";
 import { LanguageSwitch } from "@/components/language-switch";
 import { HospitalMark } from "@/components/hospital-mark";
+import { BookingNavLink } from "@/components/booking-card";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { SiteAtmosphere } from "@/components/site-atmosphere";
 import { LangProvider } from "@/i18n/lang";
@@ -54,6 +55,7 @@ export const Route = createRootRoute({
           <LangProvider>
             <div className="site-top">
               <HospitalMark />
+              <BookingNavLink />
               <LanguageSwitch />
             </div>
             <Outlet />
