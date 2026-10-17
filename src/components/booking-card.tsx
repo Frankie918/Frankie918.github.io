@@ -1,18 +1,6 @@
 import { BOOKING_APP_STORE_URL, BOOKING_GOOGLE_PLAY_URL, BOOKING_URL } from "@/lib/booking";
 import { useCopy } from "@/i18n/lang";
 
-export function BookingNavLink() {
-  const b = useCopy().ui.booking;
-  return (
-    <a
-      href="/#booking"
-      className="inline-flex min-h-11 shrink-0 items-center rounded-full border border-line bg-paper px-4 text-sm text-ink no-underline"
-    >
-      {b.nav}
-    </a>
-  );
-}
-
 export function BookingCard() {
   const b = useCopy().ui.booking;
   return (
