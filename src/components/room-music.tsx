@@ -16,8 +16,13 @@ import { MUSIC_UI, contextFromPath, defaultTrackFor, musicSetFor, type MusicCont
 /**
  * One shared player for the homepage and all four rooms (安神／解鬱／安寐／舒壓).
  * HOMEPAGE (clinician override, 2026-10-18): only the pre-existing Canon track
- * (/audio/calm.mp3), no 中樂／西樂 choice; same default-play approach, and
- * entering a room stops it so the room's own default takes over (single shared
+ * (/audio/calm.mp3), no 中樂／西樂 choice. On entering the homepage the player
+ * calls play() IMMEDIATELY on mount (no panel interaction needed), exactly as
+ * on the old site; if the browser rejects it, it retries on pageshow / when
+ * the page becomes visible again, and stays armed for the first tap/keypress.
+ * No muted-autoplay trick is used. No explanatory music copy is rendered on
+ * the homepage — only the floating button, the Canon track name and mute/stop.
+ * Entering a room stops it so the room's own default takes over (single shared
  * <audio>, never double audio).
  * DEFAULT (clinician, 2026-10-18): on entering a room, attempt to start that room's
  * Chinese guqin track at 20% volume (slider 40 x max 50%) with a slow fade-in.
@@ -73,6 +78,10 @@ export function MusicProvider({ children }: { children: ReactNode }) {
   /** Default track armed to start on first interaction after blocked autoplay. */
   const pendingRef = useRef<MusicTrack | null>(null);
   const armHandlerRef = useRef<(() => void) | null>(null);
+  /** Homepage-only visibility retry wrapper, removed by disarmDefault. */
+  const retryHandlerRef = useRef<(() => void) | null>(null);
+  /** Guards against overlapping play() attempts (immediate + pageshow/visibility retries). */
+  const attemptInFlightRef = useRef(false);
   /** Last context value the entry effect has handled (mount + each switch). */
   const handledContextRef = useRef<MusicContext | null | undefined>(undefined);
 
@@ -103,7 +112,12 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     if (armHandlerRef.current) {
       window.removeEventListener("pointerdown", armHandlerRef.current);
       window.removeEventListener("keydown", armHandlerRef.current);
+      window.removeEventListener("pageshow", armHandlerRef.current);
       armHandlerRef.current = null;
+    }
+    if (retryHandlerRef.current) {
+      document.removeEventListener("visibilitychange", retryHandlerRef.current);
+      retryHandlerRef.current = null;
     }
   }, []);
 
@@ -123,6 +137,8 @@ export function MusicProvider({ children }: { children: ReactNode }) {
 
   const startTrack = useCallback(
     async (track: MusicTrack): Promise<boolean> => {
+      if (attemptInFlightRef.current) return false;
+      attemptInFlightRef.current = true;
       const el = audio.current ?? new Audio();
       audio.current = el;
       clearFade();
@@ -138,6 +154,8 @@ export function MusicProvider({ children }: { children: ReactNode }) {
         playingIdRef.current = null;
         setPlayingId(null);
         return false;
+      } finally {
+        attemptInFlightRef.current = false;
       }
       playingIdRef.current = track.id;
       setPlayingId(track.id);
@@ -169,6 +187,19 @@ export function MusicProvider({ children }: { children: ReactNode }) {
       armHandlerRef.current = handler;
       window.addEventListener("pointerdown", handler);
       window.addEventListener("keydown", handler);
+      // HOMEPAGE ONLY (rooms keep their existing first-interaction behaviour):
+      // retry the immediate play() attempt when the page is shown again
+      // (pageshow, incl. back/forward cache) or becomes visible again, without
+      // waiting for the visitor to open the music panel. Still honest: if the
+      // browser rejects again it stays armed, never shown as playing.
+      if (contextRef.current === "home") {
+        window.addEventListener("pageshow", handler);
+        const onVisible = () => {
+          if (document.visibilityState === "visible") handler();
+        };
+        retryHandlerRef.current = onVisible;
+        document.addEventListener("visibilitychange", onVisible);
+      }
     },
     [disarmDefault, startTrack],
   );
@@ -354,7 +385,9 @@ function VolumeAndStop() {
           {now ? `${ui.now}${now.title[lang]}` : ""}
         </p>
       </div>
-      <p className="mt-4 text-xs leading-relaxed text-muted">{musicSetFor(context).credit[lang]}</p>
+      {musicSetFor(context).credit && (
+        <p className="mt-4 text-xs leading-relaxed text-muted">{musicSetFor(context).credit?.[lang]}</p>
+      )}
       {playingId && (
         <button
           type="button"
@@ -395,8 +428,9 @@ export function FloatingMusic() {
   const { context, playingId, stop, panelOpen, setPanelOpen } = useMusic();
   if (!context) return null;
   const now = musicSetFor(context).tracks.find((t) => t.id === playingId);
-  const lead = context === "home" ? ui.homeLead : ui.lead;
-  const safety = context === "home" ? ui.homeSafety : ui.safety;
+  // Homepage: NO explanatory music copy at all (clinician, 2026-10-18) — only
+  // the track name and mute/stop below. Rooms keep their lead/safety/credit.
+  const isHome = context === "home";
   return (
     <div className="music-float">
       <button
@@ -411,8 +445,12 @@ export function FloatingMusic() {
       </button>
       {panelOpen && (
         <div className="music-float-panel" role="group" aria-label={ui.music}>
-          <p className="text-sm text-muted">{lead}</p>
-          <p className="mt-2 text-sm text-muted">{safety}</p>
+          {!isHome && (
+            <>
+              <p className="text-sm text-muted">{ui.lead}</p>
+              <p className="mt-2 text-sm text-muted">{ui.safety}</p>
+            </>
+          )}
           <div className="mt-4">
             <TrackGroups />
           </div>
@@ -429,7 +467,9 @@ export function FloatingMusic() {
               {now ? `${ui.now}${now.title[lang]}` : ""}
             </p>
           </div>
-          <p className="mt-3 text-xs leading-relaxed text-muted">{musicSetFor(context).credit[lang]}</p>
+          {!isHome && musicSetFor(context).credit && (
+            <p className="mt-3 text-xs leading-relaxed text-muted">{musicSetFor(context).credit?.[lang]}</p>
+          )}
         </div>
       )}
     </div>

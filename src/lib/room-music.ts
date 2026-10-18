@@ -47,7 +47,7 @@ export function defaultTrackFor(context: MusicContext): MusicTrack {
 }
 
 /** Track list + credit for any music context (room or homepage). */
-export function musicSetFor(context: MusicContext): { tracks: MusicTrack[]; credit: Record<Lang, string> } {
+export function musicSetFor(context: MusicContext): { tracks: MusicTrack[]; credit?: Record<Lang, string> } {
   return context === "home" ? HOME_MUSIC : ROOM_MUSIC[context];
 }
 
@@ -257,11 +257,12 @@ export const ROOM_MUSIC: Record<MusicRoom, RoomMusic> = {
 /**
  * Homepage music: exactly ONE track, the site's pre-existing Canon file restored
  * as it was before the legacy AmbientMusic removal. No 中樂／西樂 choice here.
- * Credit wording is the site's previous homepage credit (composition public
- * domain; the recording's provenance was never documented in this repo — see
- * docs/yali-music-licences.md flag).
+ * No explanatory/credit copy is rendered for it on the homepage (clinician,
+ * 2026-10-18: keep only the floating button, the track name and mute/stop);
+ * licence/provenance notes live only in docs/yali-music-licences.md (the
+ * recording's provenance was never documented in this repo — see flag there).
  */
-export const HOME_MUSIC: { tracks: MusicTrack[]; credit: Record<Lang, string> } = {
+export const HOME_MUSIC: { tracks: MusicTrack[] } = {
   tracks: [
     {
       id: "canon",
@@ -277,11 +278,6 @@ export const HOME_MUSIC: { tracks: MusicTrack[]; credit: Record<Lang, string> } 
       },
     },
   ],
-  credit: {
-    yue: "背景樂：Pachelbel《D 大調卡農》鋼琴，公有領域。",
-    cmn: "背景乐：Pachelbel《D 大调卡农》钢琴，公有领域。",
-    en: "Music: Pachelbel’s Canon in D, piano, public domain.",
-  },
 };
 
 export const MUSIC_UI: Record<
@@ -300,8 +296,6 @@ export const MUSIC_UI: Record<
     now: string;
     vol: string;
     openPanel: string;
-    homeLead: string;
-    homeSafety: string;
   }
 > = {
   yue: {
@@ -318,8 +312,6 @@ export const MUSIC_UI: Record<
     now: "播放緊：",
     vol: "音量",
     openPanel: "用頁頂音樂掣揀歌",
-    homeLead: "首頁會先播 Pachelbel《D 大調卡農》。瀏覽器若擋住自動播放，會喺你第一次撳頁面或者㩒鍵時開始。可以隨時撳靜音，入房就會轉用嗰間房嘅音樂。",
-    homeSafety: "對聲音敏感，隨時撳靜音；撳咗之後今次喺首頁唔會再自動播。",
   },
   cmn: {
     music: "音樂",
@@ -335,8 +327,6 @@ export const MUSIC_UI: Record<
     now: "正在播放：",
     vol: "音量",
     openPanel: "用頁頂音樂按鈕選曲",
-    homeLead: "首页会先播 Pachelbel《D 大调卡农》。浏览器若挡住自动播放，会在你第一次按页面或者按键时开始。可以随时按静音，进入房间就会改用那间房的音乐。",
-    homeSafety: "对声音敏感，随时按静音；按了之后这次在首页不会再自动播放。",
   },
   en: {
     music: "Music",
@@ -352,8 +342,6 @@ export const MUSIC_UI: Record<
     now: "Playing: ",
     vol: "Volume",
     openPanel: "Use the music button at the top to choose",
-    homeLead: "The homepage starts with Pachelbel's Canon in D. If your browser blocks autoplay, it starts on your first tap or key press on the page. Press mute any time; entering a room switches to that room's music.",
-    homeSafety: "If you are sensitive to sound, press mute any time; it will not restart during this homepage visit.",
   },
 };
 

@@ -188,7 +188,6 @@ function Home() {
           <ClinicContact />
           <p className="mt-3 opacity-80">{ui.footerHome}</p>
           <ViewCount page="home" />
-          <p className="mt-3 opacity-70">{ui.musicCredit}</p>
         </div>
       </footer>
     </main>

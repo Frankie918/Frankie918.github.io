@@ -126,9 +126,16 @@ test("homepage: single Canon track only, default on entry, shared player stops i
   assert.ok(existsSync(`${root}public/audio/calm.mp3`), "pre-existing calm.mp3 restored");
   for (const lang of ["yue", "cmn", "en"]) {
     assert.ok(canon.title[lang] && canon.hint[lang], `canon missing ${lang}`);
-    assert.ok(HOME_MUSIC.credit[lang], `home missing ${lang} credit`);
-    assert.ok(MUSIC_UI[lang].homeLead && MUSIC_UI[lang].homeSafety, `MUSIC_UI ${lang} home labels`);
+    // No homepage explanatory music copy (clinician 2026-10-18): no credit,
+    // no home lead/safety text — only the floating button, track name, mute.
+    assert.equal(HOME_MUSIC.credit, undefined, `home must carry no rendered credit copy (${lang})`);
+    assert.equal(MUSIC_UI[lang].homeLead, undefined, `MUSIC_UI ${lang} must have no homepage lead copy`);
+    assert.equal(MUSIC_UI[lang].homeSafety, undefined, `MUSIC_UI ${lang} must have no homepage safety copy`);
   }
+  const homeRoute = readFileSync(`${root}src/routes/index.tsx`, "utf8");
+  assert.doesNotMatch(homeRoute, /musicCredit/, "homepage route must not render any music credit/explanation");
+  const catalogue = readFileSync(`${root}src/lib/room-music.ts`, "utf8");
+  assert.doesNotMatch(catalogue, /homeLead|homeSafety|首頁只播|首页只播|homepage plays only/i, "no homepage music explanation copy left in catalogue");
   assert.equal(defaultTrackFor("home").id, "canon", "homepage default is Canon");
   assert.equal(contextFromPath("/"), "home");
   assert.equal(contextFromPath("/anshen"), "anshen");
@@ -140,6 +147,16 @@ test("homepage: single Canon track only, default on entry, shared player stops i
   const player = readFileSync(`${root}src/components/room-music.tsx`, "utf8");
   assert.match(player, /contextFromPath\(path\)/, "player derives homepage/room context from path");
   assert.match(player, /context === "home"/, "homepage renders single-track (ungrouped) panel");
+  // Homepage autoplay like before: immediate play() on entry, retried on
+  // pageshow / visibility return if rejected; no muted-autoplay trick.
+  assert.match(player, /pageshow/, "homepage retries playback on pageshow");
+  assert.match(player, /visibilitychange/, "homepage retries playback when visible again");
+  assert.match(player, /contextRef\.current === "home"/, "pageshow/visibility retry is homepage-only");
+  assert.doesNotMatch(player, /\.muted\s*=|muted\s*[:=]\s*true/, "no muted-autoplay-then-unmute trick");
+  assert.match(player, /isHome/, "homepage panel copy is scoped out");
+  // Rooms keep their panel lead/safety/credit; homepage renders none of it.
+  assert.match(player, /\{!isHome && \(/, "lead/safety only for rooms");
+  assert.match(player, /!isHome && musicSetFor\(context\)\.credit/, "credit only for rooms");
   assert.doesNotMatch(player, /AmbientMusic/, "legacy ambient player must not be resurrected");
   assert.ok(!existsSync(`${root}src/components/ambient-music.tsx`), "ambient-music.tsx stays deleted");
   const doc = readFileSync(`${root}docs/yali-music-licences.md`, "utf8");
