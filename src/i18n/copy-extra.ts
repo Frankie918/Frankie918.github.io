@@ -41,7 +41,7 @@ export const CMN = {
 		musicOn: "卡農 · 開",
 		musicPlay: "播放卡農",
 		musicPause: "關閉卡農",
-		musicCredit: "背景樂：Pachelbel《D 大調卡農》鋼琴，公有領域。",
+		musicCredit: "音樂：每間房可選中樂／西樂，預設靜音，不會自動播放。",
 		today: "今日",
 		yi: "宜",
 		ji: "忌",
@@ -112,35 +112,19 @@ export const CMN = {
 	},
 	qr: {
 		kicker: "掃入網站",
-		sub: "安神 · 解鬱 · 安寐",
+		sub: "安神 · 解鬱 · 安寐 · 舒壓",
 	},
 	listen: {
-		kicker: "試聽",
-		title: "背景樂",
-		lede: "現在用的是卡農。下面幾首古琴都可以免費使用（須署名演奏者）。一次只播一首。聽完告訴我要留哪一首。",
-		now: "現在使用",
-		credit: "古琴錄音：Charlie Huang（Charles R Tsua），維基共享資源。平沙落雁、秋風詞 CC BY 2.5；陽關三疊、醉漁唱晚 CC BY-SA 3.0。",
+		kicker: "房間音樂",
+		title: "每間房都可以選",
+		lede: "音樂預設靜音，不會自動播放。進入任何一間房，按上方的浮動音樂按鈕，就可以選中樂、西樂，或者靜音。每間房各有一首中樂和一首不同的西樂。",
+		now: "各房曲目",
+		credit: "每首錄音的出處與版權，寫在每間房音樂欄的下方。",
 		tracks: [
-			{
-				title: "D 大調卡農",
-				hint: "鋼琴 · 公有領域 · 現在使用"
-			},
-			{
-				title: "平沙落雁",
-				hint: "古琴 · 羽音 · 清秋、宜安寐"
-			},
-			{
-				title: "陽關三疊",
-				hint: "古琴 · 商音 · 緩慢送別"
-			},
-			{
-				title: "秋風詞",
-				hint: "古琴 · 短、靜 · 易循環"
-			},
-			{
-				title: "醉漁唱晚",
-				hint: "古琴 · 徵音 · 可能偏活"
-			}
+			{ title: "安神", hint: "中樂《平沙落雁》 · 西樂 巴赫《哥德堡變奏曲》詠歎調" },
+			{ title: "解鬱", hint: "中樂《陽關三疊》 · 西樂 巴赫《哥德堡變奏曲》第13變奏" },
+			{ title: "安寐", hint: "中樂《醉漁唱晚》 · 西樂 巴赫《哥德堡變奏曲》第25變奏" },
+			{ title: "舒壓", hint: "中樂《孔子讀易》 · 西樂 巴赫《平均律》C 大調前奏曲" }
 		]
 	},
 	play: {
@@ -1391,7 +1375,7 @@ export const EN = {
 		musicOn: "Canon · on",
 		musicPlay: "Play Canon in D",
 		musicPause: "Pause Canon in D",
-		musicCredit: "Music: Pachelbel’s Canon in D, piano, public domain.",
+		musicCredit: "Music: each room offers Chinese or Western music, off by default and never autoplays.",
 		today: "Today",
 		yi: "Do",
 		ji: "Don’t",
@@ -1462,35 +1446,19 @@ export const EN = {
 	},
 	qr: {
 		kicker: "Scan to enter",
-		sub: "Calm the Mind · Ease the Heart · Restful Sleep",
+		sub: "Calm the Mind · Ease the Heart · Restful Sleep · Stress Relief",
 	},
 	listen: {
-		kicker: "Listen",
-		title: "Background music",
-		lede: "The site currently uses Canon in D. The guqin pieces below are free to use with credit. Only one plays at a time. Tell me which to keep.",
-		now: "In use now",
-		credit: "Guqin: Charlie Huang (Charles R Tsua), Wikimedia Commons. Pingsha Luoyan and Qiu Feng Ci: CC BY 2.5. Yangguan Sandie and Zuiyu Changwan: CC BY-SA 3.0.",
+		kicker: "Room music",
+		title: "Every room lets you choose",
+		lede: "Music is off by default and never autoplays. In any room, tap the floating music button above to choose Chinese music, Western music, or mute. Each room has one Chinese piece and a different Western piece.",
+		now: "Music in each room",
+		credit: "The source and licence of each recording are shown at the foot of each room's music section.",
 		tracks: [
-			{
-				title: "Canon in D",
-				hint: "Piano · public domain · in use now"
-			},
-			{
-				title: "Pingsha Luoyan",
-				hint: "Guqin · Yu tone · autumn, restful sleep"
-			},
-			{
-				title: "Yangguan Sandie",
-				hint: "Guqin · Shang tone · slow farewell"
-			},
-			{
-				title: "Qiu Feng Ci",
-				hint: "Guqin · short and still · easy to loop"
-			},
-			{
-				title: "Zuiyu Changwan",
-				hint: "Guqin · Zhi tone · may feel livelier"
-			}
+			{ title: "Calm the Mind", hint: "Chinese: Pingsha Luoyan · Western: Bach, Goldberg Variations, Aria" },
+			{ title: "Ease the Heart", hint: "Chinese: Yangguan Sandie · Western: Bach, Goldberg Variations, Variation 13" },
+			{ title: "Restful Sleep", hint: "Chinese: Zuiyu Changwan · Western: Bach, Goldberg Variations, Variation 25" },
+			{ title: "Stress Relief", hint: "Chinese: Kongzi Duyi · Western: Bach, Prelude in C major (Well-Tempered Clavier I)" }
 		]
 	},
 	play: {
@@ -1928,7 +1896,7 @@ export const EN = {
 			body: "Needling opens channels and harmonises qi and blood. Liver governs coursing; stuck qi swells, wants to weep, cannot go. Needling helps that qi move again. Modern work also sees autonomic tone and stress hormones shift when needling is appropriate."
 		}, {
 			title: "Why ear points",
-			body: "The ear gathers the ancestral vessels; viscera map onto the auricle. Seeds or beads give a small, lasting stimulus; between visits you may press as taught. Liver, heart and Shenmen (HT7) are often involved; pairing and duration differ by person."
+			body: "The ear gathers the ancestral vessels; viscera map onto the auricle. Seeds or beads give a small, lasting stimulus; between visits you may press as taught. Liver, heart and Shenmen (ear) are often involved; pairing and duration differ by person."
 		}],
 		acuNote: "Formulas and taping methods are not listed. Needle time, beads, and cautions (skin, pregnancy, bleeding) — ask a doctor in the Kiang Wu TCM department.",
 		dailyK: "The day can be lighter",

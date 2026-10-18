@@ -157,5 +157,5 @@ test("music: every track has a local file, licences documented, nothing autoplay
   assert.doesNotMatch(tools, /autoPlay|autoplay\s*=/);
   assert.match(tools, /useState<string \| null>\(null\)/, "player starts stopped");
   const atmo = readFileSync(`${root}src/components/site-atmosphere.tsx`, "utf8");
-  assert.match(atmo, /ROOM_PATHS\.some/, "no ambient autoplay on any of the four rooms");
+  assert.doesNotMatch(atmo, /AmbientMusic|calm\.mp3/, "no ambient autoplay anywhere (rooms or other pages)");
 });

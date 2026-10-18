@@ -190,7 +190,7 @@ export const ROOM_MUSIC: Record<MusicRoom, RoomMusic> = {
     credit: {
       yue: "古琴錄音：Charlie Huang 演奏，維基共享資源，CC BY 2.5；樂曲出自《天聞閣琴譜》（1876），屬公有領域。鋼琴錄音：Kimiko Ishizaka 演奏（Open Well-Tempered Clavier），CC0 公有領域貢獻；巴赫樂曲屬公有領域。本站已轉檔、修剪首尾靜音、統一音量並加淡入淡出。",
       cmn: "古琴錄音：Charlie Huang 演奏，維基共享資源，CC BY 2.5；樂曲出自《天聞閣琴譜》（1876），屬公有領域。鋼琴錄音：Kimiko Ishizaka 演奏（Open Well-Tempered Clavier），CC0 公有領域貢獻；巴赫樂曲屬公有領域。本站已轉檔、修剪首尾靜音、統一音量並加淡入淡出。",
-      en: "Guqin recording: performed by Charlie Huang, Wikimedia Commons, CC BY 2.5; the pieces come from the Tianwen Ge Qinpu (1876) and are in the public domain. Piano recording: Kimiko Ishizaka (Open Well-Tempered Clavier), CC0 public-domain dedication; Bach's music is in the public domain. This site transcoded the file, trimmed silence, matched loudness and added fades.",
+      en: "Guqin recording: performed by Charlie Huang, Wikimedia Commons, CC BY 2.5; the piece comes from the Tianwen Ge Qinpu (1876) and is in the public domain. Piano recording: Kimiko Ishizaka (Open Well-Tempered Clavier), CC0 public-domain dedication; Bach's music is in the public domain. This site transcoded the file, trimmed silence, matched loudness and added fades.",
     },
   },
 };

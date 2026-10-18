@@ -70,7 +70,7 @@ async function makePoster(site: string) {
 
   ctx.fillStyle = "#3f6b5c";
   ctx.font = "400 22px 'Noto Sans TC', sans-serif";
-  ctx.fillText("安神  ·  解鬱  ·  安寐", POSTER / 2, 348);
+  ctx.fillText("安神  ·  解鬱  ·  安寐  ·  舒壓", POSTER / 2, 348);
 
   const cx = POSTER / 2;
   const cy = qrY + qrSize / 2;
