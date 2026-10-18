@@ -10,6 +10,8 @@ const IMG: Record<string, string> = {
   yongquan: "sole",
   hegu: "hand-back",
   qimen: "chest",
+  fengchi: "neck-shoulder",
+  jianjing: "neck-shoulder",
 };
 
 const ALT = {
