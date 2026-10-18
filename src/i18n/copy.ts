@@ -19,7 +19,7 @@ const yue = {
     musicOn: "卡農 · 開",
     musicPlay: "播放背景樂",
     musicPause: "關閉背景樂",
-    musicCredit: "音樂：入房先播中樂，可轉西樂／靜音。",
+    musicCredit: "背景樂：Pachelbel《D 大調卡農》鋼琴，公有領域。首頁只播呢一首，可隨時靜音；入房會轉用嗰間房嘅音樂。",
     today: "今日",
     yi: "宜",
     ji: "忌",

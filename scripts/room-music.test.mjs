@@ -8,7 +8,7 @@ import { createJiti } from "jiti";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 const jiti = createJiti(import.meta.url, { alias: { "@": `${root}src` }, jsx: true });
-const { ROOM_MUSIC, MUSIC_UI, defaultTrack } = await jiti.import(`${root}src/lib/room-music.ts`);
+const { ROOM_MUSIC, HOME_MUSIC, MUSIC_UI, defaultTrack, defaultTrackFor, contextFromPath } = await jiti.import(`${root}src/lib/room-music.ts`);
 
 const ROOMS = ["anshen", "jieyu", "anmei", "yali"];
 const BAD = /根治|治好|治癒|療效|保證|包好|cure|guarantee|proven|will fix/i;
@@ -87,7 +87,7 @@ test("player defaults to the room's Chinese track on entry, mute respected, one 
   assert.equal(defaultTrack("anmei").id, "zuiyu");
   assert.equal(defaultTrack("yali").id, "kongzi");
   for (const room of ROOMS) assert.equal(defaultTrack(room).group, "cn", `${room} default must be Chinese`);
-  assert.match(player, /defaultTrack\(room\)/, "room entry attempts the room default");
+  assert.match(player, /defaultTrackFor\(context\)/, "context entry attempts its default");
   assert.match(player, /startTrack\(def\)/, "entry starts the default track");
   assert.match(player, /armDefault\(def\)/, "blocked autoplay arms the default");
   assert.match(player, /pointerdown/, "armed start listens for first tap");
@@ -95,11 +95,11 @@ test("player defaults to the room's Chinese track on entry, mute respected, one 
   assert.doesNotMatch(player, /autoPlay|autoplay\s*=/, "no autoplay attribute; play() is attempted in code");
   assert.match(player, /useState<string \| null>\(null\)/, "starts with no track claimed playing");
   assert.match(player, /await el\.play\(\)/, "playing state set only after play() resolves");
-  assert.match(player, /mutedVisitRef\.current = roomRef\.current/, "mute records this room visit");
-  assert.match(player, /mutedVisitRef\.current === room/, "armed/default start checks the visit mute");
+  assert.match(player, /mutedVisitRef\.current = contextRef\.current/, "mute records this context visit");
+  assert.match(player, /mutedVisitRef\.current === context/, "armed/default start checks the visit mute");
   assert.match(player, /disarmDefault\(\)/, "mute disarms the pending default");
-  assert.match(player, /handledRoomRef\.current = room/, "room switch is handled once per room");
-  assert.match(player, /mutedVisitRef\.current = null/, "room switch resets the visit mute");
+  assert.match(player, /handledContextRef\.current = context/, "context switch is handled once per context");
+  assert.match(player, /mutedVisitRef\.current = null/, "context switch resets the visit mute");
   assert.equal((player.match(/new Audio\(\)/g) ?? []).length, 1, "single shared audio element");
   assert.match(player, /hardStop\(\)/, "room change/leave stops the music");
   const root_ = readFileSync(`${root}src/routes/__root.tsx`, "utf8");
@@ -116,4 +116,33 @@ test("player defaults to the room's Chinese track on entry, mute respected, one 
     assert.match(src, /RoomMusicSection/, `${route} has in-page music section`);
     assert.match(src, /"music"/, `${route} orders #music in nav`);
   }
+});
+
+test("homepage: single Canon track only, default on entry, shared player stops it on room entry", () => {
+  assert.equal(HOME_MUSIC.tracks.length, 1, "homepage must have exactly one track (no Chinese/Western choice)");
+  const canon = HOME_MUSIC.tracks[0];
+  assert.equal(canon.id, "canon");
+  assert.equal(canon.src, "/audio/calm.mp3");
+  assert.ok(existsSync(`${root}public/audio/calm.mp3`), "pre-existing calm.mp3 restored");
+  for (const lang of ["yue", "cmn", "en"]) {
+    assert.ok(canon.title[lang] && canon.hint[lang], `canon missing ${lang}`);
+    assert.ok(HOME_MUSIC.credit[lang], `home missing ${lang} credit`);
+    assert.ok(MUSIC_UI[lang].homeLead && MUSIC_UI[lang].homeSafety, `MUSIC_UI ${lang} home labels`);
+  }
+  assert.equal(defaultTrackFor("home").id, "canon", "homepage default is Canon");
+  assert.equal(contextFromPath("/"), "home");
+  assert.equal(contextFromPath("/anshen"), "anshen");
+  assert.equal(contextFromPath("/yali"), "yali");
+  assert.equal(contextFromPath("/faq"), null);
+  // No Canon/Canon-choice leakage into rooms: rooms keep exactly cn+west above,
+  // and homepage track must not appear in any room list.
+  for (const room of ROOMS) assert.ok(!ROOM_MUSIC[room].tracks.some((t) => t.id === "canon"), `${room} must not list Canon`);
+  const player = readFileSync(`${root}src/components/room-music.tsx`, "utf8");
+  assert.match(player, /contextFromPath\(path\)/, "player derives homepage/room context from path");
+  assert.match(player, /context === "home"/, "homepage renders single-track (ungrouped) panel");
+  assert.doesNotMatch(player, /AmbientMusic/, "legacy ambient player must not be resurrected");
+  assert.ok(!existsSync(`${root}src/components/ambient-music.tsx`), "ambient-music.tsx stays deleted");
+  const doc = readFileSync(`${root}docs/yali-music-licences.md`, "utf8");
+  assert.match(doc, /calm\.mp3/, "licence doc lists homepage Canon file");
+  assert.match(doc, /never documented/, "licence doc flags undocumented Canon recording provenance");
 });

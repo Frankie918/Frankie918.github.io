@@ -156,7 +156,7 @@ test("music: every track has a local file, licences documented, room player atte
   const tools = readFileSync(`${root}src/components/room-music.tsx`, "utf8");
   assert.doesNotMatch(tools, /autoPlay|autoplay\s*=/);
   assert.match(tools, /useState<string \| null>\(null\)/, "no track is claimed playing before play() resolves");
-  assert.match(tools, /defaultTrack\(room\)/, "room entry attempts the Chinese default");
+  assert.match(tools, /defaultTrackFor\(context\)/, "context entry attempts its default (room: Chinese guqin; homepage: Canon)");
   assert.match(tools, /pointerdown/, "blocked autoplay starts on first interaction");
   const atmo = readFileSync(`${root}src/components/site-atmosphere.tsx`, "utf8");
   assert.doesNotMatch(atmo, /AmbientMusic|calm\.mp3/, "no separate ambient track anywhere (rooms or other pages)");

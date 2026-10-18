@@ -11,10 +11,14 @@ import {
 import { useRouterState } from "@tanstack/react-router";
 import { GhostButton } from "@/components/clinic-layout";
 import { useLang } from "@/i18n/lang";
-import { MUSIC_UI, ROOM_MUSIC, defaultTrack, roomFromPath, type MusicRoom, type MusicTrack } from "@/lib/room-music";
+import { MUSIC_UI, contextFromPath, defaultTrackFor, musicSetFor, type MusicContext, type MusicTrack } from "@/lib/room-music";
 
 /**
- * One shared player for all four rooms (安神／解鬱／安寐／舒壓).
+ * One shared player for the homepage and all four rooms (安神／解鬱／安寐／舒壓).
+ * HOMEPAGE (clinician override, 2026-10-18): only the pre-existing Canon track
+ * (/audio/calm.mp3), no 中樂／西樂 choice; same default-play approach, and
+ * entering a room stops it so the room's own default takes over (single shared
+ * <audio>, never double audio).
  * DEFAULT (clinician, 2026-10-18): on entering a room, attempt to start that room's
  * Chinese guqin track at 20% volume (slider 40 x max 50%) with a slow fade-in.
  * Browsers usually block audible autoplay before any interaction: if play() is
@@ -22,8 +26,9 @@ import { MUSIC_UI, ROOM_MUSIC, defaultTrack, roomFromPath, type MusicRoom, type 
  * visitor's first pointerdown/keydown anywhere on the page. The visitor can
  * switch to the room's Western track, or press 靜音/mute: mute persists for that
  * room visit (the default does not restart) until they leave and re-enter, and
- * switching rooms resets to the new room's Chinese default. One shared <audio>
- * element = one track at a time; leaving the four rooms stops everything.
+ * switching contexts (homepage <-> room, or room <-> room) resets to the new
+ * context's default. One shared <audio> element = one track at a time;
+ * leaving the homepage/rooms stops everything.
  * Licences: docs/yali-music-licences.md (PD compositions; CC BY / CC BY-SA / CC0 / PD recordings).
  */
 const MAX_VOLUME = 0.5;
@@ -32,7 +37,7 @@ const FADE_IN_MS = 3000;
 const FADE_OUT_MS = 600;
 
 type MusicCtx = {
-  room: MusicRoom | null;
+  context: MusicContext | null;
   playingId: string | null;
   level: number;
   setLevel: (n: number) => void;
@@ -52,7 +57,7 @@ function useMusic() {
 
 export function MusicProvider({ children }: { children: ReactNode }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
-  const room = roomFromPath(path);
+  const context = contextFromPath(path);
   const audio = useRef<HTMLAudioElement | null>(null);
   const fade = useRef<number | null>(null);
   const [playingId, setPlayingId] = useState<string | null>(null);
@@ -60,16 +65,16 @@ export function MusicProvider({ children }: { children: ReactNode }) {
   const [panelOpen, setPanelOpen] = useState(false);
   const levelRef = useRef(level);
   levelRef.current = level;
-  const roomRef = useRef(room);
-  roomRef.current = room;
+  const contextRef = useRef(context);
+  contextRef.current = context;
   const playingIdRef = useRef<string | null>(null);
-  /** Room whose visit the visitor muted in; default must not restart there. */
-  const mutedVisitRef = useRef<MusicRoom | null>(null);
+  /** Context whose visit the visitor muted in; default must not restart there. */
+  const mutedVisitRef = useRef<MusicContext | null>(null);
   /** Default track armed to start on first interaction after blocked autoplay. */
   const pendingRef = useRef<MusicTrack | null>(null);
   const armHandlerRef = useRef<(() => void) | null>(null);
-  /** Last room value the room-entry effect has handled (mount + each switch). */
-  const handledRoomRef = useRef<MusicRoom | null | undefined>(undefined);
+  /** Last context value the entry effect has handled (mount + each switch). */
+  const handledContextRef = useRef<MusicContext | null | undefined>(undefined);
 
   const clearFade = useCallback(() => {
     if (fade.current) window.clearInterval(fade.current);
@@ -149,7 +154,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
       const handler = () => {
         const pending = pendingRef.current;
         if (!pending) return;
-        if (mutedVisitRef.current === roomRef.current) {
+        if (mutedVisitRef.current === contextRef.current) {
           disarmDefault();
           return;
         }
@@ -168,9 +173,9 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     [disarmDefault, startTrack],
   );
 
-  /** 靜音: stop now, cancel any armed default, and keep it off for this room visit. */
+  /** 靜音: stop now, cancel any armed default, and keep it off for this context visit. */
   const stop = useCallback(() => {
-    mutedVisitRef.current = roomRef.current;
+    mutedVisitRef.current = contextRef.current;
     disarmDefault();
     playingIdRef.current = null;
     const el = audio.current;
@@ -202,27 +207,28 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     if (el && playingId && !fade.current) el.volume = (level / 100) * MAX_VOLUME;
   }, [level, playingId]);
 
-  // Room entry / switching: stop the previous room, reset the visit's mute, close
-  // the panel, then attempt the new room's Chinese default. Switching rooms
-  // therefore always resets to the new room's default; leaving the rooms stops.
+  // Context entry / switching: stop the previous context, reset the visit's
+  // mute, close the panel, then attempt the new context's default (room:
+  // Chinese guqin; homepage: its sole Canon track). Switching contexts
+  // therefore always resets to the new default; leaving them stops.
   useEffect(() => {
-    if (handledRoomRef.current === room) return;
-    handledRoomRef.current = room;
+    if (handledContextRef.current === context) return;
+    handledContextRef.current = context;
     hardStop();
     setPanelOpen(false);
     mutedVisitRef.current = null;
-    if (!room) return;
-    const def = defaultTrack(room);
+    if (!context) return;
+    const def = defaultTrackFor(context);
     void startTrack(def).then((ok) => {
       if (ok) return;
       // Autoplay blocked: arm for the first tap/keypress, unless the visitor has
-      // already muted or started something else in this room in the meantime.
-      if (handledRoomRef.current !== room) return;
-      if (mutedVisitRef.current === room) return;
+      // already muted or started something else in this context in the meantime.
+      if (handledContextRef.current !== context) return;
+      if (mutedVisitRef.current === context) return;
       if (playingIdRef.current) return;
       armDefault(def);
     });
-  }, [room, hardStop, startTrack, armDefault]);
+  }, [context, hardStop, startTrack, armDefault]);
 
   // Unmount (page leave) stops everything.
   useEffect(
@@ -241,8 +247,8 @@ export function MusicProvider({ children }: { children: ReactNode }) {
   );
 
   const value = useMemo<MusicCtx>(
-    () => ({ room, playingId, level, setLevel, play, stop, panelOpen, setPanelOpen }),
-    [room, playingId, level, play, stop, panelOpen],
+    () => ({ context, playingId, level, setLevel, play, stop, panelOpen, setPanelOpen }),
+    [context, playingId, level, play, stop, panelOpen],
   );
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
@@ -250,9 +256,37 @@ export function MusicProvider({ children }: { children: ReactNode }) {
 function TrackGroups({ onPick }: { onPick?: () => void }) {
   const { lang } = useLang();
   const ui = MUSIC_UI[lang];
-  const { room, playingId, play } = useMusic();
-  if (!room) return null;
-  const data = ROOM_MUSIC[room];
+  const { context, playingId, play } = useMusic();
+  if (!context) return null;
+  const data = musicSetFor(context);
+  // Homepage: exactly one Canon track — no 中樂／西樂 grouping.
+  if (context === "home") {
+    return (
+      <div className="grid gap-2.5">
+        {data.tracks.map((t) => {
+          const on = playingId === t.id;
+          return (
+            <button
+              key={t.id}
+              type="button"
+              aria-pressed={on}
+              onClick={() => {
+                play(t);
+                onPick?.();
+              }}
+              className="track-btn flex min-h-14 items-center justify-between gap-3 rounded-xl border border-line bg-paper px-4 py-3 text-left"
+            >
+              <span>
+                <span className="block font-serif">{t.title[lang]}</span>
+                <span className="mt-0.5 block text-xs text-muted">{t.hint[lang]}</span>
+              </span>
+              <span className="shrink-0 text-sm text-accent">{on ? `■ ${ui.stop}` : `▶ ${ui.play}`}</span>
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
   const groups = [
     { key: "cn", label: ui.cn },
     { key: "west", label: ui.west },
@@ -296,9 +330,9 @@ function TrackGroups({ onPick }: { onPick?: () => void }) {
 function VolumeAndStop() {
   const { lang } = useLang();
   const ui = MUSIC_UI[lang];
-  const { room, playingId, level, setLevel, stop } = useMusic();
-  if (!room) return null;
-  const now = ROOM_MUSIC[room].tracks.find((t) => t.id === playingId);
+  const { context, playingId, level, setLevel, stop } = useMusic();
+  if (!context) return null;
+  const now = musicSetFor(context).tracks.find((t) => t.id === playingId);
   return (
     <>
       <div className="mt-5 flex flex-wrap items-center gap-4 rounded-card border border-line bg-paper p-4">
@@ -320,7 +354,7 @@ function VolumeAndStop() {
           {now ? `${ui.now}${now.title[lang]}` : ""}
         </p>
       </div>
-      <p className="mt-4 text-xs leading-relaxed text-muted">{ROOM_MUSIC[room].credit[lang]}</p>
+      <p className="mt-4 text-xs leading-relaxed text-muted">{musicSetFor(context).credit[lang]}</p>
       {playingId && (
         <button
           type="button"
@@ -351,15 +385,18 @@ export function RoomMusicSection() {
 
 /**
  * Floating music button, mirroring LanguageSwitch: a pill in the sticky top bar
- * (.site-top in __root.tsx, next to .lang-bar), visible on the four room pages.
- * Tap opens a panel with 中樂 / 西樂 track choices and 靜音; tap again (or 靜音) closes/stops.
+ * (.site-top in __root.tsx, next to .lang-bar), visible on the homepage and the
+ * four room pages. Rooms: 中樂 / 西樂 choices + 靜音. Homepage: only its single
+ * Canon track + 靜音. Tap again (or 靜音) closes/stops.
  */
 export function FloatingMusic() {
   const { lang } = useLang();
   const ui = MUSIC_UI[lang];
-  const { room, playingId, stop, panelOpen, setPanelOpen } = useMusic();
-  if (!room) return null;
-  const now = ROOM_MUSIC[room].tracks.find((t) => t.id === playingId);
+  const { context, playingId, stop, panelOpen, setPanelOpen } = useMusic();
+  if (!context) return null;
+  const now = musicSetFor(context).tracks.find((t) => t.id === playingId);
+  const lead = context === "home" ? ui.homeLead : ui.lead;
+  const safety = context === "home" ? ui.homeSafety : ui.safety;
   return (
     <div className="music-float">
       <button
@@ -374,8 +411,8 @@ export function FloatingMusic() {
       </button>
       {panelOpen && (
         <div className="music-float-panel" role="group" aria-label={ui.music}>
-          <p className="text-sm text-muted">{ui.lead}</p>
-          <p className="mt-2 text-sm text-muted">{ui.safety}</p>
+          <p className="text-sm text-muted">{lead}</p>
+          <p className="mt-2 text-sm text-muted">{safety}</p>
           <div className="mt-4">
             <TrackGroups />
           </div>
@@ -392,7 +429,7 @@ export function FloatingMusic() {
               {now ? `${ui.now}${now.title[lang]}` : ""}
             </p>
           </div>
-          <p className="mt-3 text-xs leading-relaxed text-muted">{ROOM_MUSIC[room].credit[lang]}</p>
+          <p className="mt-3 text-xs leading-relaxed text-muted">{musicSetFor(context).credit[lang]}</p>
         </div>
       )}
     </div>
