@@ -68,11 +68,13 @@ const ROOMS = [
   { id: "anshen", to: "/anshen" },
   { id: "jieyu", to: "/jieyu" },
   { id: "anmei", to: "/anmei" },
+  { id: "yali", to: "/yali" },
 ] as const;
 
 function roomLabel(copy: ReturnType<typeof useCopy>, id: (typeof ROOMS)[number]["id"]) {
   if (id === "anshen") return copy.home.anshenT;
   if (id === "jieyu") return copy.home.jieyuT;
+  if (id === "yali") return copy.home.yaliT;
   return copy.home.anmeiT;
 }
 
@@ -80,7 +82,7 @@ function RoomJump({
   theme,
   tone,
 }: {
-  theme: "anshen" | "jieyu" | "anmei";
+  theme: "anshen" | "jieyu" | "anmei" | "yali";
   tone: "light" | "solid" | "footer";
 }) {
   const copy = useCopy();
@@ -113,7 +115,7 @@ export function ClinicLayout({
   footerNote,
   order,
 }: {
-  theme: "anshen" | "jieyu" | "anmei";
+  theme: "anshen" | "jieyu" | "anmei" | "yali";
   title: string;
   kicker: string;
   lede: string;
@@ -139,7 +141,9 @@ export function ClinicLayout({
       ? copy.anshen.musicCredit
       : theme === "jieyu"
         ? copy.jieyu.musicCredit
-        : copy.anmei.musicCredit;
+        : theme === "yali"
+          ? copy.yali.musicCredit
+          : copy.anmei.musicCredit;
   return (
     <div data-theme={theme} className="min-h-screen bg-bg text-ink">
       <header className="relative flex min-h-[78vh] items-end overflow-hidden px-6 pb-16 pt-16 md:items-center md:px-10 md:pt-24">

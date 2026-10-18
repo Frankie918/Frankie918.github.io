@@ -17,6 +17,7 @@ type Reveal =
   | { kind: "classical"; quote: string; plain: string; source: string; action: string };
 
 function roomFromPath(path: string): QuietRoom {
+  if (path.startsWith("/yali")) return "yali";
   if (path.startsWith("/jieyu")) return "jieyu";
   if (path.startsWith("/anshen")) return "anshen";
   if (path.startsWith("/anmei") || path.startsWith("/listen")) return "anmei";
@@ -81,6 +82,7 @@ export function QuietWhisper() {
     if (room === "jieyu") return copy.lines.jieyu;
     if (room === "anshen") return copy.lines.anshen;
     if (room === "anmei") return copy.lines.anmei;
+    if (room === "yali") return copy.lines.yali;
     return [
       ...copy.lines.anshen.slice(0, 13),
       ...copy.lines.jieyu.slice(0, 13),

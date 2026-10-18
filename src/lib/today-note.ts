@@ -1,6 +1,6 @@
 import { todayInMacau } from "@/lib/almanac";
 
-export type RoomId = "anshen" | "jieyu" | "anmei";
+export type RoomId = "anshen" | "jieyu" | "anmei" | "yali";
 
 export type TodayNote = {
   breath?: number;
@@ -18,7 +18,7 @@ function key() {
 }
 
 function empty(): Record<RoomId, TodayNote> {
-  return { anshen: {}, jieyu: {}, anmei: {} };
+  return { anshen: {}, jieyu: {}, anmei: {}, yali: {} };
 }
 
 export function loadNotes(): Record<RoomId, TodayNote> {

@@ -26,3 +26,7 @@ https://lion-amber-lion-mist.grok.me/audio/pingsha.mp3       安神《平沙落�
 https://lion-amber-lion-mist.grok.me/audio/yangguan.mp3      解鬱《陽關三疊》古琴，Charlie Huang，CC BY-SA 3.0
 https://lion-amber-lion-mist.grok.me/audio/zuiyu.mp3         安寐《醉漁唱晚》古琴，Charlie Huang，CC BY-SA 3.0
 https://lion-amber-lion-mist.grok.me/audio/listen/qiufeng.mp3 試聽《秋風詞》古琴，Charlie Huang，CC BY 2.5
+https://lion-amber-lion-mist.grok.me/audio/yali/peilan.mp3   鬆弦《佩蘭》古琴，Charlie Huang，CC BY 2.5（預設關閉，未上線）
+https://lion-amber-lion-mist.grok.me/audio/yali/kongzi.mp3   鬆弦《孔子讀易》古琴，Charlie Huang，CC BY 2.5（預設關閉，未上線）
+https://lion-amber-lion-mist.grok.me/audio/yali/aria.mp3     鬆弦 巴赫《哥德堡變奏曲》詠歎調，Kimiko Ishizaka，CC0（預設關閉，未上線）
+https://lion-amber-lion-mist.grok.me/audio/yali/prelude.mp3  鬆弦 巴赫《平均律》C 大調前奏曲，Kimiko Ishizaka，CC0（預設關閉，未上線）

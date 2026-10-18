@@ -17,6 +17,7 @@ import { Route as JieqiRouteImport } from './routes/jieqi'
 import { Route as JieyuRouteImport } from './routes/jieyu'
 import { Route as ListenRouteImport } from './routes/listen'
 import { Route as QrRouteImport } from './routes/qr'
+import { Route as YaliRouteImport } from './routes/yali'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,6 +59,11 @@ const QrRoute = QrRouteImport.update({
   path: '/qr',
   getParentRoute: () => rootRouteImport,
 } as any)
+const YaliRoute = YaliRouteImport.update({
+  id: '/yali',
+  path: '/yali',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/jieyu': typeof JieyuRoute
   '/listen': typeof ListenRoute
   '/qr': typeof QrRoute
+  '/yali': typeof YaliRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByTo {
   '/jieyu': typeof JieyuRoute
   '/listen': typeof ListenRoute
   '/qr': typeof QrRoute
+  '/yali': typeof YaliRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +97,7 @@ export interface FileRoutesById {
   '/jieyu': typeof JieyuRoute
   '/listen': typeof ListenRoute
   '/qr': typeof QrRoute
+  '/yali': typeof YaliRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/jieyu'
     | '/listen'
     | '/qr'
+    | '/yali'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/jieyu'
     | '/listen'
     | '/qr'
+    | '/yali'
   id:
     | '__root__'
     | '/'
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/jieyu'
     | '/listen'
     | '/qr'
+    | '/yali'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -132,6 +144,7 @@ export interface RootRouteChildren {
   JieyuRoute: typeof JieyuRoute
   ListenRoute: typeof ListenRoute
   QrRoute: typeof QrRoute
+  YaliRoute: typeof YaliRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -192,6 +205,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QrRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/yali': {
+      id: '/yali'
+      path: '/yali'
+      fullPath: '/yali'
+      preLoaderRoute: typeof YaliRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -204,6 +224,7 @@ const rootRouteChildren: RootRouteChildren = {
   JieyuRoute: JieyuRoute,
   ListenRoute: ListenRoute,
   QrRoute: QrRoute,
+  YaliRoute: YaliRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

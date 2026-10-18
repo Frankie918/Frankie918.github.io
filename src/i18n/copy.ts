@@ -1,6 +1,7 @@
 import { ALMANAC } from "@/lib/almanac";
 import { FOLLOW } from "@/lib/follow";
-import { ANMEI_LINES, ANSHEN_LINES, JIEYU_LINES } from "@/lib/quiet-lines";
+import { ANMEI_LINES, ANSHEN_LINES, JIEYU_LINES, YALI_LINES } from "@/lib/quiet-lines";
+import { FAQ_COPY } from "@/lib/faq";
 import { CMN, EN } from "@/i18n/copy-extra";
 
 export type Lang = "yue" | "cmn" | "en";
@@ -53,6 +54,7 @@ const yue = {
     feelAnshen: "心慌坐唔定",
     feelJieyu: "提唔起勁",
     feelAnmei: "瞓唔著",
+    feelYali: "成日繃緊",
     kicker: "慢慢嚟，唔使一次搞掂",
     lede: "呼吸可以再慢一拍。呢度唔趕，只陪你把心同氣，輕輕放返落嚟。",
     anshenK: "焦慮",
@@ -67,6 +69,10 @@ const yue = {
     anmeiT: "安寐",
     anmeiD: "瞓唔著，唔代表懶。呢度陪你把床還返畀夜。",
     anmeiGo: "進入安寐 →",
+    yaliK: "壓力繃緊",
+    yaliT: "鬆弦",
+    yaliD: "長期繃住，肩頸、胃、心跳都會講。呢度陪你鬆一格。",
+    yaliGo: "進入鬆弦 →",
     qrK: "市民掃入",
     qrT: "一掃即到身心課堂",
     listenGo: "試聽其他背景樂 →",
@@ -75,7 +81,7 @@ const yue = {
     aboutLead:
       "你嚟到呢度，可以當自己入咗一堂小課。唔使掛號、唔會收你病歷，亦唔取代面診。只用淺白嘅字，陪你把心同氣，慢慢放返落嚟。",
     aboutBody:
-      "入面有三間房：安神、解鬱、安寐。你揀而家最貼近自己嗰間就得。裏面有「呢一刻」短句、呼吸、時辰、耳穴位置，同埋你可以帶去面診嘅小卡。用藥同落針，始終要醫師親手睇過你。",
+      "入面有四間房：安神、解鬱、安寐、鬆弦。你揀而家最貼近自己嗰間就得。裏面有「呢一刻」短句、呼吸、時辰、耳穴位置，同埋你可以帶去面診嘅小卡。用藥同落針，始終要醫師親手睇過你。",
     illnessK: "點解叫身心",
     illnessT: "心同身，本來一齊",
     illnessLead:
@@ -85,6 +91,7 @@ const yue = {
     illnessA: "如果你驚、心跳、坐唔定——神散咗，可以入安神。",
     illnessB: "如果你悶悶不樂、唔想郁、心口翳悶——氣滯住，可以入解鬱。",
     illnessC: "如果你瞓唔著、易醒——寐未歸，可以入安寐。",
+    illnessD: "如果你長期繃緊、肩頸硬、胃脹、心跳快——弦拉得太緊，可以入鬆弦。",
   },
   qr: {
     kicker: "掃入網站",
@@ -108,7 +115,7 @@ const yue = {
   play: {
     kicker: "今日可試",
     title: "陪你做三件好細嘅事",
-    lead: "呼吸、時辰、面診小卡。三間房都有，只係時辰唔同。唔計分，唔過關。",
+    lead: "呼吸、時辰、面診小卡。每間房都有，只係時辰唔同。唔計分，唔過關。",
     breathIdle: "圈會跟你脹縮",
     breathHint: "鼻吸 4 秒，口呼 6 秒 · 三輪約半分鐘",
     breathIn: "吸",
@@ -154,6 +161,16 @@ const yue = {
           { start: 23, end: 1, name: "子", line: "已臥。唔翻帳、唔核對手機。" },
         ],
       },
+      yali: {
+        kicker: "鬆時",
+        title: "鬆一格嘅時辰",
+        lead: "唔使成日都放鬆。撳一下，記住邊段可以鬆一格。",
+        slots: [
+          { start: 11, end: 13, name: "午", line: "食飯離開枱面，唔睇工作。" },
+          { start: 15, end: 17, name: "申", line: "起身兩分鐘，肩膊放低。" },
+          { start: 19, end: 21, name: "戌", line: "收起工作，做一個交更。" },
+        ],
+      },
     },
     mapEar: "耳穴",
     mapBody: "身體",
@@ -183,6 +200,15 @@ const yue = {
         neiguan: { d: "躺下心慌可按。" },
         sanyinjiao: { d: "陰血不足、夜醒可記。" },
         yongquan: { d: "搓熱至暖，引火下行。" },
+      },
+      yali: {
+        shenmen: { d: "耳穴常用嘅安神位置。輕輕捏耳廓就得。" },
+        jiaogan: { d: "繃緊、心急時，可作教育標記。" },
+        pizhixia: { d: "思緒停唔到時，可作教育標記。唔好大力揉。" },
+        yintang: { d: "眉心皺埋時，用指腹輕輕打圈，隨呼氣放鬆。" },
+        neiguan: { d: "心口翳、胃脹、心跳快時可以輕按。心跳伴胸痛就唔好等，先求醫。" },
+        hegu: { d: "頭、面、牙關繃緊時，可以輕按半分鐘。" },
+        taichong: { d: "傳統同合谷一齊用，叫「四關」。煩躁、肩緊時，隨呼氣輕按。" },
       },
     },
     cardK: "帶去面診",
@@ -612,12 +638,186 @@ const anmeiYue = {
   ],
 };
 
+/**
+ * 鬆弦 · 壓力繃緊同身心反應 (2026-10 draft, built for clinician review — not launched).
+ * Pressure/tension room. No diagnosis, no self-test scores, no efficacy promises.
+ * Crisis sentence is taken verbatim from the approved FAQ copy (see crisisLine); footerNote reuses 安神.
+ * Acupoint names/locations/cautions come from src/lib/acupoints.ts; only the use note lives in play.maps.yali.
+ */
+const crisisLine = (lang: "yue" | "cmn") =>
+  FAQ_COPY[lang].items.find((item) => item.q.includes("盡快求助"))?.a ?? "";
+
+const yaliYue = {
+  title: "鬆弦",
+  kicker: "壓力繃緊同身心反應",
+  lede: "壓力大，身體會先知。唔使即刻解決，先把呼吸放慢，把弦鬆一格。",
+  footerName: "身心課堂 · 鬆弦",
+  footerNote: yue.anshen.footerNote,
+  musicCredit:
+    "音樂（預設關閉）：古琴《佩蘭》《孔子讀易》，Charlie Huang 演奏，CC BY 2.5（維基共享資源，已轉檔及加淡入淡出）；巴赫《哥德堡變奏曲》詠歎調、《平均律》第一冊 C 大調前奏曲，Kimiko Ishizaka 演奏，CC0。",
+  nav: [
+    { href: "#feel", label: "身體訊號" },
+    { href: "#shoulder", label: "肩頸放低" },
+    { href: "#park", label: "壓力暫存" },
+    { href: "#daily", label: "一日節奏" },
+    { href: "#acu", label: "穴位" },
+    { href: "#play", label: "今日可試" },
+    { href: "#music", label: "靜音樂" },
+    { href: "#care", label: "幾時面診" },
+    { href: "#view", label: "中醫點睇" },
+  ],
+  feelK: "認一認",
+  feelT: "壓力喺身體，會點講",
+  feelLead: "壓力唔止喺腦入面。好多人會喺身上感到。揀你近排留意到嘅，睇吓可以點陪佢。",
+  feelPick: "可以揀多過一個。唔係測驗，唔計分。",
+  feelTry: "可以試",
+  feelSeek: "幾時要睇醫生",
+  feelFoot: "以上係生活上可以試嘅做法，唔係診斷，亦唔係處方。",
+  cardFeel: "留意到",
+  feel: {
+    tense: {
+      label: "長期繃住，放唔落",
+      try: "每個鐘停一停，問自己：肩、牙關、手，邊度用緊力？鬆一格就夠。",
+      seek: "繃到成日發脾氣、做唔到嘢，或者幾個星期都冇改善，可以預約面診傾吓。",
+    },
+    tired: {
+      label: "好攰，瞓醒都唔夠",
+      try: "唔使一次補返晒。今日揀一件可以唔做嘅事，刪走佢。",
+      seek: "攰咗幾個星期都唔退，或者伴住發燒、氣促、體重無故下降，請睇醫生檢查。",
+    },
+    neck: {
+      label: "肩頸硬，膊頭高",
+      try: "跟下面「肩頸放低」做一分鐘。坐耐咗，起身行兩步。",
+      seek: "手臂麻痺、無力，或者頸痛伴發燒、頸硬，請盡快求醫。",
+    },
+    heart: {
+      label: "心跳快，心口翳",
+      try: "先做頁頂嘅半分鐘呼吸。呼氣慢慢拉長。",
+      seek: "心口痛、胸口好似被壓住、氣促、出冷汗或者暈，請即刻求醫或者去急症室。",
+    },
+    stomach: {
+      label: "胃脹，胃口變咗",
+      try: "食飯時離開枱面同螢幕。食慢啲，七分飽。",
+      seek: "持續肚痛、嘔吐、黑便或者便血、吞嘢困難、體重無故下降，請盡快睇醫生。",
+    },
+    head: {
+      label: "頭痛，頭緊",
+      try: "放低螢幕，望遠處。鬆一鬆眉心同牙關，飲一口水。",
+      seek: "突然劇烈頭痛、從未試過嘅頭痛，或者伴手腳無力、講嘢唔清、睇嘢唔清，請即刻去急症室。",
+    },
+    sleep: {
+      label: "瞓得差，瞓醒仲攰",
+      try: "睡前一個鐘收起工作。想知多啲，可以去安寐。",
+      seek: "瞓唔好持續幾個星期，影響日間生活，可以預約面診。",
+    },
+  },
+  shoulderK: "鬆一鬆",
+  shoulderT: "肩頸放低 · 一分鐘",
+  shoulderLead: "跟住提示做。每段大約 8 秒。坐定或者企定都得。",
+  shoulderPrep: "唔使做到足。邊度痛，或者頭暈，就停。",
+  shoulderIdle: "坐穩，撳開始。",
+  shoulderStopped: "已停。唔舒服就休息，隨時再嚟。",
+  shoulderStart: "開始",
+  shoulderStop: "停",
+  shoulderLines: [
+    "坐穩。雙腳踩實地面。",
+    "留意牙關。上下牙分開少少，舌頭放鬆。",
+    "留意眉心。眉頭放開，眼皮放軟。",
+    "吸氣，肩膊輕輕提高少少……",
+    "呼氣，一次過放低。覺得手臂重咗。",
+    "頭慢慢側向左邊，停一停。返中間。",
+    "頭慢慢側向右邊，停一停。返中間。",
+    "雙手放喺大腿。鼻吸 4，口呼 6。完。隨時再嚟。",
+  ],
+  parkK: "放低少少",
+  parkT: "壓力暫存 · 揀一個細步",
+  parkLead: "腦入面轉住嘅事，唔使一次解決。寫低，揀一個細步，其餘暫存。",
+  parkSteps: [
+    ["寫低一件。", "揀而家最重嗰件，一句就夠。唔使寫原因。"],
+    ["揀一個細步。", "十分鐘內做得到，細到幾乎唔會失敗。例如：打開個檔案、覆一句「收到」。"],
+    ["其餘暫存。", "未到時候嘅，就留喺清單。做完細步，唔使即刻諗下一步。"],
+  ],
+  parkNote: "如果擔心嘅係即刻有危險嘅事，就唔好暫存，即刻處理或者求助。",
+  parkWhatL: "壓住你嘅事",
+  parkWhatPh: "例如：份報告禮拜五要交",
+  parkStepL: "十分鐘內嘅細步（可以留空）",
+  parkStepPh: "例如：開個檔，寫好標題",
+  parkAdd: "暫存",
+  parkListT: "暫存清單",
+  parkEmpty: "清單係空嘅。",
+  parkNoStep: "未揀細步，都得。",
+  parkDone: "細步做咗",
+  parkClear: "清空清單",
+  parkPrivacy: "只留喺呢個分頁，關咗就冇。唔會儲存，唔會上傳。",
+  dailyK: "日子有鬆有緊",
+  dailyT: "一日嘅鬆緊節奏",
+  dailyLead: "唔使成日都放鬆。喺幾個位置，鬆一格就夠。",
+  daily: [
+    { title: "朝早", body: "起身先飲暖水，望一陣窗外光。唔好一醒就睇工作訊息。" },
+    { title: "工作中", body: "每六十至九十分鐘，起身兩分鐘。肩膊放低，望遠處。" },
+    { title: "食飯", body: "離開枱面同螢幕食。食慢啲，七分飽。" },
+    { title: "收工", body: "做一個交更動作：寫低聽日第一件事，合埋電腦。" },
+    { title: "夜晚", body: "睡前一個鐘收起工作。燈調暗。少咖啡，少酒。" },
+    { title: "郁一郁", body: "每日行路或者伸展少少就得。唔使操到好攰。" },
+  ],
+  acuK: "輕按一下",
+  acuT: "鬆弦常用穴位",
+  acuLead: "撳身上嘅點，睇位置同點用。輕按就得，唔代替針灸。適唔適合你，要醫生面診先定。",
+  acuNote: "每個位置輕按約半分鐘，配合慢呼吸。酸脹就停。皮膚有傷口、懷孕，或者有出血傾向，請先問醫生。",
+  musicK: "聽一段",
+  musicT: "靜音樂",
+  musicLead: "預設關閉。想聽先撳。音量細，會慢慢淡入，會循環播放。",
+  musicSafety: "對聲音敏感，可以唔開。聽到唔舒服，隨時停。",
+  musicPlay: "播放",
+  musicStop: "停止音樂",
+  musicNow: "播放緊：",
+  musicVol: "音量",
+  musicCn: "中樂 · 古琴",
+  musicWest: "西樂 · 鋼琴",
+  tracks: [
+    { id: "peilan", group: "cn", title: "《佩蘭》", hint: "古琴（絲弦）· 約 8 分鐘 · 音色柔，起伏細" },
+    { id: "kongzi", group: "cn", title: "《孔子讀易》", hint: "古琴 · 約 6 分鐘 · 慢而沉" },
+    { id: "aria", group: "west", title: "巴赫《哥德堡變奏曲》詠歎調", hint: "鋼琴 · 約 5 分鐘 · 慢，規律" },
+    { id: "prelude", group: "west", title: "巴赫《平均律》C 大調前奏曲", hint: "鋼琴 · 約 3 分鐘 · 分解和弦，好似呼吸咁起落" },
+  ],
+  musicCredits:
+    "古琴錄音：Charlie Huang 演奏，維基共享資源，CC BY 2.5；樂曲出自《天聞閣琴譜》（1876），屬公有領域。鋼琴錄音：Kimiko Ishizaka 演奏（Open Goldberg Variations／Open Well-Tempered Clavier），CC0 公有領域貢獻；巴赫樂曲屬公有領域。本站已轉檔、修剪首尾靜音、統一音量及加淡入淡出。",
+  careK: "唔好硬撐",
+  careT: "幾時要面診",
+  careLead: "呢頁唔係診斷。以下情況，請唔好只靠自己練。",
+  careNowT: "即刻求醫，或者去急症室",
+  careNow: [
+    "心口痛、胸口好似被壓住，或者痛到手臂、下巴、背脊。",
+    "氣促、出冷汗、暈低。",
+    "突然劇烈頭痛，或者手腳無力、口角歪、講嘢唔清。",
+    "嘔血、黑便或者便血。",
+  ],
+  careSoonT: "盡快預約面診",
+  careSoon: [
+    "身體反應持續兩個星期以上冇改善，或者愈嚟愈差。",
+    "瞓唔好、胃口差，或者體重無故變化。",
+    "已經影響返工、返學，或者照顧屋企人。",
+    "開始要靠酒、煙或者藥物去頂。",
+    "新出現心跳亂、心悸一陣陣。",
+  ],
+  careCrisis: crisisLine("yue"),
+  careMeds: "如果你而家有食緊藥，請唔好自行停藥或者改藥。中西醫可以一齊睇。",
+  careBook: "預約掛號（澳門地區）→",
+  viewK: "慢慢認識",
+  viewT: "弦拉得太緊",
+  viewP1:
+    "中醫講形神合一。壓力長期唔散，氣機容易鬱住。向上走，頭會緊、肩頸會硬。橫住喺中間，胃會脹、胃口會變。擾到心，心跳會快、瞓得淺。",
+  viewP2:
+    "身體有反應，唔代表你軟弱，亦唔係想像出嚟。調理方向因人而異，要醫生面診先定。呢度只係教育內容，唔代替睇醫生。",
+};
+
 export const YUE = {
   ...yue,
   jieyu: jieyuYue,
   anmei: anmeiYue,
+  yali: yaliYue,
   almanac: ALMANAC,
-  lines: { anshen: ANSHEN_LINES, jieyu: JIEYU_LINES, anmei: ANMEI_LINES },
+  lines: { anshen: ANSHEN_LINES, jieyu: JIEYU_LINES, anmei: ANMEI_LINES, yali: YALI_LINES },
 };
 
 type NavItem = { href: string; label: string };
@@ -631,7 +831,14 @@ function addFollowNav(nav: readonly NavItem[], label: string): NavItem[] {
   return [...items.slice(0, at), item, ...items.slice(at)];
 }
 
-function withFollow<T extends { anshen: { nav: readonly NavItem[] }; jieyu: { nav: readonly NavItem[] }; anmei: { nav: readonly NavItem[] } }>(
+function withFollow<
+  T extends {
+    anshen: { nav: readonly NavItem[] };
+    jieyu: { nav: readonly NavItem[] };
+    anmei: { nav: readonly NavItem[] };
+    yali: { nav: readonly NavItem[] };
+  },
+>(
   base: T,
   lang: Lang,
 ) {
@@ -642,6 +849,7 @@ function withFollow<T extends { anshen: { nav: readonly NavItem[] }; jieyu: { na
     anshen: { ...base.anshen, nav: addFollowNav(base.anshen.nav, navLabel), follow: pack.anshen },
     jieyu: { ...base.jieyu, nav: addFollowNav(base.jieyu.nav, navLabel), follow: pack.jieyu },
     anmei: { ...base.anmei, nav: addFollowNav(base.anmei.nav, navLabel), follow: pack.anmei },
+    yali: { ...base.yali, nav: addFollowNav(base.yali.nav, navLabel), follow: pack.yali },
   };
 }
 
@@ -662,8 +870,24 @@ function merge(base: unknown, over: unknown): unknown {
   return out;
 }
 
+/**
+ * 鬆弦 shares approved safety copy instead of re-wording it: the footer note is 安神's in each
+ * language, and the crisis sentence is the FAQ's (yue/cmn). EN has no FAQ, so its crisis sentence
+ * lives in copy-extra.ts as a translation (flagged for clinician approval).
+ */
+function withYaliShared(copy: Copy, lang: Lang): Copy {
+  return {
+    ...copy,
+    yali: {
+      ...copy.yali,
+      footerNote: copy.anshen.footerNote,
+      careCrisis: lang === "en" ? copy.yali.careCrisis : crisisLine(lang),
+    },
+  };
+}
+
 export const COPY: Record<Lang, Copy> = {
-  yue: yueCopy,
-  cmn: withFollow(merge(YUE, CMN) as typeof YUE, "cmn"),
-  en: withFollow(merge(YUE, EN) as typeof YUE, "en"),
+  yue: withYaliShared(yueCopy, "yue"),
+  cmn: withYaliShared(withFollow(merge(YUE, CMN) as typeof YUE, "cmn"), "cmn"),
+  en: withYaliShared(withFollow(merge(YUE, EN) as typeof YUE, "en"), "en"),
 };

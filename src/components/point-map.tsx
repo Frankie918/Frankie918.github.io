@@ -23,6 +23,11 @@ const EAR: Record<RoomId, Dot[]> = {
     { id: "zhen", left: "66%", top: "68%" },
     { id: "pi", left: "52%", top: "58%" },
   ],
+  yali: [
+    { id: "shenmen", left: "56%", top: "32%" },
+    { id: "jiaogan", left: "38%", top: "36%" },
+    { id: "pizhixia", left: "56%", top: "66%" },
+  ],
 };
 
 const BODY: Record<RoomId, Dot[]> = {
@@ -43,6 +48,12 @@ const BODY: Record<RoomId, Dot[]> = {
     { id: "neiguan", left: "17.5%", top: "54%" },
     { id: "sanyinjiao", left: "46%", top: "88%" },
     { id: "yongquan", left: "62%", top: "97%" },
+  ],
+  yali: [
+    { id: "yintang", left: "50%", top: "7.5%" },
+    { id: "neiguan", left: "17.5%", top: "54%" },
+    { id: "hegu", left: "13%", top: "65%" },
+    { id: "taichong", left: "38%", top: "95%" },
   ],
 };
 
@@ -88,8 +99,9 @@ export function PointMap({ room }: { room: RoomId }) {
   const p = useCopy().play;
   const pts = p.maps[room] as Record<string, { d: string }>;
   const acuName = useAcuName();
-  const [mode, setMode] = useState<"ear" | "body">(room === "jieyu" ? "body" : "ear");
-  const [id, setId] = useState(room === "jieyu" ? BODY[room][0].id : EAR[room][0].id);
+  const bodyFirst = room === "jieyu" || room === "yali";
+  const [mode, setMode] = useState<"ear" | "body">(bodyFirst ? "body" : "ear");
+  const [id, setId] = useState(bodyFirst ? BODY[room][0].id : EAR[room][0].id);
   const dots = mode === "ear" ? EAR[room] : BODY[room];
   const shownId = lookup(pts, id) && dots.some((d) => d.id === id) ? id : dots[0].id;
   const item = lookup(pts, shownId);

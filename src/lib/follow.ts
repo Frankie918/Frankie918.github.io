@@ -196,6 +196,55 @@ export const FOLLOW = {
         },
       ],
     },
+    yali: {
+      ...yueShell,
+      lessons: [
+        {
+          title: "先返落地",
+          lead: "壓力一嚟，人會向上提。先返落地面。",
+          steps: [
+            "雙腳踩實地面，覺得鞋底。",
+            "鼻吸 4、口呼 6，做三輪。",
+            "呼氣時講一句：我喺度，一樣一樣嚟。",
+          ],
+          ifNot: "數唔到三輪，就淨係覺得腳底。",
+          stop: "心口痛、氣促或者頭暈，就停，先求醫。",
+        },
+        {
+          title: "肩膊放低",
+          lead: "繃緊最常收埋喺肩膊。唔使按摩，先放低。",
+          steps: [
+            "吸氣，肩膊輕輕向耳仔提高少少。",
+            "呼氣，一次過放低，覺得手臂重咗。",
+            "頭慢慢側向左、再側向右，各停一停。",
+          ],
+          ifNot: "郁唔到，就淨係呼氣時想像肩膊重咗。",
+          stop: "手臂麻痺、痛到放射，或者頭暈，就停。",
+        },
+        {
+          title: "壓力暫存",
+          lead: "腦入面嘅事，唔使一次記住。寫低，就可以暫時放低。",
+          steps: [
+            "寫低而家最重嗰件事，一句就夠。",
+            "旁邊寫一個十分鐘內做得到嘅細步。",
+            "其餘嘅，寫「之後再諗」，然後收起。",
+          ],
+          ifNot: "寫唔出，就只寫兩個字：好多。都算。",
+          stop: "如果係即刻有危險嘅事，就唔好暫存，即刻處理或者求助。",
+        },
+        {
+          title: "收工交更",
+          lead: "工作完咗，身體未必知。要一個清楚嘅交更。",
+          steps: [
+            "收工前寫低聽日第一件事，合埋電腦。",
+            "洗手或者換衫，當係交更。",
+            "行十分鐘路，或者望一陣遠處。",
+          ],
+          ifNot: "成套做唔到，就洗手嗰下講一句：今日夠喇。",
+          stop: "有傷害自己嘅念頭，就停，去求助。",
+        },
+      ],
+    },
   },
   cmn: {
     anmei: {
@@ -342,6 +391,55 @@ export const FOLLOW = {
           ],
           ifNot: "兩分鐘都不想做，就只是看一看那件東西。",
           stop: "一接觸就更空虛、更想消失，就停，去找一個人。",
+        },
+      ],
+    },
+    yali: {
+      ...cmnShell,
+      lessons: [
+        {
+          title: "先回到地面",
+          lead: "壓力一來，人會往上提。先回到地面。",
+          steps: [
+            "雙腳踩實地面，感覺鞋底。",
+            "鼻吸 4、口呼 6，做三輪。",
+            "呼氣時說一句：我在這裏，一件一件來。",
+          ],
+          ifNot: "數不到三輪，就只感覺腳底。",
+          stop: "胸口痛、氣促或頭暈，就停，先求醫。",
+        },
+        {
+          title: "肩膀放下",
+          lead: "緊繃最常藏在肩膀。不用按摩，先放下。",
+          steps: [
+            "吸氣，肩膀輕輕往耳朵提高一點。",
+            "呼氣，一次放下，感覺手臂變重。",
+            "頭慢慢側向左、再側向右，各停一停。",
+          ],
+          ifNot: "動不了，就只在呼氣時想像肩膀變重。",
+          stop: "手臂發麻、疼痛往外放射，或頭暈，就停。",
+        },
+        {
+          title: "壓力暫存",
+          lead: "腦中的事，不必一次記住。寫下來，就可以暫時放下。",
+          steps: [
+            "寫下現在最重的那件事，一句就夠。",
+            "旁邊寫一個十分鐘內做得到的小步。",
+            "其餘的，寫「之後再想」，然後收起來。",
+          ],
+          ifNot: "寫不出來，就只寫兩個字：很多。也算。",
+          stop: "如果是馬上有危險的事，就不要暫存，立刻處理或求助。",
+        },
+        {
+          title: "下班交接",
+          lead: "工作結束了，身體未必知道。需要一個清楚的交接。",
+          steps: [
+            "下班前寫下明天第一件事，闔上電腦。",
+            "洗手或換衣服，當作交接。",
+            "走十分鐘路，或望一會兒遠處。",
+          ],
+          ifNot: "整套做不到，就在洗手時說一句：今天夠了。",
+          stop: "有傷害自己的念頭，就停，去求助。",
         },
       ],
     },
@@ -494,5 +592,54 @@ export const FOLLOW = {
         },
       ],
     },
+    yali: {
+      ...enShell,
+      lessons: [
+        {
+          title: "Back to the ground",
+          lead: "Under pressure, the body pulls upward. Come back down first.",
+          steps: [
+            "Press both feet into the floor. Feel your soles.",
+            "In through the nose for 4, out through the mouth for 6. Three rounds.",
+            "On the out-breath, say: I am here. One thing at a time.",
+          ],
+          ifNot: "If three rounds is too many, only feel your soles.",
+          stop: "Stop and get medical help if there is chest pain, breathlessness or dizziness.",
+        },
+        {
+          title: "Let the shoulders drop",
+          lead: "Tension likes to hide in the shoulders. No massage needed. Just let them drop.",
+          steps: [
+            "Breathe in. Lift the shoulders a little toward the ears.",
+            "Breathe out. Let them fall at once. Feel the arms grow heavy.",
+            "Tilt the head slowly left, then right. Pause at each side.",
+          ],
+          ifNot: "If moving is hard, only imagine the shoulders growing heavy as you breathe out.",
+          stop: "Stop if an arm goes numb, pain spreads, or you feel dizzy.",
+        },
+        {
+          title: "Park the pressure",
+          lead: "You need not hold everything in your head. Write it down, and it can rest for now.",
+          steps: [
+            "Write the heaviest thing right now. One line is enough.",
+            "Beside it, write one small step you can do in ten minutes.",
+            "For the rest, write “later”, then put it away.",
+          ],
+          ifNot: "If nothing comes, write one word: “lots”. That counts.",
+          stop: "If something is an immediate danger, do not park it. Deal with it or get help now.",
+        },
+        {
+          title: "Clocking off",
+          lead: "Work has ended, but the body may not know. Give it a clear hand-over.",
+          steps: [
+            "Before you finish, write tomorrow’s first task. Close the laptop.",
+            "Wash your hands or change clothes, as a hand-over.",
+            "Walk for ten minutes, or look into the distance for a while.",
+          ],
+          ifNot: "If the whole set is too much, say as you wash your hands: enough for today.",
+          stop: "Stop and get help if there is a wish to harm yourself.",
+        },
+      ],
+    },
   },
-} as const satisfies Record<"yue" | "cmn" | "en", Record<"anshen" | "jieyu" | "anmei", FollowRoom>>;
+} as const satisfies Record<"yue" | "cmn" | "en", Record<"anshen" | "jieyu" | "anmei" | "yali", FollowRoom>>;

@@ -19,12 +19,13 @@ function FeelingPick() {
     { to: "/anshen", label: home.feelAnshen, room: home.anshenT },
     { to: "/jieyu", label: home.feelJieyu, room: home.jieyuT },
     { to: "/anmei", label: home.feelAnmei, room: home.anmeiT },
+    { to: "/yali", label: home.feelYali, room: home.yaliT },
   ] as const;
   return (
     <nav aria-label={home.feelK} className="mt-7 max-w-xl">
       <p className="font-serif text-xl text-ink">{home.feelK}</p>
       <p className="mt-1 text-sm text-muted">{home.feelLead}</p>
-      <ul className="mt-4 grid gap-2.5 sm:grid-cols-3">
+      <ul className="mt-4 grid gap-2.5 sm:grid-cols-2">
         {picks.map((p) => (
           <li key={p.to}>
             <Link
@@ -80,7 +81,7 @@ function Home() {
       </header>
 
       <CrayonFrame theme="home">
-      <section id="rooms" className="grid gap-4 px-6 pb-16 md:grid-cols-3 md:px-12">
+      <section id="rooms" className="grid gap-4 px-6 pb-16 md:grid-cols-2 md:px-12">
         <Link
           to="/anshen"
           className="group overflow-hidden rounded-card border border-line bg-paper no-underline text-ink"
@@ -117,6 +118,18 @@ function Home() {
             <p className="mt-6 text-sm text-accent">{home.anmeiGo}</p>
           </div>
         </Link>
+        <Link
+          to="/yali"
+          className="group overflow-hidden rounded-card border border-line bg-paper no-underline text-ink"
+        >
+          <img src="/bg-home.jpg?v=4" alt="" className="h-36 w-full object-cover" />
+          <div className="p-6">
+            <p className="text-xs tracking-[0.22em] text-accent">{home.yaliK}</p>
+            <h2 className="mt-2 font-serif text-4xl">{home.yaliT}</h2>
+            <p className="mt-3 text-sm text-muted">{home.yaliD}</p>
+            <p className="mt-6 text-sm text-accent">{home.yaliGo}</p>
+          </div>
+        </Link>
       </section>
 
       <section className="px-6 pb-20 md:px-12">
@@ -129,8 +142,8 @@ function Home() {
         <h2 className="mt-2 font-serif text-3xl md:text-4xl">{home.illnessT}</h2>
         <p className="mt-4 text-ink">{home.illnessLead}</p>
         <p className="mt-3 text-muted">{home.illnessBody}</p>
-        <ul className="mt-6 grid gap-3 sm:grid-cols-3">
-          {[home.illnessA, home.illnessB, home.illnessC].map((item) => (
+        <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+          {[home.illnessA, home.illnessB, home.illnessC, home.illnessD].map((item) => (
             <li
               key={item}
               className="rounded-card border border-line bg-paper px-4 py-4 text-sm text-ink"

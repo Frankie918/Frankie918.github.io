@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 
-const PAGES = ["home", "anshen", "jieyu", "anmei", "listen", "qr"] as const;
+const PAGES = ["home", "anshen", "jieyu", "anmei", "yali", "listen", "qr"] as const;
 export type ViewPage = (typeof PAGES)[number];
 
 export const bumpViews = createServerFn({ method: "POST" })

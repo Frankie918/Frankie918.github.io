@@ -9,11 +9,12 @@ function lines(
   p: ReturnType<typeof useCopy>["play"],
   title: string,
   followTitles: readonly string[],
+  scanLabel: string = p.cardScan,
 ) {
   const out: string[] = [];
   if (n.breath) out.push(`${p.cardBreath}：${n.breath}`);
   if (n.hour) out.push(`${p.cardHour}：${n.hour}`);
-  if (n.scan?.length) out.push(`${p.cardScan}：${n.scan.join("、")}`);
+  if (n.scan?.length) out.push(`${scanLabel}：${n.scan.join("、")}`);
   if (n.weather) out.push(`${p.cardWeather}：${n.weather}`);
   if (n.bloom) out.push(`${p.cardBloom}：${n.bloom}`);
   if (n.diaryDays) out.push(`${p.cardDiary}：${n.diaryDays}`);
@@ -31,14 +32,22 @@ export function ClinicCard({ room }: { room: RoomId }) {
   const copy = useCopy();
   const p = copy.play;
   const title =
-    room === "anshen" ? copy.anshen.title : room === "jieyu" ? copy.jieyu.title : copy.anmei.title;
+    room === "anshen"
+      ? copy.anshen.title
+      : room === "jieyu"
+        ? copy.jieyu.title
+        : room === "yali"
+          ? copy.yali.title
+          : copy.anmei.title;
   const followTitles = copy[room].follow.lessons.map((lesson) => lesson.title);
   const [text, setText] = useState("");
   const [copied, setCopied] = useState(false);
 
   function refresh() {
     const n = loadNotes()[room];
-    setText(noteHas(n) ? lines(n, p, `${copy.ui.site} · ${title}`, followTitles) : "");
+    // 鬆弦 stores its body-signal picks in `scan`; label them as such on the card.
+    const scanLabel = room === "yali" ? copy.yali.cardFeel : p.cardScan;
+    setText(noteHas(n) ? lines(n, p, `${copy.ui.site} · ${title}`, followTitles, scanLabel) : "");
   }
 
   useEffect(() => {

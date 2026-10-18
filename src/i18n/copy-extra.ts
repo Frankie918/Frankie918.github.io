@@ -75,6 +75,7 @@ export const CMN = {
 		feelAnshen: "心慌坐不住",
 		feelJieyu: "提不起勁",
 		feelAnmei: "睡不著",
+		feelYali: "常常緊繃",
 		kicker: "慢慢來，不必一次完成",
 		lede: "呼吸可以再慢一拍。這裏不趕，只陪你把心與氣，輕輕放回來。",
 		anshenK: "焦慮",
@@ -89,20 +90,25 @@ export const CMN = {
 		anmeiT: "安寐",
 		anmeiD: "睡不著，不代表懶。這裏陪你把床還給夜。",
 		anmeiGo: "進入安寐 →",
+		yaliK: "壓力緊繃",
+		yaliT: "鬆弦",
+		yaliD: "長期繃著，肩頸、胃、心跳都會說話。這裏陪你鬆一格。",
+		yaliGo: "進入鬆弦 →",
 		qrK: "市民掃入",
 		qrT: "一掃即到身心課堂",
 		listenGo: "試聽其他背景樂 →",
 		aboutK: "這裏是什麼",
 		aboutT: "身心課堂",
 		aboutLead: "你來到這裏，可以當作自己上了一堂小課。不必掛號、不會收你的病歷，也不取代面診。只用淺白的字，陪你把心與氣，慢慢放回來。",
-		aboutBody: "裏面有三間房：安神、解鬱、安寐。你選現在最貼近自己的那一間就好。裏面有「此刻」短句、呼吸、時辰、耳穴位置，以及你可以帶去面診的小卡。用藥和落針，始終要醫師親手看過你。",
+		aboutBody: "裏面有四間房：安神、解鬱、安寐、鬆弦。你選現在最貼近自己的那一間就好。裏面有「此刻」短句、呼吸、時辰、耳穴位置，以及你可以帶去面診的小卡。用藥和落針，始終要醫師親手看過你。",
 		illnessK: "為什麼叫身心",
 		illnessT: "心與身，本來在一起",
 		illnessLead: "中醫講形神合一。如果你心慌、胸悶、睡不著、胃口淡，很多時候不是「只是心理」或「只是身體」，而是精、氣、神亂了。這類情況，中醫會從心與身一起看。這裏不是幫你診斷，只和你講可以怎樣同這副身體相處。",
 		illnessBody: "你覺得身心不適，不等於想像出來，也不等於軟弱。這堂課幫你先認得這些訊號。如果已經影響你工作、上學，或你有傷害自己的念頭，請同時求助精神健康服務，並盡快面診。",
 		illnessA: "如果你怕、心跳、坐不定——神散了，可以進安神。",
 		illnessB: "如果你悶悶不樂、不想動、心口翳悶——氣滯住，可以進解鬱。",
-		illnessC: "如果你睡不著、易醒——寐未歸，可以進安寐。"
+		illnessC: "如果你睡不著、易醒——寐未歸，可以進安寐。",
+		illnessD: "如果你長期緊繃、肩頸僵硬、胃脹、心跳快——弦拉得太緊，可以進鬆弦。"
 	},
 	qr: {
 		kicker: "掃入網站",
@@ -140,7 +146,7 @@ export const CMN = {
 	play: {
 		kicker: "今日可試",
 		title: "陪你做三件很小的事",
-		lead: "呼吸、時辰、面診小卡。三間房都有，只是時辰不同。不計分，不過關。",
+		lead: "呼吸、時辰、面診小卡。每間房都有，只是時辰不同。不計分，不過關。",
 		breathIdle: "圈會跟著脹縮",
 		breathHint: "鼻吸 4 秒，口呼 6 秒 · 三輪約半分鐘",
 		breathIn: "吸",
@@ -185,6 +191,16 @@ export const CMN = {
 					{ start: 21, end: 23, name: "亥", line: "收心。把床還給睡。" },
 					{ start: 23, end: 1, name: "子", line: "已臥。不翻帳、不核對手機。" }
 				]
+			},
+			yali: {
+				kicker: "鬆時",
+				title: "鬆一格的時辰",
+				lead: "不必整天都放鬆。點一下，記住哪一段可以鬆一格。",
+				slots: [
+					{ start: 11, end: 13, name: "午", line: "吃飯離開桌面，不看工作。" },
+					{ start: 15, end: 17, name: "申", line: "站起來兩分鐘，肩膀放下。" },
+					{ start: 19, end: 21, name: "戌", line: "收起工作，做一個交接。" }
+				]
 			}
 		},
 		mapEar: "耳穴",
@@ -215,6 +231,15 @@ export const CMN = {
 				neiguan: { d: "躺下心慌可按。" },
 				sanyinjiao: { d: "陰血不足、夜醒可記。" },
 				yongquan: { d: "搓熱至暖，引火下行。" }
+			},
+			yali: {
+				shenmen: { d: "耳穴常用的安神位置。輕輕捏耳廓就好。" },
+				jiaogan: { d: "緊繃、心急時，可作教育標記。" },
+				pizhixia: { d: "思緒停不下時，可作教育標記。不要用力揉。" },
+				yintang: { d: "眉心皺起時，用指腹輕輕打圈，隨呼氣放鬆。" },
+				neiguan: { d: "胸口悶、胃脹、心跳快時可以輕按。心跳伴胸痛就不要等，先求醫。" },
+				hegu: { d: "頭、臉、牙關緊繃時，可以輕按半分鐘。" },
+				taichong: { d: "傳統上與合谷一起用，稱為「四關」。煩躁、肩緊時，隨呼氣輕按。" }
 			}
 		},
 		cardK: "帶去面診",
@@ -1084,7 +1109,178 @@ export const CMN = {
 			ji: "把獨自難過當成秘密刑罰。"
 		}
 	],
+	yali: {
+		title: "鬆弦",
+		kicker: "壓力緊繃與身心反應",
+		lede: "壓力大，身體會先知道。不必立刻解決，先把呼吸放慢，把弦鬆一格。",
+		footerName: "身心課堂 · 鬆弦",
+		musicCredit: "音樂（預設關閉）：古琴《佩蘭》《孔子讀易》，Charlie Huang 演奏，CC BY 2.5（維基共享資源，已轉檔並加淡入淡出）；巴赫《哥德堡變奏曲》詠歎調、《平均律》第一冊 C 大調前奏曲，Kimiko Ishizaka 演奏，CC0。",
+		nav: [
+			{ href: "#feel", label: "身體訊號" },
+			{ href: "#shoulder", label: "肩頸放下" },
+			{ href: "#park", label: "壓力暫存" },
+			{ href: "#daily", label: "一日節奏" },
+			{ href: "#acu", label: "穴位" },
+			{ href: "#play", label: "今日可試" },
+			{ href: "#music", label: "靜音樂" },
+			{ href: "#care", label: "何時面診" },
+			{ href: "#view", label: "中醫怎麼看" }
+		],
+		feelK: "認一認",
+		feelT: "壓力在身體裏，會怎樣說話",
+		feelLead: "壓力不只在腦中。很多人會在身上感覺到。選你最近留意到的，看看可以怎樣陪它。",
+		feelPick: "可以選多於一個。不是測驗，不計分。",
+		feelTry: "可以試",
+		feelSeek: "何時要看醫生",
+		feelFoot: "以上是生活上可以試的做法，不是診斷，也不是處方。",
+		cardFeel: "留意到",
+		feel: {
+			tense: {
+				label: "長期緊繃，放不下",
+				try: "每個小時停一停，問自己：肩、牙關、手，哪裏在用力？鬆一格就夠。",
+				seek: "緊繃到常常發脾氣、做不了事，或幾個星期都沒有改善，可以預約面診談談。"
+			},
+			tired: {
+				label: "很累，睡醒也不夠",
+				try: "不必一次補回來。今天選一件可以不做的事，把它刪掉。",
+				seek: "累了幾個星期都不退，或伴有發燒、氣促、體重無故下降，請看醫生檢查。"
+			},
+			neck: {
+				label: "肩頸僵硬，肩膀聳高",
+				try: "跟下面「肩頸放下」做一分鐘。坐久了，站起來走兩步。",
+				seek: "手臂發麻、無力，或頸痛伴發燒、頸部僵硬，請盡快求醫。"
+			},
+			heart: {
+				label: "心跳快，胸口悶",
+				try: "先做頁頂的半分鐘呼吸。呼氣慢慢拉長。",
+				seek: "胸口痛、胸口像被壓住、氣促、冒冷汗或暈眩，請立刻求醫或到急症室。"
+			},
+			stomach: {
+				label: "胃脹，胃口變了",
+				try: "吃飯時離開桌面和螢幕。吃慢一點，七分飽。",
+				seek: "持續肚痛、嘔吐、黑便或便血、吞嚥困難、體重無故下降，請盡快看醫生。"
+			},
+			head: {
+				label: "頭痛，頭緊",
+				try: "放下螢幕，望遠處。鬆一鬆眉心和牙關，喝一口水。",
+				seek: "突然劇烈頭痛、從未有過的頭痛，或伴手腳無力、說話不清、視力模糊，請立刻到急症室。"
+			},
+			sleep: {
+				label: "睡得差，睡醒還累",
+				try: "睡前一小時收起工作。想多了解，可以去安寐。",
+				seek: "睡不好持續幾個星期，影響白天生活，可以預約面診。"
+			}
+		},
+		shoulderK: "鬆一鬆",
+		shoulderT: "肩頸放下 · 一分鐘",
+		shoulderLead: "跟著提示做。每段約 8 秒。坐著或站著都可以。",
+		shoulderPrep: "不必做到足。哪裏痛，或頭暈，就停。",
+		shoulderIdle: "坐穩，點開始。",
+		shoulderStopped: "已停。不舒服就休息，隨時再來。",
+		shoulderStart: "開始",
+		shoulderStop: "停",
+		shoulderLines: [
+			"坐穩。雙腳踩實地面。",
+			"留意牙關。上下牙分開一點，舌頭放鬆。",
+			"留意眉心。眉頭放開，眼皮放軟。",
+			"吸氣，肩膀輕輕提高一點……",
+			"呼氣，一次放下。感覺手臂變重。",
+			"頭慢慢側向左邊，停一停。回到中間。",
+			"頭慢慢側向右邊，停一停。回到中間。",
+			"雙手放在大腿。鼻吸 4，口呼 6。完成。隨時再來。"
+		],
+		parkK: "放下一點",
+		parkT: "壓力暫存 · 選一個小步",
+		parkLead: "腦中轉著的事，不必一次解決。寫下來，選一個小步，其餘暫存。",
+		parkSteps: [
+			["寫下一件。", "選現在最重的那件，一句就夠。不必寫原因。"],
+			["選一個小步。", "十分鐘內做得到，小到幾乎不會失敗。例如：打開檔案、回一句「收到」。"],
+			["其餘暫存。", "還沒到時候的，就留在清單。做完小步，不必馬上想下一步。"]
+		],
+		parkNote: "如果擔心的是馬上有危險的事，就不要暫存，立刻處理或求助。",
+		parkWhatL: "壓著你的事",
+		parkWhatPh: "例如：報告星期五要交",
+		parkStepL: "十分鐘內的小步（可以留空）",
+		parkStepPh: "例如：打開檔案，寫好標題",
+		parkAdd: "暫存",
+		parkListT: "暫存清單",
+		parkEmpty: "清單是空的。",
+		parkNoStep: "還沒選小步，也可以。",
+		parkDone: "小步做完了",
+		parkClear: "清空清單",
+		parkPrivacy: "只留在這個分頁，關掉就沒有了。不會儲存，不會上傳。",
+		dailyK: "日子有鬆有緊",
+		dailyT: "一天的鬆緊節奏",
+		dailyLead: "不必整天都放鬆。在幾個位置，鬆一格就夠。",
+		daily: [
+			{ title: "早上", body: "起床先喝溫水，望一會兒窗外的光。不要一醒就看工作訊息。" },
+			{ title: "工作中", body: "每六十至九十分鐘，站起來兩分鐘。肩膀放下，望遠處。" },
+			{ title: "吃飯", body: "離開桌面和螢幕吃。吃慢一點，七分飽。" },
+			{ title: "下班", body: "做一個交接動作：寫下明天第一件事，闔上電腦。" },
+			{ title: "晚上", body: "睡前一小時收起工作。燈調暗。少咖啡，少酒。" },
+			{ title: "動一動", body: "每天走路或伸展一點就好。不必練到很累。" }
+		],
+		acuK: "輕按一下",
+		acuT: "鬆弦常用穴位",
+		acuLead: "點選身上的點，看位置和用法。輕按就好，不代替針灸。適不適合你，要醫生面診才能決定。",
+		acuNote: "每個位置輕按約半分鐘，配合慢呼吸。酸脹就停。皮膚有傷口、懷孕，或有出血傾向，請先問醫生。",
+		musicK: "聽一段",
+		musicT: "靜音樂",
+		musicLead: "預設關閉。想聽才點。音量小，會慢慢淡入，會循環播放。",
+		musicSafety: "對聲音敏感，可以不開。聽了不舒服，隨時停。",
+		musicPlay: "播放",
+		musicStop: "停止音樂",
+		musicNow: "正在播放：",
+		musicVol: "音量",
+		musicCn: "中樂 · 古琴",
+		musicWest: "西樂 · 鋼琴",
+		tracks: [
+			{ id: "peilan", group: "cn", title: "《佩蘭》", hint: "古琴（絲弦）· 約 8 分鐘 · 音色柔，起伏細" },
+			{ id: "kongzi", group: "cn", title: "《孔子讀易》", hint: "古琴 · 約 6 分鐘 · 慢而沉" },
+			{ id: "aria", group: "west", title: "巴赫《哥德堡變奏曲》詠歎調", hint: "鋼琴 · 約 5 分鐘 · 慢，規律" },
+			{ id: "prelude", group: "west", title: "巴赫《平均律》C 大調前奏曲", hint: "鋼琴 · 約 3 分鐘 · 分解和弦，像呼吸般起落" }
+		],
+		musicCredits: "古琴錄音：Charlie Huang 演奏，維基共享資源，CC BY 2.5；樂曲出自《天聞閣琴譜》（1876），屬公有領域。鋼琴錄音：Kimiko Ishizaka 演奏（Open Goldberg Variations／Open Well-Tempered Clavier），CC0 公有領域貢獻；巴赫樂曲屬公有領域。本站已轉檔、修剪首尾靜音、統一音量並加淡入淡出。",
+		careK: "不要硬撐",
+		careT: "何時要面診",
+		careLead: "這頁不是診斷。以下情況，請不要只靠自己練習。",
+		careNowT: "立刻求醫，或到急症室",
+		careNow: [
+			"胸口痛、胸口像被壓住，或痛到手臂、下巴、背部。",
+			"氣促、冒冷汗、昏倒。",
+			"突然劇烈頭痛，或手腳無力、嘴角歪斜、說話不清。",
+			"吐血、黑便或便血。"
+		],
+		careSoonT: "盡快預約面診",
+		careSoon: [
+			"身體反應持續兩個星期以上沒有改善，或越來越差。",
+			"睡不好、胃口差，或體重無故變化。",
+			"已經影響工作、上學，或照顧家人。",
+			"開始要靠酒、菸或藥物撐著。",
+			"新出現心跳不規則、陣發心悸。"
+		],
+		careMeds: "如果你正在服藥，請不要自行停藥或改藥。中西醫可以一起看。",
+		careBook: "預約掛號（澳門地區）→",
+		viewK: "慢慢認識",
+		viewT: "弦拉得太緊",
+		viewP1: "中醫講形神合一。壓力長期不散，氣機容易鬱住。往上走，頭會緊、肩頸會硬。橫在中間，胃會脹、胃口會變。擾到心，心跳會快、睡得淺。",
+		viewP2: "身體有反應，不代表你軟弱，也不是想像出來的。調理方向因人而異，要醫生面診才能決定。這裏只是教育內容，不代替看醫生。"
+	},
 	lines: {
+    yali: [
+      "肩膀可以低一格。",
+      "今天做不完，也很正常。",
+      "我一次只做一件事。",
+      "緊繃是身體在幫忙，我可以告訴它：夠了。",
+      "呼氣比吸氣長，就夠。",
+      "未回的訊息，可以等我喝完這口水。",
+      "我不必證明自己很忙。",
+      "一步小小的，也是一步。",
+      "牙關鬆一鬆，世界照樣轉。",
+      "休息不是偷懶。",
+      "今天的事，可以放在桌面上。",
+      "我可以說：晚一點回覆你。"
+    ],
     anshen: [
       "現在這一口氣，已經夠我用。",
       "心慌出現，不代表我做錯。",
@@ -1229,6 +1425,7 @@ export const EN = {
 		feelAnshen: "Heart racing, can’t sit still",
 		feelJieyu: "No energy to get going",
 		feelAnmei: "Can’t fall asleep",
+		feelYali: "Wound up all the time",
 		kicker: "Slow is allowed. Nothing has to be finished today.",
 		lede: "Let the breath drop one beat slower. No rush here — only a place to set the heart and the qi down again.",
 		anshenK: "Anxiety",
@@ -1243,20 +1440,25 @@ export const EN = {
 		anmeiT: "Restful Sleep",
 		anmeiD: "Lying awake is not laziness. This room gives the bed back to night.",
 		anmeiGo: "Enter Restful Sleep →",
+		yaliK: "Stress & tension",
+		yaliT: "Ease the Tension",
+		yaliD: "Wound up for long, the neck, stomach and heartbeat start to speak. This room helps you loosen one notch.",
+		yaliGo: "Enter Ease the Tension →",
 		qrK: "For visitors",
 		qrT: "One scan to the classroom",
 		listenGo: "Listen to other background music →",
 		aboutK: "What this is",
 		aboutT: "Body & Mind Classroom",
 		aboutLead: "You can treat this as a small class of your own. No registration, no records of yours kept, and it does not replace a visit. Plain words, to help you set the heart and the qi down again.",
-		aboutBody: "There are three rooms: Calm the Mind, Ease the Heart, Restful Sleep. Choose the one that feels closest today. Inside you will find short lines for this moment, a breath, the hours, ear-point maps, and a small card you can take to clinic. Herbs and needles still need a physician’s own look at you.",
+		aboutBody: "There are four rooms: Calm the Mind, Ease the Heart, Restful Sleep, Ease the Tension. Choose the one that feels closest today. Inside you will find short lines for this moment, a breath, the hours, ear-point maps, and a small card you can take to clinic. Herbs and needles still need a physician’s own look at you.",
 		illnessK: "Why body and mind",
 		illnessT: "Heart and body were never two things",
 		illnessLead: "Chinese medicine speaks of form and spirit as one. If your chest races, tightens, nights stay wakeful, appetite dull — this is often not “only mental” or “only physical”, but essence, qi, and spirit out of place. These belong to body-mind illness. This page is not here to diagnose you; we talk with you about living with this body.",
 		illnessBody: "If you feel unwell in body and mind, it is not imagined, and it is not weakness. This class helps you notice the signals first. If work or school is already slipping for you, or if there is a wish to harm yourself, please also seek mental-health care and come in for a visit soon.",
 		illnessA: "If you are afraid, the heart is fast, you cannot sit still — spirit is scattered. Try Calm the Mind.",
 		illnessB: "If you feel low and joyless, do not want to move, and the chest is stuffy — qi is stuck. Try Ease the Heart.",
-		illnessC: "If you lie awake or wake easily — sleep has not returned. Try Restful Sleep."
+		illnessC: "If you lie awake or wake easily — sleep has not returned. Try Restful Sleep.",
+		illnessD: "If you have been wound up for long — stiff neck, bloated stomach, a racing heart — the string is pulled too tight. Try Ease the Tension."
 	},
 	qr: {
 		kicker: "Scan to enter",
@@ -1339,6 +1541,16 @@ export const EN = {
 					{ start: 21, end: 23, name: "Hai", line: "Draw the heart in. Give the bed back to sleep." },
 					{ start: 23, end: 1, name: "Zi", line: "Already lying down. Do not check the books, or the phone." }
 				]
+			},
+			yali: {
+				kicker: "Easing hours",
+				title: "Hours to loosen one notch",
+				lead: "You need not be relaxed all day. Tap once, and remember which stretch suits loosening.",
+				slots: [
+					{ start: 11, end: 13, name: "Wu", line: "Eat away from the desk. No work." },
+					{ start: 15, end: 17, name: "Shen", line: "Stand for two minutes. Drop the shoulders." },
+					{ start: 19, end: 21, name: "Xu", line: "Put work away. Make a hand-over." }
+				]
 			}
 		},
 		mapEar: "Ear points",
@@ -1369,6 +1581,15 @@ export const EN = {
 				neiguan: { d: "Press if the chest races once you lie down." },
 				sanyinjiao: { d: "Note it for yin-blood shortage and night waking." },
 				yongquan: { d: "Rub until warm, to draw fire downward." }
+			},
+			yali: {
+				shenmen: { d: "An ear point often used to settle the mind. A gentle pinch of the ear is enough." },
+				jiaogan: { d: "An educational mark for times of tension and hurry." },
+				pizhixia: { d: "An educational mark for when thoughts will not stop. Do not rub hard." },
+				yintang: { d: "When the brow knits, circle gently with a fingertip and let go on the out-breath." },
+				neiguan: { d: "Light press when the chest is tight, the stomach bloated or the heart racing. If a racing heart comes with chest pain, do not wait: seek medical care first." },
+				hegu: { d: "Press lightly for half a minute when the head, face or jaw feel tight." },
+				taichong: { d: "Traditionally used together with Hegu, called the “Four Gates”. Press on the out-breath when irritable or the shoulders are tight." }
 			}
 		},
 		cardK: "Take to clinic",
@@ -2238,7 +2459,179 @@ export const EN = {
 			ji: "Do not make private sadness a secret punishment."
 		}
 	],
+	yali: {
+		title: "Ease the Tension",
+		kicker: "Stress, tension and body–mind reactions",
+		lede: "Under pressure, the body knows first. Nothing has to be solved at once. Slow the breath, and let the tight string loosen one notch.",
+		footerName: "Body & Mind Classroom · Ease the Tension",
+		musicCredit: "Music (off by default): guqin “Pei Lan” and “Kongzi Duyi”, performed by Charlie Huang, CC BY 2.5 (Wikimedia Commons; transcoded, fades added). Bach, Goldberg Variations Aria and Well-Tempered Clavier I Prelude in C major, performed by Kimiko Ishizaka, CC0.",
+		nav: [
+			{ href: "#feel", label: "Body signals" },
+			{ href: "#shoulder", label: "Shoulders" },
+			{ href: "#park", label: "Park it" },
+			{ href: "#daily", label: "Daily rhythm" },
+			{ href: "#acu", label: "Points" },
+			{ href: "#play", label: "Try today" },
+			{ href: "#music", label: "Music" },
+			{ href: "#care", label: "When to see us" },
+			{ href: "#view", label: "TCM view" }
+		],
+		feelK: "Notice",
+		feelT: "How pressure speaks through the body",
+		feelLead: "Pressure is not only in the head. Many people feel it in the body. Choose what you have noticed lately, and see how to keep it company.",
+		feelPick: "You can choose more than one. This is not a test. Nothing is scored.",
+		feelTry: "You could try",
+		feelSeek: "When to see a doctor",
+		feelFoot: "These are everyday things to try. They are not a diagnosis or a prescription.",
+		cardFeel: "Noticed",
+		feel: {
+			tense: {
+				label: "Wound up for a long time, can’t let go",
+				try: "Once an hour, pause. Ask: shoulders, jaw, hands — where am I gripping? Loosen one notch. That is enough.",
+				seek: "If the tension keeps you snapping at people, stops you getting things done, or has not eased for weeks, book a visit to talk it through."
+			},
+			tired: {
+				label: "Very tired, sleep is never enough",
+				try: "You need not catch up all at once. Pick one thing you can drop today, and drop it.",
+				seek: "If tiredness lasts for weeks, or comes with fever, breathlessness or unexplained weight loss, please see a doctor for a check-up."
+			},
+			neck: {
+				label: "Stiff neck, shoulders up by the ears",
+				try: "Follow “Shoulders” below for one minute. After sitting a while, stand and take two steps.",
+				seek: "If an arm goes numb or weak, or neck pain comes with fever and a stiff neck, seek medical care soon."
+			},
+			heart: {
+				label: "Heart racing, chest feels tight",
+				try: "Do the half-minute breath at the top of the page first. Let the out-breath grow longer.",
+				seek: "Chest pain, a feeling of pressure on the chest, breathlessness, cold sweat or fainting: seek medical care now, or go to the emergency department."
+			},
+			stomach: {
+				label: "Bloated stomach, appetite has changed",
+				try: "Eat away from the desk and screen. Eat slowly. Stop at about seven-tenths full.",
+				seek: "Ongoing stomach pain, vomiting, black or bloody stools, trouble swallowing or unexplained weight loss: please see a doctor soon."
+			},
+			head: {
+				label: "Headache, a tight head",
+				try: "Put the screen down and look far away. Ease the brow and jaw. Sip some water.",
+				seek: "A sudden severe headache, a headache unlike any before, or one with weak limbs, slurred speech or blurred vision: go to the emergency department now."
+			},
+			sleep: {
+				label: "Poor sleep, still tired on waking",
+				try: "Put work away an hour before bed. To learn more, visit Restful Sleep.",
+				seek: "If poor sleep lasts for weeks and affects your days, book a visit."
+			}
+		},
+		shoulderK: "Loosen",
+		shoulderT: "Let the shoulders drop · one minute",
+		shoulderLead: "Follow the prompts. Each lasts about 8 seconds. Sitting or standing is fine.",
+		shoulderPrep: "No need to do it fully. Stop if anything hurts, or you feel dizzy.",
+		shoulderIdle: "Sit steady, then press Start.",
+		shoulderStopped: "Stopped. Rest if you feel unwell. Come back any time.",
+		shoulderStart: "Start",
+		shoulderStop: "Stop",
+		shoulderLines: [
+			"Sit steady. Press both feet into the floor.",
+			"Notice the jaw. Let the teeth part a little. Soften the tongue.",
+			"Notice the brow. Let it open. Let the eyelids soften.",
+			"Breathe in. Lift the shoulders a little…",
+			"Breathe out. Let them drop at once. Feel the arms grow heavy.",
+			"Tilt the head slowly to the left. Pause. Back to centre.",
+			"Tilt the head slowly to the right. Pause. Back to centre.",
+			"Hands on your thighs. In through the nose for 4, out through the mouth for 6. Done. Come back any time."
+		],
+		parkK: "Set some down",
+		parkT: "Park the pressure · pick one small step",
+		parkLead: "What spins in your head need not be solved at once. Write it down, pick one small step, and park the rest.",
+		parkSteps: [
+			["Write one thing.", "Choose the heaviest thing right now. One line is enough. No need to explain why."],
+			["Pick one small step.", "Something you can do in ten minutes, so small it can hardly fail. For example: open the file, or reply “got it”."],
+			["Park the rest.", "Whatever is not due yet stays on the list. After the small step, you need not think about the next one straight away."]
+		],
+		parkNote: "If the worry is about an immediate danger, do not park it. Deal with it or get help now.",
+		parkWhatL: "What is pressing on you",
+		parkWhatPh: "For example: the report is due on Friday",
+		parkStepL: "A small step for the next ten minutes (optional)",
+		parkStepPh: "For example: open the file and write the title",
+		parkAdd: "Park it",
+		parkListT: "Parked list",
+		parkEmpty: "The list is empty.",
+		parkNoStep: "No small step yet. That is fine.",
+		parkDone: "Small step done",
+		parkClear: "Clear the list",
+		parkPrivacy: "This stays in this tab only and is gone when you close it. Nothing is saved or uploaded.",
+		dailyK: "Days can loosen and tighten",
+		dailyT: "A daily rhythm of tight and loose",
+		dailyLead: "You need not be relaxed all day. Loosening one notch at a few points is enough.",
+		daily: [
+			{ title: "Morning", body: "Start with warm water and a moment of window light. Do not open work messages the moment you wake." },
+			{ title: "While working", body: "Every 60 to 90 minutes, stand for two minutes. Drop the shoulders. Look far away." },
+			{ title: "Meals", body: "Eat away from the desk and screen. Slowly. About seven-tenths full." },
+			{ title: "Clocking off", body: "Make a hand-over: write tomorrow’s first task, then close the laptop." },
+			{ title: "Evening", body: "Put work away an hour before bed. Dim the lights. Less coffee, less alcohol." },
+			{ title: "Move a little", body: "A walk or a little stretching each day is enough. No need to wear yourself out." }
+		],
+		acuK: "A light press",
+		acuT: "Points often used for tension",
+		acuLead: "Tap a dot to see where it is and how to use it. A light press is enough; this is not acupuncture. Whether it suits you is for a doctor to decide in person.",
+		acuNote: "Press each point lightly for about half a minute, with slow breathing. Stop if it aches. If the skin is broken, you are pregnant, or you bleed easily, ask a doctor first.",
+		musicK: "Listen",
+		musicT: "Quiet music",
+		musicLead: "Off by default. It plays only if you press play. It starts soft, fades in slowly, and loops.",
+		musicSafety: "If you are sensitive to sound, you can leave it off. Stop any time it feels uncomfortable.",
+		musicPlay: "Play",
+		musicStop: "Stop music",
+		musicNow: "Playing: ",
+		musicVol: "Volume",
+		musicCn: "Chinese · guqin",
+		musicWest: "Western · piano",
+		tracks: [
+			{ id: "peilan", group: "cn", title: "Pei Lan (Admiring the Orchid)", hint: "Guqin, silk strings · about 8 min · soft tone, small rises and falls" },
+			{ id: "kongzi", group: "cn", title: "Kongzi Duyi (Confucius Reads the Book of Changes)", hint: "Guqin · about 6 min · slow and low" },
+			{ id: "aria", group: "west", title: "Bach · Goldberg Variations, Aria", hint: "Piano · about 5 min · slow, steady" },
+			{ id: "prelude", group: "west", title: "Bach · Prelude in C major (Well-Tempered Clavier I)", hint: "Piano · about 3 min · broken chords that rise and fall like breath" }
+		],
+		musicCredits: "Guqin recordings: performed by Charlie Huang, Wikimedia Commons, CC BY 2.5; the pieces come from the Tianwen Ge Qinpu (1876) and are in the public domain. Piano recordings: Kimiko Ishizaka (Open Goldberg Variations / Open Well-Tempered Clavier), CC0 public-domain dedication; Bach’s music is in the public domain. This site transcoded the files, trimmed silence, matched loudness and added fades.",
+		careK: "No need to push through",
+		careT: "When to see a doctor in person",
+		careLead: "This page is not a diagnosis. In these situations, please do not rely on self-practice alone.",
+		careNowT: "Seek medical care now, or go to the emergency department",
+		careNow: [
+			"Chest pain or pressure, or pain spreading to the arm, jaw or back.",
+			"Breathlessness, cold sweat, fainting.",
+			"A sudden severe headache, or weak limbs, a drooping mouth, or slurred speech.",
+			"Vomiting blood, or black or bloody stools."
+		],
+		careSoonT: "Book a visit soon",
+		careSoon: [
+			"Body reactions that have not eased after two weeks or more, or are getting worse.",
+			"Poor sleep, poor appetite, or weight changing for no clear reason.",
+			"Work, school or caring for family is already affected.",
+			"Starting to rely on alcohol, smoking or medicines to get through.",
+			"New irregular heartbeat, or bouts of palpitations."
+		],
+		careCrisis: "If you have thoughts of harming yourself or of not wanting to live, or your mood or behaviour suddenly changes a great deal and affects safety, please do not wait for an appointment. Contact emergency services or go to the emergency department as soon as you can, or ask someone you trust to stay with you.",
+		careMeds: "If you are taking medicines now, please do not stop or change them on your own. Chinese and Western medicine can work together.",
+		careBook: "Book an appointment (Macao) →",
+		viewK: "Getting to know it",
+		viewT: "A string pulled too tight",
+		viewP1: "Chinese medicine sees body and spirit as one. When pressure does not lift for a long time, the movement of qi tends to get stuck. Rising upward, the head feels tight and the neck and shoulders stiffen. Lodged in the middle, the stomach bloats and appetite changes. Disturbing the heart, it beats faster and sleep turns shallow.",
+		viewP2: "Body reactions do not mean you are weak, and they are not imagined. The right care differs from person to person and is for a doctor to decide in person. This is education only, not a replacement for seeing a doctor."
+	},
 	lines: {
+    yali: [
+      "The shoulders can sit one notch lower.",
+      "Not finishing everything today is normal.",
+      "I do one thing at a time.",
+      "Tension is the body trying to help. I can tell it: that is enough.",
+      "An out-breath longer than the in-breath is enough.",
+      "Unanswered messages can wait until I finish this sip of water.",
+      "I do not need to prove how busy I am.",
+      "A small step is still a step.",
+      "Unclench the jaw. The world keeps turning.",
+      "Rest is not laziness.",
+      "Today’s things can stay on the desk.",
+      "I can say: I will reply a little later."
+    ],
     anshen: [
       "This breath, right now, is already enough for me.",
       "A racing heart does not mean I did wrong.",

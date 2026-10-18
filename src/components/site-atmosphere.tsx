@@ -5,6 +5,8 @@ import { QuietWhisper } from "@/components/quiet-whisper";
 import { useCopy } from "@/i18n/lang";
 
 function musicFor(path: string, copy: ReturnType<typeof useCopy>) {
+  // 鬆弦 has its own in-page player that is OFF until the visitor starts it: no ambient autoplay.
+  if (path.startsWith("/yali")) return null;
   if (path.startsWith("/anshen")) {
     return { src: "/audio/pingsha.mp3", onLabel: copy.anshen.musicOn };
   }
@@ -24,7 +26,9 @@ export function SiteAtmosphere() {
   const music = musicFor(path, copy);
 
   useEffect(() => {
-    const theme = path.startsWith("/jieyu")
+    const theme = path.startsWith("/yali")
+      ? "yali"
+      : path.startsWith("/jieyu")
       ? "jieyu"
       : path.startsWith("/anshen")
         ? "anshen"
@@ -38,7 +42,7 @@ export function SiteAtmosphere() {
   return (
     <>
       {!listen && <QuietWhisper />}
-      {!listen && <AmbientMusic src={music.src} onLabel={music.onLabel} />}
+      {!listen && music && <AmbientMusic src={music.src} onLabel={music.onLabel} />}
     </>
   );
 }

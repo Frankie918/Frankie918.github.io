@@ -97,7 +97,23 @@ export const ANMEI_LINES = [
   "想瞓我就瞓一陣，醒咗再算。",
 ];
 
-export type QuietRoom = "anshen" | "jieyu" | "anmei" | "home";
+/** 鬆弦（壓力繃緊同身心反應）· 2026-10 draft, pending clinician review. */
+export const YALI_LINES = [
+  "肩膊可以低一格。",
+  "今日做唔晒，都係正常。",
+  "我一次只做一件事。",
+  "繃緊係身體幫緊手，我可以話佢知：夠喇。",
+  "呼氣長過吸氣，就夠。",
+  "未覆嘅訊息，可以等我飲完呢口水。",
+  "我唔使證明自己好忙。",
+  "一步細細，都係一步。",
+  "牙關鬆一鬆，世界照轉。",
+  "休息唔係偷懶。",
+  "今日嘅事，可以放低喺枱面。",
+  "我可以講：遲啲答你。",
+];
+
+export type QuietRoom = "anshen" | "jieyu" | "anmei" | "yali" | "home";
 
 /** Short 10-second micro-actions, one pool per room theme. */
 export const QUIET_ACTIONS: Record<QuietRoom, Record<"yue" | "cmn" | "en", readonly string[]>> = {
@@ -115,6 +131,11 @@ export const QUIET_ACTIONS: Record<QuietRoom, Record<"yue" | "cmn" | "en", reado
     yue: ["調暗燈", "放低手機", "腳心搓一搓暖", "被角拉好少少", "慢慢呼長一口氣", "鬆開眉心同牙關"],
     cmn: ["調暗燈", "放下手機", "腳心搓一搓暖", "被角拉好一點", "慢慢呼長一口氣", "鬆開眉心和牙關"],
     en: ["Dim the light", "Put the phone down", "Rub the soles warm", "Tuck the quilt a little", "One long slow exhale", "Ease the brow and jaw"],
+  },
+  yali: {
+    yue: ["沉一沉肩", "鬆開牙關", "慢呼一口氣", "望一望遠處", "雙手放喺大腿", "起身行兩步", "飲一口暖水"],
+    cmn: ["沉一沉肩", "鬆開牙關", "慢呼一口氣", "望一望遠處", "雙手放在大腿", "站起來走兩步", "喝一口暖水"],
+    en: ["Drop the shoulders", "Unclench the jaw", "Breathe out slowly once", "Look far for a moment", "Rest both hands on your thighs", "Stand and take two steps", "Sip warm water"],
   },
   home: {
     yue: ["慢呼一口氣", "沉一沉肩", "雙腳踩實地面", "伸一伸胸口", "望一望遠處"],
@@ -297,7 +318,7 @@ export const CLASSICAL_QUIET: readonly ClassicalCard[] = [
       cmn: "空到盡、靜到實，才有回轉的位置。",
       en: "Reach emptiness fully; keep stillness deep — then there is room to turn.",
     },
-    rooms: ["anshen", "anmei"],
+    rooms: ["anshen", "anmei", "yali"],
   },
   {
     quote: "知止而後有定",
@@ -307,7 +328,7 @@ export const CLASSICAL_QUIET: readonly ClassicalCard[] = [
       cmn: "知道哪裏停，心才定得下。",
       en: "Knowing where to stop, the mind can settle.",
     },
-    rooms: ["jieyu", "home"],
+    rooms: ["jieyu", "yali", "home"],
   },
   {
     quote: "陽氣盡則臥，陰氣盡則寤",

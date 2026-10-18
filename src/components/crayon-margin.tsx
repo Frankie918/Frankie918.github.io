@@ -1,12 +1,13 @@
 import { useEffect, useRef, type ReactNode } from "react";
 
-type Theme = "home" | "anshen" | "jieyu" | "anmei";
+type Theme = "home" | "anshen" | "jieyu" | "anmei" | "yali";
 
 const ART: Record<Theme, { left: string; right: string }> = {
   home: { left: "cloud", right: "window" },
   anshen: { left: "bird", right: "window" },
   jieyu: { left: "tree", right: "water" },
   anmei: { left: "moon", right: "clock" },
+  yali: { left: "cloud", right: "tree" },
 };
 
 function Side({ name }: { name: string }) {

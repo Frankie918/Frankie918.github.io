@@ -55,6 +55,20 @@
   --color-line: rgb(44 38 31 / 0.12);
 }
 
+/* 鬆弦 · stress & tension room (2026-10, pending clinician review) */
+[data-theme="yali"] {
+  --color-bg: #ebe9e5;
+  --color-bg-deep: #262a33;
+  --color-paper: #f7f6f3;
+  --color-ink: #24252a;
+  --color-muted: #5f616b;
+  --color-accent: #4f5b73;
+  --color-accent-soft: #949db0;
+  --color-mist: #d3d6de;
+  --color-warm: #c4a574;
+  --color-line: rgb(36 37 42 / 0.12);
+}
+
 @layer base {
   html {
     -webkit-font-smoothing: antialiased;
@@ -631,4 +645,37 @@ section[id] {
 }
 .fold details[open] .fold-close {
   display: inline;
+}
+
+/* 鬆弦 room: user-started music (off by default) and the guided shoulder-drop. */
+.calm-stop {
+  position: fixed;
+  left: 1rem;
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  z-index: 40;
+}
+.track-btn[aria-pressed="true"] {
+  border-color: var(--color-accent);
+  background: var(--color-bg);
+}
+.guide-dots > span {
+  display: inline-block;
+  height: 6px;
+  width: 6px;
+  border-radius: 9999px;
+  background: var(--color-line);
+  transition: background-color 0.4s ease;
+}
+.guide-dots > span[data-on="true"] {
+  background: var(--color-accent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .guide-dots > span {
+    transition: none;
+  }
+}
+@media print {
+  .calm-stop {
+    display: none !important;
+  }
 }
