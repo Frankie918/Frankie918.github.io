@@ -123,7 +123,7 @@ export const CMN = {
 		tracks: [
 			{ title: "安神", hint: "中樂《平沙落雁》 · 西樂 巴赫《哥德堡變奏曲》詠歎調" },
 			{ title: "解鬱", hint: "中樂《陽關三疊》 · 西樂 蕭邦《夜曲》降E大調 Op. 9 No. 2" },
-			{ title: "安寐", hint: "中樂《醉漁唱晚》 · 西樂 薩蒂《裸體歌舞》第一首" },
+			{ title: "安寐", hint: "中樂《醉漁唱晚》 · 西樂 薩蒂《吉姆諾佩迪》第一首" },
 			{ title: "舒壓", hint: "中樂《孔子讀易》 · 西樂 巴赫《平均律》C 大調前奏曲" }
 		]
 	},
@@ -656,7 +656,7 @@ export const CMN = {
 		footerName: "身心課堂 · 安寐",
 		footerNote: "教育內容，不構成診斷或處方。用藥、針灸須由註冊中醫師執行。安眠藥只宜短用，停藥須經醫生。本站不收集病歷。很大聲鼻鼾、日間控制不住打瞌睡請盡快求醫。若有自傷念頭，請打 999，或澳門明愛生命熱線 2852 5222。",
 		musicOn: "醉漁 · 開",
-		musicCredit: "音樂（入房先播中樂，可轉西樂／靜音）：古琴《醉漁唱晚》，Charlie Huang（Charles R Tsua）演奏，CC BY-SA 3.0（維基共享資源）；薩蒂《裸體歌舞》第一首，Robin Alciatore 演奏，Musopen，公有領域。",
+		musicCredit: "音樂（入房先播中樂，可轉西樂／靜音）：古琴《醉漁唱晚》，Charlie Huang（Charles R Tsua）演奏，CC BY-SA 3.0（維基共享資源）；薩蒂《吉姆諾佩迪》第一首，Robin Alciatore 演奏，Musopen，公有領域。",
 		nav: [
 			{
 				href: "#view",

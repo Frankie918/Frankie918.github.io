@@ -103,8 +103,8 @@ const GYMNOPEDIE: MusicTrack = {
   composer: "Erik Satie",
   workId: "satie-gymnopedie-no1",
   title: {
-    yue: "薩蒂《裸體歌舞》第一首",
-    cmn: "薩蒂《裸體歌舞》第一首",
+    yue: "薩蒂《吉姆諾佩迪》第一首",
+    cmn: "薩蒂《吉姆諾佩迪》第一首",
     en: "Satie · Gymnopédie No. 1",
   },
   hint: {
