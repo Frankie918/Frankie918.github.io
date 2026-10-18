@@ -37,7 +37,7 @@ function YaliPage() {
       title={c.title}
       kicker={c.kicker}
       lede={c.lede}
-      bgSrc="/bg-home.jpg?v=4"
+      bgSrc="/bg-yali.jpg?v=1"
       nav={c.nav}
       order={ORDER}
       footerName={c.footerName}

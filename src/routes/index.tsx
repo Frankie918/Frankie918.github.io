@@ -122,7 +122,7 @@ function Home() {
           to="/yali"
           className="group overflow-hidden rounded-card border border-line bg-paper no-underline text-ink"
         >
-          <img src="/bg-home.jpg?v=4" alt="" className="h-36 w-full object-cover" />
+          <img src="/bg-yali.jpg?v=1" alt="" className="h-36 w-full object-cover" />
           <div className="p-6">
             <p className="text-xs tracking-[0.22em] text-accent">{home.yaliK}</p>
             <h2 className="mt-2 font-serif text-4xl">{home.yaliT}</h2>
