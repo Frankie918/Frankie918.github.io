@@ -55,7 +55,7 @@
   --color-line: rgb(44 38 31 / 0.12);
 }
 
-/* 鬆弦 · stress & tension room (2026-10, pending clinician review) */
+/* 舒壓 · stress & tension room (2026-10, pending clinician review) */
 [data-theme="yali"] {
   --color-bg: #ebe9e5;
   --color-bg-deep: #262a33;
@@ -647,7 +647,7 @@ section[id] {
   display: inline;
 }
 
-/* 鬆弦 room: user-started music (off by default) and the guided shoulder-drop. */
+/* 舒壓 room: user-started music (off by default) and the guided shoulder-drop. */
 .calm-stop {
   position: fixed;
   left: 1rem;

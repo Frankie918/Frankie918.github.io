@@ -34,7 +34,7 @@ async function ctx(viewport, lang = "yue", opts = {}) {
   ok("no audio requested before user starts music", audioReq.length === 0, JSON.stringify(audioReq));
   ok("no global ambient toggle on /yali", (await page.locator(".ambient-toggle").count()) === 0);
   ok("no stop pill before play", (await page.locator(".calm-stop").count()) === 0);
-  ok("h1 is 鬆弦", (await page.locator("h1").innerText()).trim() === "鬆弦");
+  ok("h1 is 舒壓", (await page.locator("h1").innerText()).trim() === "舒壓");
   const navText = await page.locator("nav ul").first().innerText();
   ok("nav order starts with 先呼吸, 跟住做", /先呼吸[\s\S]*跟住做[\s\S]*身體訊號/.test(navText), navText.replace(/\n/g, "|"));
   ok("room jump has 3 other rooms", (await page.locator("header a[href='/anshen'], header a[href='/jieyu'], header a[href='/anmei']").count()) === 3);
@@ -92,7 +92,7 @@ async function ctx(viewport, lang = "yue", opts = {}) {
   // hour lamp + clinic card
   await page.locator("#play button", { hasText: "申" }).click();
   const card = await page.locator("#play pre").innerText().catch(() => "");
-  ok("clinic card records 鬆弦 activities", card.includes("鬆弦") && card.includes("留意到") && card.includes("跟住做"), card.replace(/\n/g, " | "));
+  ok("clinic card records 舒壓 activities", card.includes("舒壓") && card.includes("留意到") && card.includes("跟住做"), card.replace(/\n/g, " | "));
 
   // music
   ok("all track buttons default off", (await page.locator(".track-btn[aria-pressed='true']").count()) === 0);
@@ -137,7 +137,7 @@ for (const [vp, tag] of [[{ width: 1366, height: 900 }, "desktop"], [{ width: 39
   const c = await ctx(vp);
   const page = await c.newPage();
   await page.goto(`${BASE}/`, { waitUntil: "load" });
-  ok(`${tag} home feeling pick has 鬆弦`, (await page.locator("a[href='/yali#breath']").count()) === 1);
+  ok(`${tag} home feeling pick has 舒壓`, (await page.locator("a[href='/yali#breath']").count()) === 1);
   ok(`${tag} home room card links /yali`, (await page.locator("#rooms a[href='/yali']").count()) === 1);
   await page.screenshot({ path: `${OUT}/${tag}-home-hero.png` });
   await page.locator("#rooms").screenshot({ path: `${OUT}/${tag}-home-rooms.png` });
@@ -153,7 +153,7 @@ for (const lang of ["yue", "cmn", "en"]) {
   await page.screenshot({ path: `${OUT}/mobile-${lang}-hero.png` });
   await page.screenshot({ path: `${OUT}/mobile-${lang}-full.png`, fullPage: true });
   const h1 = await page.locator("h1").innerText();
-  ok(`mobile ${lang} h1`, { yue: "鬆弦", cmn: "鬆弦", en: "Ease the Tension" }[lang] === h1.trim(), h1);
+  ok(`mobile ${lang} h1`, { yue: "舒壓", cmn: "舒壓", en: "Stress Relief" }[lang] === h1.trim(), h1);
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   ok(`mobile ${lang} no horizontal overflow`, overflow <= 1, `overflow=${overflow}`);
   if (lang !== "yue") {
@@ -205,7 +205,7 @@ for (const lang of ["yue", "cmn", "en"]) {
   for (const r of ["anshen", "jieyu", "anmei"]) {
     await page.goto(`${BASE}/${r}/`, { waitUntil: "load" });
     ok(`${r} still has ambient toggle`, (await page.locator(".ambient-toggle").count()) === 1);
-    ok(`${r} room-jump includes 鬆弦`, (await page.locator("header a[href='/yali']").count()) === 1);
+    ok(`${r} room-jump includes 舒壓`, (await page.locator("header a[href='/yali']").count()) === 1);
   }
   await page.goto(`${BASE}/anshen/`, { waitUntil: "load" });
   await page.locator("header").screenshot({ path: `${OUT}/desktop-anshen-header-jump.png` });

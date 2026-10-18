@@ -1,4 +1,4 @@
-// Content & safety guards for the 鬆弦 room (壓力繃緊同身心反應), 2026-10 draft.
+// Content & safety guards for the 舒壓 room (壓力繃緊同身心反應), 2026-10 draft.
 // Run: node --test scripts/yali-content.test.mjs
 import { test } from "node:test";
 import assert from "node:assert/strict";

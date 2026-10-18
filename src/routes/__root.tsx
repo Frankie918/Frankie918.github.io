@@ -20,7 +20,7 @@ export const Route = createRootRoute({
       { name: "google-site-verification", content: "ojtUX0FdGkb4_Ue0kVxt7y_Isx33ZsAYVhNIzlcHqIQ" },
       {
         name: "description",
-        content: "身心課堂：安神、解鬱、安寐、鬆弦。中醫教育，慢慢嚟。",
+        content: "身心課堂：安神、解鬱、安寐、舒壓。中醫教育，慢慢嚟。",
       },
     ],
     links: [

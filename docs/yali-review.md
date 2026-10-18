@@ -1,4 +1,4 @@
-# 鬆弦 · 壓力繃緊同身心反應 — review notes (local branch `room/yali`, NOT pushed)
+# 舒壓 · 壓力繃緊同身心反應 — review notes (local branch `room/yali`, NOT pushed)
 
 Status: ready for clinician review. Built and checked locally only. Do not merge or push until the decisions below are signed off.
 

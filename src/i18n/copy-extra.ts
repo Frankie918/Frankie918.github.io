@@ -91,16 +91,16 @@ export const CMN = {
 		anmeiD: "睡不著，不代表懶。這裏陪你把床還給夜。",
 		anmeiGo: "進入安寐 →",
 		yaliK: "壓力緊繃",
-		yaliT: "鬆弦",
+		yaliT: "舒壓",
 		yaliD: "長期繃著，肩頸、胃、心跳都會說話。這裏陪你鬆一格。",
-		yaliGo: "進入鬆弦 →",
+		yaliGo: "進入舒壓 →",
 		qrK: "市民掃入",
 		qrT: "一掃即到身心課堂",
 		listenGo: "試聽其他背景樂 →",
 		aboutK: "這裏是什麼",
 		aboutT: "身心課堂",
 		aboutLead: "你來到這裏，可以當作自己上了一堂小課。不必掛號、不會收你的病歷，也不取代面診。只用淺白的字，陪你把心與氣，慢慢放回來。",
-		aboutBody: "裏面有四間房：安神、解鬱、安寐、鬆弦。你選現在最貼近自己的那一間就好。裏面有「此刻」短句、呼吸、時辰、耳穴位置，以及你可以帶去面診的小卡。用藥和落針，始終要醫師親手看過你。",
+		aboutBody: "裏面有四間房：安神、解鬱、安寐、舒壓。你選現在最貼近自己的那一間就好。裏面有「此刻」短句、呼吸、時辰、耳穴位置，以及你可以帶去面診的小卡。用藥和落針，始終要醫師親手看過你。",
 		illnessK: "為什麼叫身心",
 		illnessT: "心與身，本來在一起",
 		illnessLead: "中醫講形神合一。如果你心慌、胸悶、睡不著、胃口淡，很多時候不是「只是心理」或「只是身體」，而是精、氣、神亂了。這類情況，中醫會從心與身一起看。這裏不是幫你診斷，只和你講可以怎樣同這副身體相處。",
@@ -108,7 +108,7 @@ export const CMN = {
 		illnessA: "如果你怕、心跳、坐不定——神散了，可以進安神。",
 		illnessB: "如果你悶悶不樂、不想動、心口翳悶——氣滯住，可以進解鬱。",
 		illnessC: "如果你睡不著、易醒——寐未歸，可以進安寐。",
-		illnessD: "如果你長期緊繃、肩頸僵硬、胃脹、心跳快——弦拉得太緊，可以進鬆弦。"
+		illnessD: "如果你長期緊繃、肩頸僵硬、胃脹、心跳快——弦拉得太緊，可以進舒壓。"
 	},
 	qr: {
 		kicker: "掃入網站",
@@ -1112,10 +1112,10 @@ export const CMN = {
 		}
 	],
 	yali: {
-		title: "鬆弦",
+		title: "舒壓",
 		kicker: "壓力緊繃與身心反應",
 		lede: "壓力大，身體會先知道。不必立刻解決，先把呼吸放慢，把弦鬆一格。",
-		footerName: "身心課堂 · 鬆弦",
+		footerName: "身心課堂 · 舒壓",
 		musicCredit: "音樂（預設關閉）：古琴《佩蘭》《孔子讀易》，Charlie Huang 演奏，CC BY 2.5（維基共享資源，已轉檔並加淡入淡出）；巴赫《哥德堡變奏曲》詠歎調、《平均律》第一冊 C 大調前奏曲，Kimiko Ishizaka 演奏，CC0。",
 		nav: [
 			{ href: "#feel", label: "身體訊號" },
@@ -1223,7 +1223,7 @@ export const CMN = {
 			{ title: "動一動", body: "每天走路或伸展一點就好。不必練到很累。" }
 		],
 		acuK: "輕按一下",
-		acuT: "鬆弦常用穴位",
+		acuT: "舒壓常用穴位",
 		acuLead: "點選身上的點，看位置和用法。輕按就好，不代替針灸。適不適合你，要醫生面診才能決定。",
 		acuNote: "每個位置輕按約半分鐘，配合慢呼吸。酸脹就停。皮膚有傷口、懷孕，或有出血傾向，請先問醫生。",
 		musicK: "聽一段",
@@ -1443,16 +1443,16 @@ export const EN = {
 		anmeiD: "Lying awake is not laziness. This room gives the bed back to night.",
 		anmeiGo: "Enter Restful Sleep →",
 		yaliK: "Stress & tension",
-		yaliT: "Ease the Tension",
+		yaliT: "Stress Relief",
 		yaliD: "Wound up for long, the neck, stomach and heartbeat start to speak. This room helps you loosen one notch.",
-		yaliGo: "Enter Ease the Tension →",
+		yaliGo: "Enter Stress Relief →",
 		qrK: "For visitors",
 		qrT: "One scan to the classroom",
 		listenGo: "Listen to other background music →",
 		aboutK: "What this is",
 		aboutT: "Body & Mind Classroom",
 		aboutLead: "You can treat this as a small class of your own. No registration, no records of yours kept, and it does not replace a visit. Plain words, to help you set the heart and the qi down again.",
-		aboutBody: "There are four rooms: Calm the Mind, Ease the Heart, Restful Sleep, Ease the Tension. Choose the one that feels closest today. Inside you will find short lines for this moment, a breath, the hours, ear-point maps, and a small card you can take to clinic. Herbs and needles still need a physician’s own look at you.",
+		aboutBody: "There are four rooms: Calm the Mind, Ease the Heart, Restful Sleep, Stress Relief. Choose the one that feels closest today. Inside you will find short lines for this moment, a breath, the hours, ear-point maps, and a small card you can take to clinic. Herbs and needles still need a physician’s own look at you.",
 		illnessK: "Why body and mind",
 		illnessT: "Heart and body were never two things",
 		illnessLead: "Chinese medicine speaks of form and spirit as one. If your chest races, tightens, nights stay wakeful, appetite dull — this is often not “only mental” or “only physical”, but essence, qi, and spirit out of place. These belong to body-mind illness. This page is not here to diagnose you; we talk with you about living with this body.",
@@ -1460,7 +1460,7 @@ export const EN = {
 		illnessA: "If you are afraid, the heart is fast, you cannot sit still — spirit is scattered. Try Calm the Mind.",
 		illnessB: "If you feel low and joyless, do not want to move, and the chest is stuffy — qi is stuck. Try Ease the Heart.",
 		illnessC: "If you lie awake or wake easily — sleep has not returned. Try Restful Sleep.",
-		illnessD: "If you have been wound up for long — stiff neck, bloated stomach, a racing heart — the string is pulled too tight. Try Ease the Tension."
+		illnessD: "If you have been wound up for long — stiff neck, bloated stomach, a racing heart — the string is pulled too tight. Try Stress Relief."
 	},
 	qr: {
 		kicker: "Scan to enter",
@@ -2464,10 +2464,10 @@ export const EN = {
 		}
 	],
 	yali: {
-		title: "Ease the Tension",
+		title: "Stress Relief",
 		kicker: "Stress, tension and body–mind reactions",
 		lede: "Under pressure, the body knows first. Nothing has to be solved at once. Slow the breath, and let the tight string loosen one notch.",
-		footerName: "Body & Mind Classroom · Ease the Tension",
+		footerName: "Body & Mind Classroom · Stress Relief",
 		musicCredit: "Music (off by default): guqin “Pei Lan” and “Kongzi Duyi”, performed by Charlie Huang, CC BY 2.5 (Wikimedia Commons; transcoded, fades added). Bach, Goldberg Variations Aria and Well-Tempered Clavier I Prelude in C major, performed by Kimiko Ishizaka, CC0.",
 		nav: [
 			{ href: "#feel", label: "Body signals" },

@@ -45,7 +45,7 @@ export function ClinicCard({ room }: { room: RoomId }) {
 
   function refresh() {
     const n = loadNotes()[room];
-    // 鬆弦 stores its body-signal picks in `scan`; label them as such on the card.
+    // 舒壓 stores its body-signal picks in `scan`; label them as such on the card.
     const scanLabel = room === "yali" ? copy.yali.cardFeel : p.cardScan;
     setText(noteHas(n) ? lines(n, p, `${copy.ui.site} · ${title}`, followTitles, scanLabel) : "");
   }

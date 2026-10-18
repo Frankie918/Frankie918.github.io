@@ -9,7 +9,7 @@ import { useCopy } from "@/i18n/lang";
 export const Route = createFileRoute("/yali")({ component: YaliPage });
 
 /**
- * 鬆弦 · 壓力繃緊同身心反應 (2026-10 draft for clinician review).
+ * 舒壓 · 壓力繃緊同身心反應 (2026-10 draft for clinician review).
  * Same journey as 安神／解鬱／安寐: breathe first → follow along → self-help practice →
  * when to see a doctor (kept open, never folded) → deeper reading (folded).
  */

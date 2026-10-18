@@ -1,4 +1,4 @@
-# 鬆弦 · 音樂來源與版權紀錄 (music sources & licences)
+# 舒壓 · 音樂來源與版權紀錄 (music sources & licences)
 
 Checked 2026-10-18. Every shipped track has **two separate checks**: the composition (樂曲) and the
 recording (錄音). Only tracks where **both** are clearly free to use were shipped. Nothing here is a

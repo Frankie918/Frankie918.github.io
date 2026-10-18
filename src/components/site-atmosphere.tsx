@@ -5,7 +5,7 @@ import { QuietWhisper } from "@/components/quiet-whisper";
 import { useCopy } from "@/i18n/lang";
 
 function musicFor(path: string, copy: ReturnType<typeof useCopy>) {
-  // 鬆弦 has its own in-page player that is OFF until the visitor starts it: no ambient autoplay.
+  // 舒壓 has its own in-page player that is OFF until the visitor starts it: no ambient autoplay.
   if (path.startsWith("/yali")) return null;
   if (path.startsWith("/anshen")) {
     return { src: "/audio/pingsha.mp3", onLabel: copy.anshen.musicOn };

@@ -4,7 +4,7 @@ import { patchNote } from "@/lib/today-note";
 import { useCopy } from "@/i18n/lang";
 
 /**
- * 鬆弦 room tools (2026-10 draft). Patterns follow 安神 (HeartScan / WorryPark / PmrGuide):
+ * 舒壓 room tools (2026-10 draft). Patterns follow 安神 (HeartScan / WorryPark / PmrGuide):
  * same buttons, cards and spacing; nothing is scored; nothing typed is stored or uploaded.
  */
 

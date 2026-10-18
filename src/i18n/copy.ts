@@ -70,9 +70,9 @@ const yue = {
     anmeiD: "瞓唔著，唔代表懶。呢度陪你把床還返畀夜。",
     anmeiGo: "進入安寐 →",
     yaliK: "壓力繃緊",
-    yaliT: "鬆弦",
+    yaliT: "舒壓",
     yaliD: "長期繃住，肩頸、胃、心跳都會講。呢度陪你鬆一格。",
-    yaliGo: "進入鬆弦 →",
+    yaliGo: "進入舒壓 →",
     qrK: "市民掃入",
     qrT: "一掃即到身心課堂",
     listenGo: "試聽其他背景樂 →",
@@ -81,7 +81,7 @@ const yue = {
     aboutLead:
       "你嚟到呢度，可以當自己入咗一堂小課。唔使掛號、唔會收你病歷，亦唔取代面診。只用淺白嘅字，陪你把心同氣，慢慢放返落嚟。",
     aboutBody:
-      "入面有四間房：安神、解鬱、安寐、鬆弦。你揀而家最貼近自己嗰間就得。裏面有「呢一刻」短句、呼吸、時辰、耳穴位置，同埋你可以帶去面診嘅小卡。用藥同落針，始終要醫師親手睇過你。",
+      "入面有四間房：安神、解鬱、安寐、舒壓。你揀而家最貼近自己嗰間就得。裏面有「呢一刻」短句、呼吸、時辰、耳穴位置，同埋你可以帶去面診嘅小卡。用藥同落針，始終要醫師親手睇過你。",
     illnessK: "點解叫身心",
     illnessT: "心同身，本來一齊",
     illnessLead:
@@ -91,7 +91,7 @@ const yue = {
     illnessA: "如果你驚、心跳、坐唔定——神散咗，可以入安神。",
     illnessB: "如果你悶悶不樂、唔想郁、心口翳悶——氣滯住，可以入解鬱。",
     illnessC: "如果你瞓唔著、易醒——寐未歸，可以入安寐。",
-    illnessD: "如果你長期繃緊、肩頸硬、胃脹、心跳快——弦拉得太緊，可以入鬆弦。",
+    illnessD: "如果你長期繃緊、肩頸硬、胃脹、心跳快——弦拉得太緊，可以入舒壓。",
   },
   qr: {
     kicker: "掃入網站",
@@ -641,7 +641,7 @@ const anmeiYue = {
 };
 
 /**
- * 鬆弦 · 壓力繃緊同身心反應 (2026-10 draft, built for clinician review — not launched).
+ * 舒壓 · 壓力繃緊同身心反應 (2026-10 draft, built for clinician review — not launched).
  * Pressure/tension room. No diagnosis, no self-test scores, no efficacy promises.
  * Crisis sentence is taken verbatim from the approved FAQ copy (see crisisLine); footerNote reuses 安神.
  * Acupoint names/locations/cautions come from src/lib/acupoints.ts; only the use note lives in play.maps.yali.
@@ -650,10 +650,10 @@ const crisisLine = (lang: "yue" | "cmn") =>
   FAQ_COPY[lang].items.find((item) => item.q.includes("盡快求助"))?.a ?? "";
 
 const yaliYue = {
-  title: "鬆弦",
+  title: "舒壓",
   kicker: "壓力繃緊同身心反應",
   lede: "壓力大，身體會先知。唔使即刻解決，先把呼吸放慢，把弦鬆一格。",
-  footerName: "身心課堂 · 鬆弦",
+  footerName: "身心課堂 · 舒壓",
   footerNote: yue.anshen.footerNote,
   musicCredit:
     "音樂（預設關閉）：古琴《佩蘭》《孔子讀易》，Charlie Huang 演奏，CC BY 2.5（維基共享資源，已轉檔及加淡入淡出）；巴赫《哥德堡變奏曲》詠歎調、《平均律》第一冊 C 大調前奏曲，Kimiko Ishizaka 演奏，CC0。",
@@ -763,7 +763,7 @@ const yaliYue = {
     { title: "郁一郁", body: "每日行路或者伸展少少就得。唔使操到好攰。" },
   ],
   acuK: "輕按一下",
-  acuT: "鬆弦常用穴位",
+  acuT: "舒壓常用穴位",
   acuLead: "撳身上嘅點，睇位置同點用。輕按就得，唔代替針灸。適唔適合你，要醫生面診先定。",
   acuNote: "每個位置輕按約半分鐘，配合慢呼吸。酸脹就停。皮膚有傷口、懷孕，或者有出血傾向，請先問醫生。",
   musicK: "聽一段",
@@ -873,7 +873,7 @@ function merge(base: unknown, over: unknown): unknown {
 }
 
 /**
- * 鬆弦 shares approved safety copy instead of re-wording it: the footer note is 安神's in each
+ * 舒壓 shares approved safety copy instead of re-wording it: the footer note is 安神's in each
  * language, and the crisis sentence is the FAQ's (yue/cmn). EN has no FAQ, so its crisis sentence
  * lives in copy-extra.ts as a translation (flagged for clinician approval).
  */

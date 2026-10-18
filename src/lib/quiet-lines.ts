@@ -97,7 +97,7 @@ export const ANMEI_LINES = [
   "想瞓我就瞓一陣，醒咗再算。",
 ];
 
-/** 鬆弦（壓力繃緊同身心反應）· 2026-10 draft, pending clinician review. */
+/** 舒壓（壓力繃緊同身心反應）· 2026-10 draft, pending clinician review. */
 export const YALI_LINES = [
   "肩膊可以低一格。",
   "今日做唔晒，都係正常。",
