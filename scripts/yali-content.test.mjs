@@ -143,7 +143,7 @@ test("short lines: Chinese sentences stay short", () => {
   }
 });
 
-test("music: every track has a local file, licences documented, nothing autoplays", () => {
+test("music: every track has a local file, licences documented, room player attempts its Chinese default", () => {
   const doc = readFileSync(`${root}docs/yali-music-licences.md`, "utf8");
   for (const t of YUE.yali.tracks) {
     const f = `${root}public/audio/yali/${t.id}.mp3`;
@@ -155,7 +155,9 @@ test("music: every track has a local file, licences documented, nothing autoplay
   assert.ok(groups.includes("cn") && groups.includes("west"), "Chinese and Western balance");
   const tools = readFileSync(`${root}src/components/room-music.tsx`, "utf8");
   assert.doesNotMatch(tools, /autoPlay|autoplay\s*=/);
-  assert.match(tools, /useState<string \| null>\(null\)/, "player starts stopped");
+  assert.match(tools, /useState<string \| null>\(null\)/, "no track is claimed playing before play() resolves");
+  assert.match(tools, /defaultTrack\(room\)/, "room entry attempts the Chinese default");
+  assert.match(tools, /pointerdown/, "blocked autoplay starts on first interaction");
   const atmo = readFileSync(`${root}src/components/site-atmosphere.tsx`, "utf8");
-  assert.doesNotMatch(atmo, /AmbientMusic|calm\.mp3/, "no ambient autoplay anywhere (rooms or other pages)");
+  assert.doesNotMatch(atmo, /AmbientMusic|calm\.mp3/, "no separate ambient track anywhere (rooms or other pages)");
 });

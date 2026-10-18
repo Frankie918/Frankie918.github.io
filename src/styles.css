@@ -687,7 +687,7 @@ section[id] {
   display: inline;
 }
 
-/* 舒壓 room: user-started music (off by default) and the guided shoulder-drop. */
+/* 舒壓 room: room music (Chinese by default on entry) and the guided shoulder-drop. */
 .calm-stop {
   position: fixed;
   left: 1rem;

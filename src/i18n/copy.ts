@@ -19,7 +19,7 @@ const yue = {
     musicOn: "卡農 · 開",
     musicPlay: "播放背景樂",
     musicPause: "關閉背景樂",
-    musicCredit: "音樂：每間房可揀中樂／西樂，預設靜音，唔會自己播。",
+    musicCredit: "音樂：入房先播中樂，可轉西樂／靜音。",
     today: "今日",
     yi: "宜",
     ji: "忌",
@@ -100,13 +100,13 @@ const yue = {
   listen: {
     kicker: "房間音樂",
     title: "每間房都有得揀",
-    lede: "音樂預設靜音，唔會自己播。入到任何一間房，撳上方嘅浮動音樂掣，就可以揀中樂、西樂，或者靜音。每間房各有一首中樂同一首唔同嘅西樂。",
+    lede: "入房會先播中樂；瀏覽器若擋住，會喺你第一次撳頁面時開始。撳上方嘅浮動音樂掣，可以轉西樂或者靜音。每間房各有一首中樂同一首唔同嘅西樂。",
     now: "各房曲目",
     credit: "每首錄音嘅出處同版權，喺每間房音樂欄嘅底下寫明。",
     tracks: [
       { title: "安神", hint: "中樂《平沙落雁》 · 西樂 巴赫《哥德堡變奏曲》詠歎調" },
-      { title: "解鬱", hint: "中樂《陽關三疊》 · 西樂 巴赫《哥德堡變奏曲》第13變奏" },
-      { title: "安寐", hint: "中樂《醉漁唱晚》 · 西樂 巴赫《哥德堡變奏曲》第25變奏" },
+      { title: "解鬱", hint: "中樂《陽關三疊》 · 西樂 蕭邦《夜曲》降E大調 Op. 9 No. 2" },
+      { title: "安寐", hint: "中樂《醉漁唱晚》 · 西樂 薩蒂《裸體歌舞》第一首" },
       { title: "舒壓", hint: "中樂《孔子讀易》 · 西樂 巴赫《平均律》C 大調前奏曲" },
     ],
   },
@@ -238,7 +238,7 @@ const yue = {
     footerNote:
       "內容屬傳統中醫普及教育，唔構成診斷或處方。用藥必須由註冊中醫師面診。若出現持續功能受損、恐慌，請聯絡當地急症或精神健康熱線。本站唔收集個人病歷。",
     musicOn: "平沙 · 開",
-    musicCredit: "音樂（預設靜音，可揀中樂／西樂）：古琴《平沙落雁》，Charlie Huang 演奏，CC BY 2.5（維基共享資源）；巴赫《哥德堡變奏曲》詠歎調，Kimiko Ishizaka 演奏，CC0。",
+    musicCredit: "音樂（入房先播中樂，可轉西樂／靜音）：古琴《平沙落雁》，Charlie Huang 演奏，CC BY 2.5（維基共享資源）；巴赫《哥德堡變奏曲》詠歎調，Kimiko Ishizaka 演奏，CC0。",
     nav: [
       { href: "#view", label: "中醫點睇" },
       { href: "#types", label: "常見證型" },
@@ -369,7 +369,7 @@ const jieyuYue = {
   footerName: "身心課堂 · 解鬱",
   footerNote: "教育內容，唔構成診斷或處方。用藥、針灸須由註冊中醫師執行。若抑鬱持續、功能明顯下降，請同時求助精神健康服務。本站唔儲存你嘅選擇。",
   musicOn: "陽關 · 開",
-  musicCredit: "音樂（預設靜音，可揀中樂／西樂）：古琴《陽關三疊》，Charlie Huang（Charles R Tsua）演奏，CC BY-SA 3.0（維基共享資源）；巴赫《哥德堡變奏曲》第13變奏，Kimiko Ishizaka 演奏，CC0。",
+  musicCredit: "音樂（入房先播中樂，可轉西樂／靜音）：古琴《陽關三疊》，Charlie Huang（Charles R Tsua）演奏，CC BY-SA 3.0（維基共享資源）；蕭邦《夜曲》降E大調 Op. 9 No. 2，Frank Lévy 演奏，Musopen，公有領域。",
   nav: [
     { href: "#view", label: "中醫點睇" },
     { href: "#types", label: "常見證型" },
@@ -477,7 +477,7 @@ const anmeiYue = {
   footerNote:
     "教育內容，唔構成診斷或處方。用藥、針灸須由註冊中醫師執行。安眠藥只宜短用，停藥須經醫生。本站唔收集病歷。很大聲鼻鼾、日間控制唔住打瞌睡請盡快求醫。若有自傷念頭，請打 999，或澳門明愛生命熱線 2852 5222。",
   musicOn: "醉漁 · 開",
-  musicCredit: "音樂（預設靜音，可揀中樂／西樂）：古琴《醉漁唱晚》，Charlie Huang（Charles R Tsua）演奏，CC BY-SA 3.0（維基共享資源）；巴赫《哥德堡變奏曲》第25變奏，Kimiko Ishizaka 演奏，CC0。",
+  musicCredit: "音樂（入房先播中樂，可轉西樂／靜音）：古琴《醉漁唱晚》，Charlie Huang（Charles R Tsua）演奏，CC BY-SA 3.0（維基共享資源）；薩蒂《裸體歌舞》第一首，Robin Alciatore 演奏，Musopen，公有領域。",
   nav: [
     { href: "#view", label: "中醫點睇" },
     { href: "#quiz", label: "今晚似邊種" },
@@ -654,7 +654,7 @@ const yaliYue = {
   footerName: "身心課堂 · 舒壓",
   footerNote: yue.anshen.footerNote,
   musicCredit:
-    "音樂（預設關閉）：古琴《孔子讀易》，Charlie Huang 演奏，CC BY 2.5（維基共享資源，已轉檔及加淡入淡出）；巴赫《平均律》第一冊 C 大調前奏曲，Kimiko Ishizaka 演奏，CC0。",
+    "音樂（入房先播中樂，可轉西樂／靜音）：古琴《孔子讀易》，Charlie Huang 演奏，CC BY 2.5（維基共享資源，已轉檔及加淡入淡出）；巴赫《平均律》第一冊 C 大調前奏曲，Kimiko Ishizaka 演奏，CC0。",
   nav: [
     { href: "#feel", label: "身體訊號" },
     { href: "#shoulder", label: "肩頸放低" },
@@ -766,7 +766,7 @@ const yaliYue = {
   acuNote: "每個位置輕按約半分鐘，配合慢呼吸。酸脹就停。皮膚有傷口、懷孕，或者有出血傾向，請先問醫生。",
   musicK: "聽一段",
   musicT: "靜音樂",
-  musicLead: "預設關閉。想聽先撳。音量細，會慢慢淡入，會循環播放。",
+  musicLead: "入房會先播中樂。瀏覽器若擋住，會喺你第一次撳頁面時開始。音量細，會慢慢淡入，會循環播放。可以隨時轉西樂或靜音。",
   musicSafety: "對聲音敏感，可以唔開。聽到唔舒服，隨時停。",
   musicPlay: "播放",
   musicStop: "停止音樂",

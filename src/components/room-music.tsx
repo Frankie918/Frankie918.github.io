@@ -11,16 +11,20 @@ import {
 import { useRouterState } from "@tanstack/react-router";
 import { GhostButton } from "@/components/clinic-layout";
 import { useLang } from "@/i18n/lang";
-import { MUSIC_UI, ROOM_MUSIC, roomFromPath, type MusicRoom, type MusicTrack } from "@/lib/room-music";
+import { MUSIC_UI, ROOM_MUSIC, defaultTrack, roomFromPath, type MusicRoom, type MusicTrack } from "@/lib/room-music";
 
 /**
  * One shared player for all four rooms (安神／解鬱／安寐／舒壓).
- * OFF / silent by default: no preload, no autoplay, no autoplay-on-first-tap anywhere.
- * The visitor explicitly picks 中樂 or 西樂 (floating button at the top, or the in-page
- * #music section — both drive this same player). One track at a time, looped, gentle
- * volume (slider 100% = 50% of device volume), slow fade-in. 靜音 fully stops and
- * rewinds. Changing room or leaving the rooms stops the music.
- * Licences: docs/yali-music-licences.md (PD compositions; CC BY / CC BY-SA / CC0 recordings).
+ * DEFAULT (clinician, 2026-10-18): on entering a room, attempt to start that room's
+ * Chinese guqin track at 20% volume (slider 40 x max 50%) with a slow fade-in.
+ * Browsers usually block audible autoplay before any interaction: if play() is
+ * rejected, the default stays ARMED (not shown as playing) and starts on the
+ * visitor's first pointerdown/keydown anywhere on the page. The visitor can
+ * switch to the room's Western track, or press 靜音/mute: mute persists for that
+ * room visit (the default does not restart) until they leave and re-enter, and
+ * switching rooms resets to the new room's Chinese default. One shared <audio>
+ * element = one track at a time; leaving the four rooms stops everything.
+ * Licences: docs/yali-music-licences.md (PD compositions; CC BY / CC BY-SA / CC0 / PD recordings).
  */
 const MAX_VOLUME = 0.5;
 const DEFAULT_LEVEL = 40; // → 0.2 actual
@@ -58,6 +62,14 @@ export function MusicProvider({ children }: { children: ReactNode }) {
   levelRef.current = level;
   const roomRef = useRef(room);
   roomRef.current = room;
+  const playingIdRef = useRef<string | null>(null);
+  /** Room whose visit the visitor muted in; default must not restart there. */
+  const mutedVisitRef = useRef<MusicRoom | null>(null);
+  /** Default track armed to start on first interaction after blocked autoplay. */
+  const pendingRef = useRef<MusicTrack | null>(null);
+  const armHandlerRef = useRef<(() => void) | null>(null);
+  /** Last room value the room-entry effect has handled (mount + each switch). */
+  const handledRoomRef = useRef<MusicRoom | null | undefined>(undefined);
 
   const clearFade = useCallback(() => {
     if (fade.current) window.clearInterval(fade.current);
@@ -81,7 +93,18 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     [clearFade],
   );
 
+  const disarmDefault = useCallback(() => {
+    pendingRef.current = null;
+    if (armHandlerRef.current) {
+      window.removeEventListener("pointerdown", armHandlerRef.current);
+      window.removeEventListener("keydown", armHandlerRef.current);
+      armHandlerRef.current = null;
+    }
+  }, []);
+
   const hardStop = useCallback(() => {
+    playingIdRef.current = null;
+    disarmDefault();
     clearFade();
     const el = audio.current;
     if (el) {
@@ -91,9 +114,65 @@ export function MusicProvider({ children }: { children: ReactNode }) {
       el.load();
     }
     setPlayingId(null);
-  }, [clearFade]);
+  }, [clearFade, disarmDefault]);
 
+  const startTrack = useCallback(
+    async (track: MusicTrack): Promise<boolean> => {
+      const el = audio.current ?? new Audio();
+      audio.current = el;
+      clearFade();
+      el.pause();
+      el.loop = true;
+      el.preload = "auto";
+      el.volume = 0;
+      el.src = track.src;
+      try {
+        await el.play();
+      } catch {
+        // Blocked (autoplay policy) or interrupted: do NOT claim it is playing.
+        playingIdRef.current = null;
+        setPlayingId(null);
+        return false;
+      }
+      playingIdRef.current = track.id;
+      setPlayingId(track.id);
+      ramp(el, (levelRef.current / 100) * MAX_VOLUME, FADE_IN_MS);
+      return true;
+    },
+    [clearFade, ramp],
+  );
+
+  const armDefault = useCallback(
+    (track: MusicTrack) => {
+      disarmDefault();
+      pendingRef.current = track;
+      const handler = () => {
+        const pending = pendingRef.current;
+        if (!pending) return;
+        if (mutedVisitRef.current === roomRef.current) {
+          disarmDefault();
+          return;
+        }
+        if (playingIdRef.current) {
+          disarmDefault();
+          return;
+        }
+        void startTrack(pending).then((ok) => {
+          if (ok) disarmDefault();
+        });
+      };
+      armHandlerRef.current = handler;
+      window.addEventListener("pointerdown", handler);
+      window.addEventListener("keydown", handler);
+    },
+    [disarmDefault, startTrack],
+  );
+
+  /** 靜音: stop now, cancel any armed default, and keep it off for this room visit. */
   const stop = useCallback(() => {
+    mutedVisitRef.current = roomRef.current;
+    disarmDefault();
+    playingIdRef.current = null;
     const el = audio.current;
     setPlayingId(null);
     if (!el) return;
@@ -101,29 +180,20 @@ export function MusicProvider({ children }: { children: ReactNode }) {
       el.pause();
       el.currentTime = 0;
     });
-  }, [ramp]);
+  }, [ramp, disarmDefault]);
 
   const play = useCallback(
     (track: MusicTrack) => {
-      if (playingId === track.id) {
+      // An explicit pick overrides the default and clears this visit's mute.
+      disarmDefault();
+      mutedVisitRef.current = null;
+      if (playingIdRef.current === track.id) {
         stop();
         return;
       }
-      const el = audio.current ?? new Audio();
-      audio.current = el;
-      clearFade();
-      el.pause();
-      el.loop = true;
-      el.preload = "none";
-      el.volume = 0;
-      el.src = track.src;
-      setPlayingId(track.id);
-      void el
-        .play()
-        .then(() => ramp(el, (levelRef.current / 100) * MAX_VOLUME, FADE_IN_MS))
-        .catch(() => setPlayingId(null));
+      void startTrack(track);
     },
-    [playingId, stop, clearFade, ramp],
+    [stop, disarmDefault, startTrack],
   );
 
   // Volume slider follows immediately while playing.
@@ -132,19 +202,32 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     if (el && playingId && !fade.current) el.volume = (level / 100) * MAX_VOLUME;
   }, [level, playingId]);
 
-  // Changing room (or leaving the four rooms) always stops the music and closes the panel.
-  const prevRoom = useRef(room);
+  // Room entry / switching: stop the previous room, reset the visit's mute, close
+  // the panel, then attempt the new room's Chinese default. Switching rooms
+  // therefore always resets to the new room's default; leaving the rooms stops.
   useEffect(() => {
-    if (prevRoom.current !== room) {
-      prevRoom.current = room;
-      hardStop();
-      setPanelOpen(false);
-    }
-  }, [room, hardStop]);
+    if (handledRoomRef.current === room) return;
+    handledRoomRef.current = room;
+    hardStop();
+    setPanelOpen(false);
+    mutedVisitRef.current = null;
+    if (!room) return;
+    const def = defaultTrack(room);
+    void startTrack(def).then((ok) => {
+      if (ok) return;
+      // Autoplay blocked: arm for the first tap/keypress, unless the visitor has
+      // already muted or started something else in this room in the meantime.
+      if (handledRoomRef.current !== room) return;
+      if (mutedVisitRef.current === room) return;
+      if (playingIdRef.current) return;
+      armDefault(def);
+    });
+  }, [room, hardStop, startTrack, armDefault]);
 
   // Unmount (page leave) stops everything.
   useEffect(
     () => () => {
+      disarmDefault();
       clearFade();
       const el = audio.current;
       if (el) {
@@ -154,7 +237,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
       }
       audio.current = null;
     },
-    [clearFade],
+    [clearFade, disarmDefault],
   );
 
   const value = useMemo<MusicCtx>(

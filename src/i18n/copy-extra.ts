@@ -41,7 +41,7 @@ export const CMN = {
 		musicOn: "卡農 · 開",
 		musicPlay: "播放卡農",
 		musicPause: "關閉卡農",
-		musicCredit: "音樂：每間房可選中樂／西樂，預設靜音，不會自動播放。",
+		musicCredit: "音樂：入房先播中樂，可轉西樂／靜音。",
 		today: "今日",
 		yi: "宜",
 		ji: "忌",
@@ -117,13 +117,13 @@ export const CMN = {
 	listen: {
 		kicker: "房間音樂",
 		title: "每間房都可以選",
-		lede: "音樂預設靜音，不會自動播放。進入任何一間房，按上方的浮動音樂按鈕，就可以選中樂、西樂，或者靜音。每間房各有一首中樂和一首不同的西樂。",
+		lede: "入房會先播中樂；瀏覽器若擋住，會在你第一次按頁面時開始。按上方的浮動音樂按鈕，可以轉西樂或者靜音。每間房各有一首中樂和一首不同的西樂。",
 		now: "各房曲目",
 		credit: "每首錄音的出處與版權，寫在每間房音樂欄的下方。",
 		tracks: [
 			{ title: "安神", hint: "中樂《平沙落雁》 · 西樂 巴赫《哥德堡變奏曲》詠歎調" },
-			{ title: "解鬱", hint: "中樂《陽關三疊》 · 西樂 巴赫《哥德堡變奏曲》第13變奏" },
-			{ title: "安寐", hint: "中樂《醉漁唱晚》 · 西樂 巴赫《哥德堡變奏曲》第25變奏" },
+			{ title: "解鬱", hint: "中樂《陽關三疊》 · 西樂 蕭邦《夜曲》降E大調 Op. 9 No. 2" },
+			{ title: "安寐", hint: "中樂《醉漁唱晚》 · 西樂 薩蒂《裸體歌舞》第一首" },
 			{ title: "舒壓", hint: "中樂《孔子讀易》 · 西樂 巴赫《平均律》C 大調前奏曲" }
 		]
 	},
@@ -262,7 +262,7 @@ export const CMN = {
 		footerName: "身心課堂 · 安神",
 		footerNote: "內容屬傳統中醫普及教育，不構成診斷或處方。用藥必須由註冊中醫師面診。若出現持續功能受損、恐慌，請聯絡當地急症或精神健康熱線。本站不收集個人病歷。",
 		musicOn: "平沙 · 開",
-		musicCredit: "音樂（預設靜音，可選中樂／西樂）：古琴《平沙落雁》，Charlie Huang 演奏，CC BY 2.5（維基共享資源）；巴赫《哥德堡變奏曲》詠歎調，Kimiko Ishizaka 演奏，CC0。",
+		musicCredit: "音樂（入房先播中樂，可轉西樂／靜音）：古琴《平沙落雁》，Charlie Huang 演奏，CC BY 2.5（維基共享資源）；巴赫《哥德堡變奏曲》詠歎調，Kimiko Ishizaka 演奏，CC0。",
 		nav: [
 			{
 				href: "#view",
@@ -469,7 +469,7 @@ export const CMN = {
 		footerName: "身心課堂 · 解鬱",
 		footerNote: "教育內容，不構成診斷或處方。用藥、針灸須由註冊中醫師執行。若抑鬱持續、功能明顯下降，請同時求助精神健康服務。本站不儲存你的選擇。",
 		musicOn: "陽關 · 開",
-		musicCredit: "音樂（預設靜音，可選中樂／西樂）：古琴《陽關三疊》，Charlie Huang（Charles R Tsua）演奏，CC BY-SA 3.0（維基共享資源）；巴赫《哥德堡變奏曲》第13變奏，Kimiko Ishizaka 演奏，CC0。",
+		musicCredit: "音樂（入房先播中樂，可轉西樂／靜音）：古琴《陽關三疊》，Charlie Huang（Charles R Tsua）演奏，CC BY-SA 3.0（維基共享資源）；蕭邦《夜曲》降E大調 Op. 9 No. 2，Frank Lévy 演奏，Musopen，公有領域。",
 		nav: [
 			{
 				href: "#view",
@@ -656,7 +656,7 @@ export const CMN = {
 		footerName: "身心課堂 · 安寐",
 		footerNote: "教育內容，不構成診斷或處方。用藥、針灸須由註冊中醫師執行。安眠藥只宜短用，停藥須經醫生。本站不收集病歷。很大聲鼻鼾、日間控制不住打瞌睡請盡快求醫。若有自傷念頭，請打 999，或澳門明愛生命熱線 2852 5222。",
 		musicOn: "醉漁 · 開",
-		musicCredit: "音樂（預設靜音，可選中樂／西樂）：古琴《醉漁唱晚》，Charlie Huang（Charles R Tsua）演奏，CC BY-SA 3.0（維基共享資源）；巴赫《哥德堡變奏曲》第25變奏，Kimiko Ishizaka 演奏，CC0。",
+		musicCredit: "音樂（入房先播中樂，可轉西樂／靜音）：古琴《醉漁唱晚》，Charlie Huang（Charles R Tsua）演奏，CC BY-SA 3.0（維基共享資源）；薩蒂《裸體歌舞》第一首，Robin Alciatore 演奏，Musopen，公有領域。",
 		nav: [
 			{
 				href: "#view",
@@ -1100,7 +1100,7 @@ export const CMN = {
 		kicker: "壓力緊繃與身心反應",
 		lede: "壓力大，身體會先知道。不必立刻解決，先把呼吸放慢，把弦鬆一格。",
 		footerName: "身心課堂 · 舒壓",
-		musicCredit: "音樂（預設關閉）：古琴《孔子讀易》，Charlie Huang 演奏，CC BY 2.5（維基共享資源，已轉檔並加淡入淡出）；巴赫《平均律》第一冊 C 大調前奏曲，Kimiko Ishizaka 演奏，CC0。",
+		musicCredit: "音樂（入房先播中樂，可轉西樂／靜音）：古琴《孔子讀易》，Charlie Huang 演奏，CC BY 2.5（維基共享資源，已轉檔並加淡入淡出）；巴赫《平均律》第一冊 C 大調前奏曲，Kimiko Ishizaka 演奏，CC0。",
 		nav: [
 			{ href: "#feel", label: "身體訊號" },
 			{ href: "#shoulder", label: "肩頸放下" },
@@ -1212,7 +1212,7 @@ export const CMN = {
 		acuNote: "每個位置輕按約半分鐘，配合慢呼吸。酸脹就停。皮膚有傷口、懷孕，或有出血傾向，請先問醫生。",
 		musicK: "聽一段",
 		musicT: "靜音樂",
-		musicLead: "預設關閉。想聽才點。音量小，會慢慢淡入，會循環播放。",
+		musicLead: "入房會先播中樂。瀏覽器若擋住，會在你第一次按頁面時開始。音量小，會慢慢淡入，會循環播放。可以隨時轉西樂或靜音。",
 		musicSafety: "對聲音敏感，可以不開。聽了不舒服，隨時停。",
 		musicPlay: "播放",
 		musicStop: "停止音樂",
@@ -1375,7 +1375,7 @@ export const EN = {
 		musicOn: "Canon · on",
 		musicPlay: "Play Canon in D",
 		musicPause: "Pause Canon in D",
-		musicCredit: "Music: each room offers Chinese or Western music, off by default and never autoplays.",
+		musicCredit: "Music: Chinese music starts on entry in each room; Western music or mute available.",
 		today: "Today",
 		yi: "Do",
 		ji: "Don’t",
@@ -1451,13 +1451,13 @@ export const EN = {
 	listen: {
 		kicker: "Room music",
 		title: "Every room lets you choose",
-		lede: "Music is off by default and never autoplays. In any room, tap the floating music button above to choose Chinese music, Western music, or mute. Each room has one Chinese piece and a different Western piece.",
+		lede: "Chinese music starts when you enter a room; if your browser blocks it, it starts on your first tap on the page. Tap the floating music button above to switch to Western music or mute. Each room has one Chinese piece and a different Western piece.",
 		now: "Music in each room",
 		credit: "The source and licence of each recording are shown at the foot of each room's music section.",
 		tracks: [
 			{ title: "Calm the Mind", hint: "Chinese: Pingsha Luoyan · Western: Bach, Goldberg Variations, Aria" },
-			{ title: "Ease the Heart", hint: "Chinese: Yangguan Sandie · Western: Bach, Goldberg Variations, Variation 13" },
-			{ title: "Restful Sleep", hint: "Chinese: Zuiyu Changwan · Western: Bach, Goldberg Variations, Variation 25" },
+			{ title: "Ease the Heart", hint: "Chinese: Yangguan Sandie · Western: Chopin, Nocturne in E-flat major, Op. 9 No. 2" },
+			{ title: "Restful Sleep", hint: "Chinese: Zuiyu Changwan · Western: Satie, Gymnopédie No. 1" },
 			{ title: "Stress Relief", hint: "Chinese: Kongzi Duyi · Western: Bach, Prelude in C major (Well-Tempered Clavier I)" }
 		]
 	},
@@ -1596,7 +1596,7 @@ export const EN = {
 		footerName: "Body & Mind Classroom · Calm the Mind",
 		footerNote: "This is traditional Chinese medicine education, not a diagnosis or prescription. Herbs must be prescribed in person. If function stays impaired or panic appears, contact emergency or mental-health services. We do not collect records.",
 		musicOn: "Pingsha · on",
-		musicCredit: "Music (off by default; choose Chinese or Western): guqin “Pingsha Luoyan”, performed by Charlie Huang, CC BY 2.5 (Wikimedia Commons); Bach, Goldberg Variations Aria, performed by Kimiko Ishizaka, CC0.",
+		musicCredit: "Music (Chinese music starts on entry; Western or mute available): guqin “Pingsha Luoyan”, performed by Charlie Huang, CC BY 2.5 (Wikimedia Commons); Bach, Goldberg Variations Aria, performed by Kimiko Ishizaka, CC0.",
 		nav: [
 			{
 				href: "#view",
@@ -1803,7 +1803,7 @@ export const EN = {
 		footerName: "Body & Mind Classroom · Ease the Heart",
 		footerNote: "Education, not diagnosis or prescription. Herbs and acupuncture must be given by a registered practitioner. If low mood lasts and function falls, also seek mental-health care. This site does not store your choices.",
 		musicOn: "Yangguan · on",
-		musicCredit: "Music (off by default; choose Chinese or Western): guqin “Yangguan Sandie”, performed by Charlie Huang (Charles R Tsua), CC BY-SA 3.0 (Wikimedia Commons); Bach, Goldberg Variations Variation 13, performed by Kimiko Ishizaka, CC0.",
+		musicCredit: "Music (Chinese music starts on entry; Western or mute available): guqin “Yangguan Sandie”, performed by Charlie Huang (Charles R Tsua), CC BY-SA 3.0 (Wikimedia Commons); Chopin, Nocturne in E-flat major Op. 9 No. 2, performed by Frank Lévy, Musopen, public domain.",
 		nav: [
 			{
 				href: "#view",
@@ -1990,7 +1990,7 @@ export const EN = {
 		footerName: "Body & Mind Classroom · Restful Sleep",
 		footerNote: "Education, not diagnosis or prescription. Herbs and acupuncture must be given by a registered practitioner. Sleeping pills are for short use; stopping them needs a doctor. We do not collect records. Loud snoring or irresistible daytime sleep: seek care soon. If there are thoughts of self-harm, call 999 or Caritas Macau Life Hotline 2852 5222.",
 		musicOn: "Zuiyu · on",
-		musicCredit: "Music (off by default; choose Chinese or Western): guqin “Zuiyu Changwan”, performed by Charlie Huang (Charles R Tsua), CC BY-SA 3.0 (Wikimedia Commons); Bach, Goldberg Variations Variation 25, performed by Kimiko Ishizaka, CC0.",
+		musicCredit: "Music (Chinese music starts on entry; Western or mute available): guqin “Zuiyu Changwan”, performed by Charlie Huang (Charles R Tsua), CC BY-SA 3.0 (Wikimedia Commons); Satie, Gymnopédie No. 1, performed by Robin Alciatore, Musopen, public domain.",
 		nav: [
 			{
 				href: "#view",
@@ -2434,7 +2434,7 @@ export const EN = {
 		kicker: "Stress, tension and body–mind reactions",
 		lede: "Under pressure, the body knows first. Nothing has to be solved at once. Slow the breath, and let the tight string loosen one notch.",
 		footerName: "Body & Mind Classroom · Stress Relief",
-		musicCredit: "Music (off by default): guqin “Kongzi Duyi”, performed by Charlie Huang, CC BY 2.5 (Wikimedia Commons; transcoded, fades added). Bach, Well-Tempered Clavier I Prelude in C major, performed by Kimiko Ishizaka, CC0.",
+		musicCredit: "Music (Chinese music starts on entry): guqin “Kongzi Duyi”, performed by Charlie Huang, CC BY 2.5 (Wikimedia Commons; transcoded, fades added). Bach, Well-Tempered Clavier I Prelude in C major, performed by Kimiko Ishizaka, CC0.",
 		nav: [
 			{ href: "#feel", label: "Body signals" },
 			{ href: "#shoulder", label: "Shoulders" },
@@ -2546,7 +2546,7 @@ export const EN = {
 		acuNote: "Press each point lightly for about half a minute, with slow breathing. Stop if it aches. If the skin is broken, you are pregnant, or you bleed easily, ask a doctor first.",
 		musicK: "Listen",
 		musicT: "Quiet music",
-		musicLead: "Off by default. It plays only if you press play. It starts soft, fades in slowly, and loops.",
+		musicLead: "Chinese music starts when you enter. If your browser blocks it, it starts on your first tap on the page. It starts soft, fades in slowly, and loops. Switch to Western music or mute any time.",
 		musicSafety: "If you are sensitive to sound, you can leave it off. Stop any time it feels uncomfortable.",
 		musicPlay: "Play",
 		musicStop: "Stop music",

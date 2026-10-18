@@ -211,4 +211,4 @@ export function PressurePark() {
 }
 
 /* Quiet music for this room lives in the shared four-room player:
- * src/components/room-music.tsx + src/lib/room-music.ts (off by default; 中樂／西樂 choice). */
+ * src/components/room-music.tsx + src/lib/room-music.ts (Chinese by default on entry; 中樂／西樂 choice). */

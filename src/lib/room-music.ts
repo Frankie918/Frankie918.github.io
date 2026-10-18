@@ -2,12 +2,16 @@ import type { Lang } from "@/i18n/copy";
 
 /**
  * Room music catalogue (2026-10, live).
- * Every room offers exactly one Chinese (中樂) and one Western (西樂) track;
- * all four Western tracks are different. Visitors choose, nothing autoplays.
- * Western tracks: only Bach recordings where BOTH composition (public domain) and recording
- * (Kimiko Ishizaka, CC0) are documented — see docs/yali-music-licences.md.
+ * Every room offers exactly one Chinese (中樂) and one Western (西樂) track.
+ * On entry a room DEFAULTS to its Chinese guqin track (player attempts autoplay;
+ * if the browser blocks it, playback starts on the first tap/keypress — see
+ * room-music.tsx). The visitor can switch to Western or mute for that room visit.
+ * All four Western tracks are genuinely DIFFERENT compositions — workId encodes
+ * the parent work so no two rooms share one: Goldberg Variations appears ONLY
+ * as the Aria (安神). Composers: Bach (x2 rooms, different works), Chopin, Satie.
+ * Both composition and recording are licence-verified — see docs/yali-music-licences.md.
  * Chinese tracks keep each room's existing guqin recording and licence/credit.
- * Track titles carry no efficacy promise: hints describe tempo/timbre/length only.
+ * Track titles/hints carry no efficacy promise: tempo/timbre/length only.
  */
 export type MusicRoom = "anshen" | "jieyu" | "anmei" | "yali";
 export type MusicGroup = "cn" | "west";
@@ -16,9 +20,20 @@ export type MusicTrack = {
   id: string;
   src: string;
   group: MusicGroup;
+  /** Composer (Western) or tradition/source (Chinese) — used to prove distinct works. */
+  composer: string;
+  /** Parent composition ID. No two Western tracks may share a workId. */
+  workId: string;
   title: Record<Lang, string>;
   hint: Record<Lang, string>;
 };
+
+/** The track a room starts with on entry: its Chinese guqin track. */
+export function defaultTrack(room: MusicRoom): MusicTrack {
+  const t = ROOM_MUSIC[room].tracks.find((x) => x.group === "cn");
+  if (!t) throw new Error(`room ${room} has no Chinese default track`);
+  return t;
+}
 
 export type RoomMusic = {
   room: MusicRoom;
@@ -31,6 +46,8 @@ const ARIA: MusicTrack = {
   id: "aria",
   src: "/audio/yali/aria.mp3",
   group: "west",
+  composer: "J.S. Bach",
+  workId: "bach-goldberg-variations-bwv988",
   title: {
     yue: "巴赫《哥德堡變奏曲》詠歎調",
     cmn: "巴赫《哥德堡變奏曲》詠歎調",
@@ -47,6 +64,8 @@ const PRELUDE: MusicTrack = {
   id: "prelude",
   src: "/audio/yali/prelude.mp3",
   group: "west",
+  composer: "J.S. Bach",
+  workId: "bach-well-tempered-clavier-bwv846",
   title: {
     yue: "巴赫《平均律》C 大調前奏曲",
     cmn: "巴赫《平均律》C 大調前奏曲",
@@ -59,36 +78,52 @@ const PRELUDE: MusicTrack = {
   },
 };
 
-const VAR13: MusicTrack = {
-  id: "var13",
-  src: "/audio/yali/var13.mp3",
+const NOCTURNE: MusicTrack = {
+  id: "nocturne",
+  src: "/audio/yali/chopin-nocturne.mp3",
   group: "west",
+  composer: "Frédéric Chopin",
+  workId: "chopin-nocturne-op9-no2",
   title: {
-    yue: "巴赫《哥德堡變奏曲》第13變奏",
-    cmn: "巴赫《哥德堡變奏曲》第13變奏",
-    en: "Bach · Goldberg Variations, Variation 13",
+    yue: "蕭邦《夜曲》降E大調 Op. 9 No. 2",
+    cmn: "蕭邦《夜曲》降E大調 Op. 9 No. 2",
+    en: "Chopin · Nocturne in E-flat major, Op. 9 No. 2",
   },
   hint: {
-    yue: "鋼琴 · 約 4 分鐘 · 慢，薩拉邦德舞步",
-    cmn: "鋼琴 · 約 4 分鐘 · 慢，薩拉邦德舞步",
-    en: "Piano · about 4 min · slow sarabande step",
+    yue: "鋼琴 · 約 4 分半鐘 · 慢，旋律柔和、稍明亮",
+    cmn: "鋼琴 · 約 4 分半鐘 · 慢，旋律柔和、稍明亮",
+    en: "Piano · about 4½ min · slow, soft and slightly brighter melody",
   },
 };
 
-const VAR25: MusicTrack = {
-  id: "var25",
-  src: "/audio/yali/var25.mp3",
+const GYMNOPEDIE: MusicTrack = {
+  id: "gymnopedie",
+  src: "/audio/yali/satie-gymnopedie.mp3",
   group: "west",
+  composer: "Erik Satie",
+  workId: "satie-gymnopedie-no1",
   title: {
-    yue: "巴赫《哥德堡變奏曲》第25變奏",
-    cmn: "巴赫《哥德堡變奏曲》第25變奏",
-    en: "Bach · Goldberg Variations, Variation 25",
+    yue: "薩蒂《裸體歌舞》第一首",
+    cmn: "薩蒂《裸體歌舞》第一首",
+    en: "Satie · Gymnopédie No. 1",
   },
   hint: {
-    yue: "鋼琴 · 約 9 分鐘 · 很慢，音符疏落",
-    cmn: "鋼琴 · 約 9 分鐘 · 很慢，音符疏落",
-    en: "Piano · about 9 min · very slow, sparse notes",
+    yue: "鋼琴 · 約 3 分鐘 · 很慢，音符疏落、安靜",
+    cmn: "鋼琴 · 約 3 分鐘 · 很慢，音符疏落、安靜",
+    en: "Piano · about 3 min · very slow, sparse and quiet",
   },
+};
+
+const CHOPIN_CREDIT: Record<Lang, string> = {
+  yue: "鋼琴錄音：Frank Lévy 演奏，Musopen《Set Chopin Free》，公有領域；蕭邦樂曲屬公有領域。",
+  cmn: "鋼琴錄音：Frank Lévy 演奏，Musopen《Set Chopin Free》，公有領域；蕭邦樂曲屬公有領域。",
+  en: "Piano: Frank Lévy, Musopen “Set Chopin Free”, public domain; Chopin's music is in the public domain.",
+};
+
+const SATIE_CREDIT: Record<Lang, string> = {
+  yue: "鋼琴錄音：Robin Alciatore 演奏，Musopen，公有領域；薩蒂樂曲屬公有領域。",
+  cmn: "鋼琴錄音：Robin Alciatore 演奏，Musopen，公有領域；薩蒂樂曲屬公有領域。",
+  en: "Piano: Robin Alciatore, Musopen, public domain; Satie's music is in the public domain.",
 };
 
 const PIANO_CREDIT: Record<Lang, string> = {
@@ -103,6 +138,8 @@ export const ROOM_MUSIC: Record<MusicRoom, RoomMusic> = {
     tracks: [
       {
         id: "pingsha",
+        composer: "Traditional guqin",
+        workId: "guqin-pingsha-luoyan",
         src: "/audio/pingsha.mp3",
         group: "cn",
         title: { yue: "《平沙落雁》", cmn: "《平沙落雁》", en: "Pingsha Luoyan" },
@@ -125,6 +162,8 @@ export const ROOM_MUSIC: Record<MusicRoom, RoomMusic> = {
     tracks: [
       {
         id: "yangguan",
+        composer: "Traditional guqin",
+        workId: "guqin-yangguan-sandie",
         src: "/audio/yangguan.mp3",
         group: "cn",
         title: { yue: "《陽關三疊》", cmn: "《陽關三疊》", en: "Yangguan Sandie" },
@@ -134,12 +173,12 @@ export const ROOM_MUSIC: Record<MusicRoom, RoomMusic> = {
           en: "Guqin · about 6 min · slow farewell tune",
         },
       },
-      VAR13,
+      NOCTURNE,
     ],
     credit: {
-      yue: `古琴錄音：Charlie Huang（Charles R Tsua）演奏，維基共享資源，CC BY-SA 3.0。${PIANO_CREDIT.yue}`,
-      cmn: `古琴錄音：Charlie Huang（Charles R Tsua）演奏，維基共享資源，CC BY-SA 3.0。${PIANO_CREDIT.cmn}`,
-      en: `Guqin: Charlie Huang (Charles R Tsua), Wikimedia Commons, CC BY-SA 3.0. ${PIANO_CREDIT.en}`,
+      yue: `古琴錄音：Charlie Huang（Charles R Tsua）演奏，維基共享資源，CC BY-SA 3.0。${CHOPIN_CREDIT.yue}`,
+      cmn: `古琴錄音：Charlie Huang（Charles R Tsua）演奏，維基共享資源，CC BY-SA 3.0。${CHOPIN_CREDIT.cmn}`,
+      en: `Guqin: Charlie Huang (Charles R Tsua), Wikimedia Commons, CC BY-SA 3.0. ${CHOPIN_CREDIT.en}`,
     },
   },
   anmei: {
@@ -147,6 +186,8 @@ export const ROOM_MUSIC: Record<MusicRoom, RoomMusic> = {
     tracks: [
       {
         id: "zuiyu",
+        composer: "Traditional guqin",
+        workId: "guqin-zuiyu-changwan",
         src: "/audio/zuiyu.mp3",
         group: "cn",
         title: { yue: "《醉漁唱晚》", cmn: "《醉漁唱晚》", en: "Zuiyu Changwan" },
@@ -156,12 +197,12 @@ export const ROOM_MUSIC: Record<MusicRoom, RoomMusic> = {
           en: "Guqin · about 5 min · slow, low register",
         },
       },
-      VAR25,
+      GYMNOPEDIE,
     ],
     credit: {
-      yue: `古琴錄音：Charlie Huang（Charles R Tsua）演奏，維基共享資源，CC BY-SA 3.0。${PIANO_CREDIT.yue}`,
-      cmn: `古琴錄音：Charlie Huang（Charles R Tsua）演奏，維基共享資源，CC BY-SA 3.0。${PIANO_CREDIT.cmn}`,
-      en: `Guqin: Charlie Huang (Charles R Tsua), Wikimedia Commons, CC BY-SA 3.0. ${PIANO_CREDIT.en}`,
+      yue: `古琴錄音：Charlie Huang（Charles R Tsua）演奏，維基共享資源，CC BY-SA 3.0。${SATIE_CREDIT.yue}`,
+      cmn: `古琴錄音：Charlie Huang（Charles R Tsua）演奏，維基共享資源，CC BY-SA 3.0。${SATIE_CREDIT.cmn}`,
+      en: `Guqin: Charlie Huang (Charles R Tsua), Wikimedia Commons, CC BY-SA 3.0. ${SATIE_CREDIT.en}`,
     },
   },
   yali: {
@@ -172,6 +213,8 @@ export const ROOM_MUSIC: Record<MusicRoom, RoomMusic> = {
     tracks: [
       {
         id: "kongzi",
+        composer: "Traditional guqin",
+        workId: "guqin-kongzi-duyi",
         src: "/audio/yali/kongzi.mp3",
         group: "cn",
         title: {
@@ -217,8 +260,8 @@ export const MUSIC_UI: Record<
     music: "音樂",
     sectionK: "聽一段",
     sectionT: "靜音樂",
-    lead: "預設靜音。想聽先撳，唔會自動播。可以揀中樂或者西樂。",
-    safety: "對聲音敏感，可以唔開。聽到唔舒服，隨時撳靜音。",
+    lead: "入房會先播中樂（古琴）。瀏覽器若擋住自動播放，會喺你第一次撳頁面或者㩒鍵時開始。可以隨時轉西樂，或者撳靜音。",
+    safety: "對聲音敏感，隨時撳靜音；撳咗之後今次入房唔會再自動播。",
     cn: "中樂 · 古琴",
     west: "西樂 · 鋼琴",
     mute: "靜音",
@@ -232,8 +275,8 @@ export const MUSIC_UI: Record<
     music: "音樂",
     sectionK: "聽一段",
     sectionT: "靜音樂",
-    lead: "預設靜音。想聽才按，不會自動播放。可以選中樂或者西樂。",
-    safety: "對聲音敏感，可以不開。聽起來不舒服，隨時按靜音。",
+    lead: "入房會先播中樂（古琴）。瀏覽器若擋住自動播放，會在你第一次按頁面或者按鍵時開始。可以隨時轉西樂，或者按靜音。",
+    safety: "對聲音敏感，隨時按靜音；按了之後今次入房不會再自動播放。",
     cn: "中樂 · 古琴",
     west: "西樂 · 鋼琴",
     mute: "靜音",
@@ -247,8 +290,8 @@ export const MUSIC_UI: Record<
     music: "Music",
     sectionK: "Listen",
     sectionT: "Quiet music",
-    lead: "Off by default. It plays only if you press play. Choose Chinese or Western music.",
-    safety: "If you are sensitive to sound, you can leave it off. Press mute any time it feels uncomfortable.",
+    lead: "Each room starts with its Chinese guqin track. If your browser blocks autoplay, it starts on your first tap or key press on the page. Switch to Western music or press mute any time.",
+    safety: "If you are sensitive to sound, press mute any time; it will not restart during this room visit.",
     cn: "Chinese · guqin",
     west: "Western · piano",
     mute: "Mute",

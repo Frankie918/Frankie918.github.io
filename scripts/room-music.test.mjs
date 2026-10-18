@@ -8,7 +8,7 @@ import { createJiti } from "jiti";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 const jiti = createJiti(import.meta.url, { alias: { "@": `${root}src` }, jsx: true });
-const { ROOM_MUSIC, MUSIC_UI } = await jiti.import(`${root}src/lib/room-music.ts`);
+const { ROOM_MUSIC, MUSIC_UI, defaultTrack } = await jiti.import(`${root}src/lib/room-music.ts`);
 
 const ROOMS = ["anshen", "jieyu", "anmei", "yali"];
 const BAD = /根治|治好|治癒|療效|保證|包好|cure|guarantee|proven|will fix/i;
@@ -41,14 +41,27 @@ test("every track file exists locally and Western licences are documented", () =
       assert.match(doc, new RegExp(t.src.replace(/\//g, "\\/")), `licence doc lists ${t.src}`);
     }
   }
-  // Four DIFFERENT verified-CC0 Bach recordings, one Western track per room, no repeats.
-  const westSrcs = ROOMS.flatMap((r) => ROOM_MUSIC[r].tracks.filter((t) => t.group === "west").map((t) => t.src));
+  // Four genuinely DIFFERENT Western works: distinct srcs, distinct ids, and
+  // distinct parent compositions (workId) — no two movements of one work.
+  const west = ROOMS.flatMap((r) => ROOM_MUSIC[r].tracks.filter((t) => t.group === "west"));
+  const westSrcs = west.map((t) => t.src);
   assert.equal(new Set(westSrcs).size, 4, "Western tracks must not repeat across rooms");
-  assert.deepEqual([...westSrcs].sort(), ["/audio/yali/aria.mp3", "/audio/yali/prelude.mp3", "/audio/yali/var13.mp3", "/audio/yali/var25.mp3"]);
+  assert.equal(new Set(west.map((t) => t.id)).size, 4, "Western track ids must be distinct");
+  assert.equal(new Set(west.map((t) => t.workId)).size, 4, "no two Western tracks may share a parent work/composition");
+  assert.ok(new Set(west.map((t) => t.composer)).size >= 3, "at least 3 different Western composers");
+  assert.deepEqual([...westSrcs].sort(), ["/audio/yali/aria.mp3", "/audio/yali/chopin-nocturne.mp3", "/audio/yali/prelude.mp3", "/audio/yali/satie-gymnopedie.mp3"]);
   assert.equal(ROOM_MUSIC.anshen.tracks.find((t) => t.group === "west").id, "aria");
-  assert.equal(ROOM_MUSIC.jieyu.tracks.find((t) => t.group === "west").id, "var13");
-  assert.equal(ROOM_MUSIC.anmei.tracks.find((t) => t.group === "west").id, "var25");
+  assert.equal(ROOM_MUSIC.jieyu.tracks.find((t) => t.group === "west").id, "nocturne");
+  assert.equal(ROOM_MUSIC.anmei.tracks.find((t) => t.group === "west").id, "gymnopedie");
   assert.equal(ROOM_MUSIC.yali.tracks.find((t) => t.group === "west").id, "prelude");
+  // Goldberg Variations is allowed ONLY once (anshen Aria); no other Goldberg movement anywhere.
+  const goldberg = west.filter((t) => t.workId === "bach-goldberg-variations-bwv988");
+  assert.equal(goldberg.length, 1, "Goldberg may appear only once");
+  assert.equal(goldberg[0].id, "aria");
+  assert.ok(!existsSync(`${root}public/audio/yali/var13.mp3`), "var13 file must be removed");
+  assert.ok(!existsSync(`${root}public/audio/yali/var25.mp3`), "var25 file must be removed");
+  const catalogue = readFileSync(`${root}src/lib/room-music.ts`, "utf8");
+  assert.doesNotMatch(catalogue, /var13|var25/);
   // Existing Chinese tracks are reused, not replaced.
   assert.equal(ROOM_MUSIC.anshen.tracks.find((t) => t.group === "cn").src, "/audio/pingsha.mp3");
   assert.equal(ROOM_MUSIC.jieyu.tracks.find((t) => t.group === "cn").src, "/audio/yangguan.mp3");
@@ -67,19 +80,37 @@ test("舒壓 is exactly 《孔子讀易》 + clinician-preferred Prelude BWV 846
   assert.ok(!ROOM_MUSIC.yali.tracks.some((t) => t.id === "peilan"), "peilan must not be in 舒壓 room list");
 });
 
-test("player is off by default, floating like the language switch, mute stops, no room ambient", () => {
+test("player defaults to the room's Chinese track on entry, mute respected, one at a time, stops on leave", () => {
   const player = readFileSync(`${root}src/components/room-music.tsx`, "utf8");
-  assert.match(player, /useState<string \| null>\(null\)/, "starts stopped/silent");
-  assert.doesNotMatch(player, /autoPlay|autoplay\s*=/);
-  assert.doesNotMatch(player, /pointerdown|keydown/, "no autoplay-on-first-tap");
-  assert.match(player, /MAX_VOLUME = 0\.5/, "gentle volume cap");
-  assert.match(player, /music-float-btn/, "floating button");
-  assert.match(player, /ui\.mute/, "clear mute/off choice");
+  assert.equal(defaultTrack("anshen").id, "pingsha");
+  assert.equal(defaultTrack("jieyu").id, "yangguan");
+  assert.equal(defaultTrack("anmei").id, "zuiyu");
+  assert.equal(defaultTrack("yali").id, "kongzi");
+  for (const room of ROOMS) assert.equal(defaultTrack(room).group, "cn", `${room} default must be Chinese`);
+  assert.match(player, /defaultTrack\(room\)/, "room entry attempts the room default");
+  assert.match(player, /startTrack\(def\)/, "entry starts the default track");
+  assert.match(player, /armDefault\(def\)/, "blocked autoplay arms the default");
+  assert.match(player, /pointerdown/, "armed start listens for first tap");
+  assert.match(player, /keydown/, "armed start listens for first keypress");
+  assert.doesNotMatch(player, /autoPlay|autoplay\s*=/, "no autoplay attribute; play() is attempted in code");
+  assert.match(player, /useState<string \| null>\(null\)/, "starts with no track claimed playing");
+  assert.match(player, /await el\.play\(\)/, "playing state set only after play() resolves");
+  assert.match(player, /mutedVisitRef\.current = roomRef\.current/, "mute records this room visit");
+  assert.match(player, /mutedVisitRef\.current === room/, "armed/default start checks the visit mute");
+  assert.match(player, /disarmDefault\(\)/, "mute disarms the pending default");
+  assert.match(player, /handledRoomRef\.current = room/, "room switch is handled once per room");
+  assert.match(player, /mutedVisitRef\.current = null/, "room switch resets the visit mute");
+  assert.equal((player.match(/new Audio\(\)/g) ?? []).length, 1, "single shared audio element");
+  assert.match(player, /hardStop\(\)/, "room change/leave stops the music");
   const root_ = readFileSync(`${root}src/routes/__root.tsx`, "utf8");
   assert.match(root_, /<FloatingMusic \/>/, "floating button mounted in sticky top bar");
   assert.match(root_, /<MusicProvider>/, "single shared player");
+  assert.match(player, /MAX_VOLUME = 0\.5/, "gentle volume cap");
+  assert.match(player, /DEFAULT_LEVEL = 40/, "default level is 40 x 0.5 = 20% volume");
+  assert.match(player, /music-float-btn/, "floating button");
+  assert.match(player, /ui\.mute/, "clear mute/off choice");
   const atmo = readFileSync(`${root}src/components/site-atmosphere.tsx`, "utf8");
-  for (const r of ROOMS) assert.match(atmo, new RegExp(`"/${r}"`), `ambient disabled for ${r}`);
+  for (const r of ROOMS) assert.match(atmo, new RegExp(`"/${r}"`), `no separate ambient track for ${r}`);
   for (const route of ROOMS) {
     const src = readFileSync(`${root}src/routes/${route}.tsx`, "utf8");
     assert.match(src, /RoomMusicSection/, `${route} has in-page music section`);
