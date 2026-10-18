@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { GhostButton, SolidButton } from "@/components/clinic-layout";
 import { useCopy } from "@/i18n/lang";
 
-const CYCLE_MS = 3600;
-const CROSS_AT = 0.5;
+const CYCLE_MS = 1500;
+const CROSS_AT = 0.37;
 
 /** Small, closed-eye sheep drawn as soft flat shapes — deliberately simple, not detailed. */
 function SheepFigure() {
@@ -55,8 +55,9 @@ function NightScene() {
         <circle cx="610" cy="110" r="1.2" opacity="0.35" />
         <circle cx="40" cy="108" r="1.2" opacity="0.35" />
       </g>
-      {/* crescent moon */}
-      <path d="M566 34 a26 26 0 1 0 18 44 a20 20 0 1 1 -18 -44" fill="#f3eee4" opacity="0.9" />
+      {/* soft crescent moon: muted cream, faint halo only, never bright or glowing */}
+      <circle cx="580" cy="54" r="36" fill="#f3eee4" opacity="0.07" />
+      <path d="M586 24 a31 31 0 1 0 21 52 a24 24 0 1 1 -21 -52" fill="#ede5d3" opacity="0.88" />
       {/* hills */}
       <path d="M0 196 Q160 168 330 190 T640 184 V260 H0 Z" fill="#3f6b5c" opacity="0.55" />
       <path d="M0 220 Q200 198 420 216 T640 210 V260 H0 Z" fill="#3f6b5c" opacity="0.8" />
@@ -72,16 +73,23 @@ function NightScene() {
 }
 
 /**
- * Counting sheep, without counting pressure: one small sheep hops a low fence
- * every ~3.6s. Driven by requestAnimationFrame against refs (no per-frame
- * React renders); the counter only changes when a sheep crosses the fence.
- * Pauses on: user pause, tab hidden, off-screen (IntersectionObserver), and
- * unmount. prefers-reduced-motion renders a still scene and never animates.
+ * Counting sheep, without counting pressure: one sheep hops a low fence
+ * every 1.5s while the next two wait in line behind it and shuffle gently
+ * forward between hops. Driven by requestAnimationFrame against refs (no
+ * per-frame React renders); the counter only changes when a sheep crosses
+ * the fence. Pauses on: user pause, tab hidden, off-screen
+ * (IntersectionObserver), and unmount. prefers-reduced-motion renders a
+ * still scene (moon, fence and sheep standing in line) and never animates.
  */
 export function CountingSheep() {
   const c = useCopy().anmei;
   const sceneRef = useRef<HTMLDivElement | null>(null);
-  const sheepRef = useRef<HTMLDivElement | null>(null);
+  const sheepRefs = useRef<Array<HTMLDivElement | null>>([]);
+  // Queue roles by physical sheep index: [hopping, next in line, back of line].
+  // Rotated on each cycle wrap so queued sheep keep their places (no popping);
+  // the sheep that just hopped re-joins at the back and fades in there.
+  const orderRef = useRef<number[]>([0, 1, 2]);
+  const spawningRef = useRef<number | null>(null);
   const [wantsPlay, setWantsPlay] = useState(false);
   const [reduced, setReduced] = useState(false);
   const [inView, setInView] = useState(true);
@@ -118,29 +126,93 @@ export function CountingSheep() {
   const playing = wantsPlay && !reduced && inView && !hidden;
 
   useEffect(() => {
-    const sheep = sheepRef.current;
     const scene = sceneRef.current;
-    if (!sheep || !scene) return;
+    if (!scene || sheepRefs.current.filter(Boolean).length < 3) return;
+
+    const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+    const smooth = (t: number) => {
+      const x = clamp01(t);
+      return x * x * (3 - 2 * x);
+    };
 
     const place = (p: number) => {
       const w = scene.clientWidth;
-      const x = -70 + p * (w + 140);
-      let y = 0;
-      let tilt = 0;
-      const hopSpan = 0.26;
-      if (p > CROSS_AT - hopSpan / 2 && p < CROSS_AT + hopSpan / 2) {
-        const hp = (p - (CROSS_AT - hopSpan / 2)) / hopSpan;
-        y = -Math.sin(Math.PI * hp) * 44;
-        tilt = Math.sin(Math.PI * hp) * -5;
+      const fenceC = w * 0.503;
+      const spacing = Math.min(78, Math.max(52, w * 0.16));
+      const front = fenceC - 72;
+      const mid = front - spacing;
+      const back = mid - spacing;
+      const land = fenceC + 44;
+
+      // Positions per queue role for this point in the cycle.
+      const roles: Array<{ x: number; y: number; tilt: number; opacity: number }> = [];
+      // Role 0: short approach, one gentle hop over the fence, then walks off
+      // and fades out on the right.
+      {
+        let x = front;
+        let y = 0;
+        let tilt = 0;
+        let opacity = 1;
+        if (p < 0.12) {
+          x = lerp(front, front + 18, smooth(p / 0.12));
+        } else if (p < 0.62) {
+          // Hop occupies 50% of the 1.5s cycle (750ms): the same sine rise /
+          // peak / fall and tilt as before, scaled proportionally so the arc
+          // stays gentle rather than snapping at the faster cadence.
+          const hp = (p - 0.12) / 0.5;
+          x = lerp(front + 18, land, hp);
+          y = -Math.sin(Math.PI * hp) * 44;
+          tilt = Math.sin(Math.PI * hp) * -5;
+        } else {
+          x = lerp(land, land + 78, smooth((p - 0.62) / 0.38));
+          opacity = 1 - clamp01((p - 0.86) / 0.14);
+        }
+        roles[0] = { x, y, tilt, opacity };
       }
-      sheep.style.transform = `translate(${x}px, ${y}px) rotate(${tilt}deg)`;
+      // Roles 1-2: wait, then shuffle one place forward between hops with a
+      // tiny bob. Their end places are exactly the next cycle's start places.
+      const shift = smooth((p - 0.62) / 0.33);
+      const bob = shift > 0 && shift < 1 ? -Math.sin(Math.PI * shift) * 3 : 0;
+      roles[1] = { x: lerp(mid, front, shift), y: bob, tilt: 0, opacity: 1 };
+      roles[2] = { x: lerp(back, mid, shift), y: bob, tilt: 0, opacity: 1 };
+
+      orderRef.current.forEach((physical, role) => {
+        const el = sheepRefs.current[physical];
+        if (!el) return;
+        const pos = roles[role];
+        let opacity = pos.opacity;
+        // Only the sheep that just re-joined at the back fades in.
+        if (role === 2 && spawningRef.current === physical) {
+          opacity = clamp01(p / 0.1);
+          if (p >= 0.1) spawningRef.current = null;
+        }
+        el.style.transform = `translate(${pos.x}px, ${pos.y}px) rotate(${pos.tilt}deg)`;
+        el.style.opacity = String(opacity);
+      });
+    };
+
+    const placeStill = () => {
+      // Still scene: three sheep standing in line before the fence.
+      const w = scene.clientWidth;
+      const fenceC = w * 0.503;
+      const spacing = Math.min(78, Math.max(52, w * 0.16));
+      const front = fenceC - 72;
+      const spots = [front, front - spacing, front - 2 * spacing];
+      orderRef.current.forEach((physical, role) => {
+        const el = sheepRefs.current[physical];
+        if (!el) return;
+        el.style.transform = `translate(${spots[role]}px, 0px) rotate(0deg)`;
+        el.style.opacity = "1";
+      });
     };
 
     if (reduced) {
-      // Still scene: one sheep standing before the fence, no motion at all.
-      progressRef.current = 0.32;
+      progressRef.current = 0;
       countedRef.current = false;
-      place(progressRef.current);
+      spawningRef.current = null;
+      orderRef.current = [0, 1, 2];
+      placeStill();
       return;
     }
     place(progressRef.current);
@@ -159,6 +231,10 @@ export function CountingSheep() {
       if (progressRef.current >= 1) {
         progressRef.current -= 1;
         countedRef.current = false;
+        // The hopped sheep re-joins at the back; the line moves up a role.
+        const [hopped, next, lastInLine] = orderRef.current;
+        orderRef.current = [next, lastInLine, hopped];
+        spawningRef.current = hopped;
       }
       place(progressRef.current);
       raf = requestAnimationFrame(tick);
@@ -171,9 +247,17 @@ export function CountingSheep() {
     <div className="mt-6 overflow-hidden rounded-card border border-line bg-paper">
       <div ref={sceneRef} className="relative h-52 overflow-hidden sm:h-60" role="img" aria-label={c.sheepT}>
         <NightScene />
-        <div ref={sheepRef} className="absolute bottom-8 left-0 w-16 will-change-transform sm:w-[4.5rem]">
-          <SheepFigure />
-        </div>
+        {[0, 1, 2].map((i) => (
+          <div
+            key={i}
+            ref={(el) => {
+              sheepRefs.current[i] = el;
+            }}
+            className="pointer-events-none absolute bottom-8 left-0 w-16 will-change-transform sm:w-[4.5rem]"
+          >
+            <SheepFigure />
+          </div>
+        ))}
       </div>
       <div className="p-5">
         <p className="text-muted">{c.sheepLead}</p>
