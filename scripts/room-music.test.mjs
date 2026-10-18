@@ -8,7 +8,7 @@ import { createJiti } from "jiti";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 const jiti = createJiti(import.meta.url, { alias: { "@": `${root}src` }, jsx: true });
-const { ROOM_MUSIC, HOME_MUSIC, MUSIC_UI, defaultTrack, defaultTrackFor, contextFromPath } = await jiti.import(`${root}src/lib/room-music.ts`);
+const { ROOM_MUSIC, HOME_MUSIC, MUSIC_UI, MUSIC_GROUP_STORAGE_KEY, defaultTrack, defaultTrackFor, contextFromPath, parseMusicPreference, preferenceForTrack, readMusicPreference, trackForPreference, writeMusicPreference } = await jiti.import(`${root}src/lib/room-music.ts`);
 
 const ROOMS = ["anshen", "jieyu", "anmei", "yali"];
 const BAD = /根治|治好|治癒|療效|保證|包好|cure|guarantee|proven|will fix/i;
@@ -80,14 +80,14 @@ test("舒壓 is exactly 《孔子讀易》 + clinician-preferred Prelude BWV 846
   assert.ok(!ROOM_MUSIC.yali.tracks.some((t) => t.id === "peilan"), "peilan must not be in 舒壓 room list");
 });
 
-test("player defaults to the room's Chinese track on entry, mute respected, one at a time, stops on leave", () => {
+test("player defaults to the room's Chinese track on entry when no preference is stored, mute respected for the visit, one at a time, stops on leave", () => {
   const player = readFileSync(`${root}src/components/room-music.tsx`, "utf8");
   assert.equal(defaultTrack("anshen").id, "pingsha");
   assert.equal(defaultTrack("jieyu").id, "yangguan");
   assert.equal(defaultTrack("anmei").id, "zuiyu");
   assert.equal(defaultTrack("yali").id, "kongzi");
   for (const room of ROOMS) assert.equal(defaultTrack(room).group, "cn", `${room} default must be Chinese`);
-  assert.match(player, /defaultTrackFor\(context\)/, "context entry attempts its default");
+  assert.match(player, /defaultTrackFor\(context, preference\)/, "context entry attempts its remembered-group default");
   assert.match(player, /startTrack\(def\)/, "entry starts the default track");
   assert.match(player, /armDefault\(def\)/, "blocked autoplay arms the default");
   assert.match(player, /pointerdown/, "armed start listens for first tap");
@@ -99,7 +99,7 @@ test("player defaults to the room's Chinese track on entry, mute respected, one 
   assert.match(player, /mutedVisitRef\.current === context/, "armed/default start checks the visit mute");
   assert.match(player, /disarmDefault\(\)/, "mute disarms the pending default");
   assert.match(player, /handledContextRef\.current = context/, "context switch is handled once per context");
-  assert.match(player, /mutedVisitRef\.current = null/, "context switch resets the visit mute");
+  assert.match(player, /mutedVisitRef\.current = preference === "muted" \? context : null/, "context switch reapplies the remembered mute instead of blindly resetting it");
   assert.equal((player.match(/new Audio\(\)/g) ?? []).length, 1, "single shared audio element");
   assert.match(player, /hardStop\(\)/, "room change/leave stops the music");
   const root_ = readFileSync(`${root}src/routes/__root.tsx`, "utf8");
@@ -162,4 +162,57 @@ test("homepage: single Canon track only, default on entry, shared player stops i
   const doc = readFileSync(`${root}docs/yali-music-licences.md`, "utf8");
   assert.match(doc, /calm\.mp3/, "licence doc lists homepage Canon file");
   assert.match(doc, /never documented/, "licence doc flags undocumented Canon recording provenance");
+});
+
+test("remembered music group persists across room leave/re-enter (global, per device)", () => {
+  assert.equal(MUSIC_GROUP_STORAGE_KEY, "shenxin-music-group");
+  // Minimal in-memory Storage stand-in: same browser profile across "visits".
+  const backing = new Map();
+  const storage = {
+    getItem: (k) => (backing.has(k) ? backing.get(k) : null),
+    setItem: (k, v) => backing.set(k, String(v)),
+  };
+  // No stored value → Chinese default in every room.
+  assert.equal(readMusicPreference(storage), "chinese");
+  for (const room of ROOMS) assert.equal(defaultTrackFor(room, readMusicPreference(storage)).group, "cn", `${room} defaults Chinese`);
+  assert.equal(parseMusicPreference(null), "chinese");
+  assert.equal(parseMusicPreference("nonsense"), "chinese", "invalid stored values fall back to Chinese");
+  assert.equal(readMusicPreference(null), "chinese", "no storage (SSR/private mode) falls back to Chinese without throwing");
+  // Visitor picks Western in one room → stored immediately under the device key.
+  const jieyuWest = ROOM_MUSIC.jieyu.tracks.find((t) => t.group === "west");
+  writeMusicPreference(preferenceForTrack(jieyuWest), storage);
+  assert.equal(backing.get("shenxin-music-group"), "western");
+  // Simulated leave + re-enter (same storage): remembered Western, and it is
+  // GLOBAL — every room defaults to its OWN Western track, not the picked one.
+  const remembered = readMusicPreference(storage);
+  assert.equal(remembered, "western");
+  assert.equal(defaultTrackFor("jieyu", remembered).id, "nocturne");
+  assert.equal(defaultTrackFor("anshen", remembered).id, "aria");
+  assert.equal(defaultTrackFor("anmei", remembered).id, "gymnopedie");
+  assert.equal(defaultTrackFor("yali", remembered).id, "prelude");
+  assert.equal(trackForPreference("yali", "chinese").id, "kongzi");
+  // Picking Chinese again overwrites back.
+  writeMusicPreference("chinese", storage);
+  assert.equal(defaultTrackFor("yali", readMusicPreference(storage)).id, "kongzi");
+  // Muted is remembered too: re-entry must start nothing (player honours it),
+  // and the player source wires that branch explicitly.
+  writeMusicPreference("muted", storage);
+  assert.equal(readMusicPreference(storage), "muted");
+  const player = readFileSync(`${root}src/components/room-music.tsx`, "utf8");
+  assert.match(player, /preference === "muted" \? context : null/, "stored mute reapplies on entry");
+  assert.match(player, /if \(preference === "muted"\) return;/, "stored mute starts/arms nothing on entry");
+  assert.match(player, /rememberPreference\("muted"\)/, "pressing mute persists muted immediately");
+  // Switching 中/西 in the panel persists immediately; reading is lazy/client
+  // (entry effect only, guarded helpers — no top-level localStorage access).
+  assert.match(player, /preferenceForTrack\(track\)/, "track picks map to a remembered group");
+  assert.match(player, /if \(preference\) rememberPreference\(preference\)/, "room picks write the preference immediately");
+  assert.match(player, /preferenceRef\.current \?\? readMusicPreference\(\)/, "preference is read lazily on context entry");
+  assert.match(player, /writeMusicPreference\(preference\)/, "preference writes go through the guarded helper");
+  const lib = readFileSync(`${root}src/lib/room-music.ts`, "utf8");
+  assert.match(lib, /typeof localStorage !== "undefined"/, "storage access is SSR/prerender-guarded");
+  assert.match(lib, /catch \{/, "storage access is try/catch-guarded");
+  // Homepage Canon never overwrites the remembered room group.
+  assert.equal(preferenceForTrack(HOME_MUSIC.tracks[0]), null, "Canon pick writes no room-group preference");
+  assert.equal(defaultTrackFor("home", "western").id, "canon", "homepage stays Canon-only regardless of remembered group");
+  assert.equal(defaultTrackFor("home", "chinese").id, "canon");
 });

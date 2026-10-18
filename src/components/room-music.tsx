@@ -11,7 +11,18 @@ import {
 import { useRouterState } from "@tanstack/react-router";
 import { GhostButton } from "@/components/clinic-layout";
 import { useLang } from "@/i18n/lang";
-import { MUSIC_UI, contextFromPath, defaultTrackFor, musicSetFor, type MusicContext, type MusicTrack } from "@/lib/room-music";
+import {
+  MUSIC_UI,
+  contextFromPath,
+  defaultTrackFor,
+  musicSetFor,
+  preferenceForTrack,
+  readMusicPreference,
+  writeMusicPreference,
+  type MusicContext,
+  type MusicPreference,
+  type MusicTrack,
+} from "@/lib/room-music";
 
 /**
  * One shared player for the homepage and all four rooms (安神／解鬱／安寐／舒壓).
@@ -24,16 +35,26 @@ import { MUSIC_UI, contextFromPath, defaultTrackFor, musicSetFor, type MusicCont
  * the homepage — only the floating button, the Canon track name and mute/stop.
  * Entering a room stops it so the room's own default takes over (single shared
  * <audio>, never double audio).
- * DEFAULT (clinician, 2026-10-18): on entering a room, attempt to start that room's
- * Chinese guqin track at 20% volume (slider 40 x max 50%) with a slow fade-in.
+ * DEFAULT (clinician, 2026-10-18, amended same day): on entering a room,
+ * attempt to start that room's track in the visitor's REMEMBERED music group
+ * at 20% volume (slider 40 x max 50%) with a slow fade-in. The group is a
+ * single GLOBAL device preference in localStorage (key shenxin-music-group,
+ * values chinese|western|muted; no server, no personal data; cleared with
+ * site data): no stored value → Chinese guqin (original default); stored
+ * western → THIS room's Western track (each room keeps its own track);
+ * stored muted → nothing starts or is armed, on any room or the homepage,
+ * until the visitor explicitly picks a track again. Picking a room track or
+ * pressing 靜音/mute writes the preference immediately; picking homepage
+ * Canon writes nothing (it must not overwrite the room group), while muting
+ * on the homepage stores muted like anywhere else. The preference is read
+ * lazily inside the client-only entry effect (no SSR/prerender read, no
+ * hydration mismatch), guarded by try/catch in the lib helpers, with an
+ * in-memory ref fallback if storage is unavailable.
  * Browsers usually block audible autoplay before any interaction: if play() is
- * rejected, the default stays ARMED (not shown as playing) and starts on the
- * visitor's first pointerdown/keydown anywhere on the page. The visitor can
- * switch to the room's Western track, or press 靜音/mute: mute persists for that
- * room visit (the default does not restart) until they leave and re-enter, and
- * switching contexts (homepage <-> room, or room <-> room) resets to the new
- * context's default. One shared <audio> element = one track at a time;
- * leaving the homepage/rooms stops everything.
+ * rejected, the remembered default stays ARMED (not shown as playing) and
+ * starts on the visitor's first pointerdown/keydown anywhere on the page.
+ * One shared <audio> element = one track at a time; leaving the
+ * homepage/rooms stops everything (but keeps the remembered preference).
  * Licences: docs/yali-music-licences.md (PD compositions; CC BY / CC BY-SA / CC0 / PD recordings).
  */
 const MAX_VOLUME = 0.5;
@@ -84,6 +105,13 @@ export function MusicProvider({ children }: { children: ReactNode }) {
   const attemptInFlightRef = useRef(false);
   /** Last context value the entry effect has handled (mount + each switch). */
   const handledContextRef = useRef<MusicContext | null | undefined>(undefined);
+  /** Remembered group for this device; loaded lazily on first context entry, kept in memory if storage is unavailable. */
+  const preferenceRef = useRef<MusicPreference | null>(null);
+
+  const rememberPreference = useCallback((preference: MusicPreference) => {
+    preferenceRef.current = preference;
+    writeMusicPreference(preference);
+  }, []);
 
   const clearFade = useCallback(() => {
     if (fade.current) window.clearInterval(fade.current);
@@ -204,8 +232,9 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     [disarmDefault, startTrack],
   );
 
-  /** 靜音: stop now, cancel any armed default, and keep it off for this context visit. */
+  /** 靜音: stop now, cancel any armed default, and remember muted on this device (re-entry stays silent until a track is picked). */
   const stop = useCallback(() => {
+    rememberPreference("muted");
     mutedVisitRef.current = contextRef.current;
     disarmDefault();
     playingIdRef.current = null;
@@ -216,7 +245,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
       el.pause();
       el.currentTime = 0;
     });
-  }, [ramp, disarmDefault]);
+  }, [ramp, disarmDefault, rememberPreference]);
 
   const play = useCallback(
     (track: MusicTrack) => {
@@ -227,9 +256,13 @@ export function MusicProvider({ children }: { children: ReactNode }) {
         stop();
         return;
       }
+      // Room picks update the global remembered group immediately; homepage
+      // Canon (group "home") must not overwrite it, so it writes nothing.
+      const preference = preferenceForTrack(track);
+      if (preference) rememberPreference(preference);
       void startTrack(track);
     },
-    [stop, disarmDefault, startTrack],
+    [stop, disarmDefault, startTrack, rememberPreference],
   );
 
   // Volume slider follows immediately while playing.
@@ -238,18 +271,23 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     if (el && playingId && !fade.current) el.volume = (level / 100) * MAX_VOLUME;
   }, [level, playingId]);
 
-  // Context entry / switching: stop the previous context, reset the visit's
-  // mute, close the panel, then attempt the new context's default (room:
-  // Chinese guqin; homepage: its sole Canon track). Switching contexts
-  // therefore always resets to the new default; leaving them stops.
+  // Context entry / switching: stop the previous context, close the panel,
+  // then attempt the new context's default in the REMEMBERED group (room:
+  // that room's Chinese/Western track; homepage: its sole Canon track,
+  // regardless of group). Stored muted starts and arms nothing. Leaving a
+  // context stops the sound but never clears the remembered preference.
   useEffect(() => {
     if (handledContextRef.current === context) return;
     handledContextRef.current = context;
     hardStop();
     setPanelOpen(false);
-    mutedVisitRef.current = null;
     if (!context) return;
-    const def = defaultTrackFor(context);
+    // Lazy client-only read (this effect never runs during prerender).
+    const preference = preferenceRef.current ?? readMusicPreference();
+    preferenceRef.current = preference;
+    mutedVisitRef.current = preference === "muted" ? context : null;
+    if (preference === "muted") return;
+    const def = defaultTrackFor(context, preference);
     void startTrack(def).then((ok) => {
       if (ok) return;
       // Autoplay blocked: arm for the first tap/keypress, unless the visitor has

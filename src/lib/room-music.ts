@@ -3,9 +3,13 @@ import type { Lang } from "@/i18n/copy";
 /**
  * Room music catalogue (2026-10, live).
  * Every room offers exactly one Chinese (中樂) and one Western (西樂) track.
- * On entry a room DEFAULTS to its Chinese guqin track (player attempts autoplay;
- * if the browser blocks it, playback starts on the first tap/keypress — see
- * room-music.tsx). The visitor can switch to Western or mute for that room visit.
+ * On entry a room defaults to the visitor's REMEMBERED music group for this
+ * device/browser (localStorage, see MUSIC_GROUP_STORAGE_KEY below): no stored
+ * value → its Chinese guqin track; stored Western → that room's own Western
+ * track; stored muted → silence. The player attempts autoplay; if the browser
+ * blocks it, playback starts on the first tap/keypress (see room-music.tsx).
+ * The preference is GLOBAL across all four rooms (one device preference, not
+ * per-room): each room still plays its own track within the remembered group.
  * All four Western tracks are genuinely DIFFERENT compositions — workId encodes
  * the parent work so no two rooms share one: Goldberg Variations appears ONLY
  * as the Aria (安神). Composers: Bach (x2 rooms, different works), Chopin, Satie.
@@ -20,6 +24,71 @@ export type MusicRoom = "anshen" | "jieyu" | "anmei" | "yali";
 /** Pages with music: the four rooms plus the homepage (single Canon track). */
 export type MusicContext = MusicRoom | "home";
 export type MusicGroup = "cn" | "west" | "home";
+
+/**
+ * Remembered music preference for THIS device/browser only (no server, no
+ * personal data; cleared with the browser's site data). Values are the full
+ * words required by the clinician request (2026-10-18), distinct from the
+ * per-track MusicGroup codes above. "muted" is stored too, so a visitor who
+ * pressed 靜音 stays silent on re-entry until they pick a track again.
+ * Homepage Canon is unaffected as a choice: playing it never overwrites the
+ * remembered room group (preferenceForTrack returns null for it), though
+ * muting on the homepage stores "muted" globally, like muting anywhere.
+ */
+export const MUSIC_GROUP_STORAGE_KEY = "shenxin-music-group";
+export type MusicPreference = "chinese" | "western" | "muted";
+
+/** Stored value → preference. Anything missing/invalid falls back to Chinese (the original default). */
+export function parseMusicPreference(value: unknown): MusicPreference {
+  return value === "western" || value === "muted" ? value : "chinese";
+}
+
+/** Preference implied by explicitly picking a track; homepage Canon has none (null = keep remembered group). */
+export function preferenceForTrack(track: MusicTrack): MusicPreference | null {
+  if (track.group === "cn") return "chinese";
+  if (track.group === "west") return "western";
+  return null;
+}
+
+type MusicPreferenceStorage = Pick<Storage, "getItem" | "setItem">;
+
+function defaultStorage(): MusicPreferenceStorage | null {
+  try {
+    return typeof localStorage !== "undefined" ? localStorage : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Read the remembered preference (client-only effect code; SSR/prerender-safe, never throws). */
+export function readMusicPreference(storage?: MusicPreferenceStorage | null): MusicPreference {
+  try {
+    const store = storage ?? defaultStorage();
+    if (!store) return "chinese";
+    return parseMusicPreference(store.getItem(MUSIC_GROUP_STORAGE_KEY));
+  } catch {
+    return "chinese";
+  }
+}
+
+/** Persist the remembered preference immediately; private-mode/quota errors are ignored. */
+export function writeMusicPreference(preference: MusicPreference, storage?: MusicPreferenceStorage | null): void {
+  try {
+    const store = storage ?? defaultStorage();
+    if (!store) return;
+    store.setItem(MUSIC_GROUP_STORAGE_KEY, preference);
+  } catch {
+    /* ignore */
+  }
+}
+
+/** The track a room starts with for a remembered preference (muted is handled by the player, which starts nothing). */
+export function trackForPreference(room: MusicRoom, preference: MusicPreference): MusicTrack {
+  const group = preference === "western" ? "west" : "cn";
+  const t = ROOM_MUSIC[room].tracks.find((x) => x.group === group);
+  if (!t) throw new Error(`room ${room} has no ${group} track`);
+  return t;
+}
 
 export type MusicTrack = {
   id: string;
@@ -40,10 +109,10 @@ export function defaultTrack(room: MusicRoom): MusicTrack {
   return t;
 }
 
-/** The track a music context starts with: rooms → Chinese guqin; homepage → its sole Canon track. */
-export function defaultTrackFor(context: MusicContext): MusicTrack {
+/** The track a music context starts with: rooms → the room's track in the remembered group (default Chinese guqin); homepage → its sole Canon track, regardless of the room group preference. */
+export function defaultTrackFor(context: MusicContext, preference: MusicPreference = "chinese"): MusicTrack {
   if (context === "home") return HOME_MUSIC.tracks[0];
-  return defaultTrack(context);
+  return trackForPreference(context, preference);
 }
 
 /** Track list + credit for any music context (room or homepage). */
@@ -302,8 +371,8 @@ export const MUSIC_UI: Record<
     music: "音樂",
     sectionK: "聽一段",
     sectionT: "靜音樂",
-    lead: "入房會先播中樂（古琴）。瀏覽器若擋住自動播放，會喺你第一次撳頁面或者㩒鍵時開始。可以隨時轉西樂，或者撳靜音。",
-    safety: "對聲音敏感，隨時撳靜音；撳咗之後今次入房唔會再自動播。",
+    lead: "入房會播返你上次揀嗰類音樂（未揀過就先播中樂古琴），呢部裝置會記住。瀏覽器若擋住自動播放，會喺你第一次撳頁面或者㩒鍵時開始。可以隨時轉西樂，或者撳靜音。",
+    safety: "對聲音敏感，隨時撳靜音；撳咗之後再入房都唔會自動播，直到你再揀音樂。",
     cn: "中樂 · 古琴",
     west: "西樂 · 鋼琴",
     mute: "靜音",
@@ -317,8 +386,8 @@ export const MUSIC_UI: Record<
     music: "音樂",
     sectionK: "聽一段",
     sectionT: "靜音樂",
-    lead: "入房會先播中樂（古琴）。瀏覽器若擋住自動播放，會在你第一次按頁面或者按鍵時開始。可以隨時轉西樂，或者按靜音。",
-    safety: "對聲音敏感，隨時按靜音；按了之後今次入房不會再自動播放。",
+    lead: "入房會播回你上次選的那類音樂（未選過就先播中樂古琴），這部裝置會記住。瀏覽器若擋住自動播放，會在你第一次按頁面或者按鍵時開始。可以隨時轉西樂，或者按靜音。",
+    safety: "對聲音敏感，隨時按靜音；按了之後再入房都不會自動播放，直到你再選音樂。",
     cn: "中樂 · 古琴",
     west: "西樂 · 鋼琴",
     mute: "靜音",
@@ -332,8 +401,8 @@ export const MUSIC_UI: Record<
     music: "Music",
     sectionK: "Listen",
     sectionT: "Quiet music",
-    lead: "Each room starts with its Chinese guqin track. If your browser blocks autoplay, it starts on your first tap or key press on the page. Switch to Western music or press mute any time.",
-    safety: "If you are sensitive to sound, press mute any time; it will not restart during this room visit.",
+    lead: "Each room starts with the kind of music you last chose on this device (Chinese guqin if you have not chosen yet). If your browser blocks autoplay, it starts on your first tap or key press on the page. Switch to Western music or press mute any time.",
+    safety: "If you are sensitive to sound, press mute any time; it will not restart on re-entry either, until you choose music again.",
     cn: "Chinese · guqin",
     west: "Western · piano",
     mute: "Mute",
