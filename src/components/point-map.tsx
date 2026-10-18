@@ -51,6 +51,9 @@ const BODY: Record<RoomId, Dot[]> = {
   ],
   yali: [
     { id: "yintang", left: "50%", top: "7.5%" },
+    // Schematic only (front silhouette): 風池 shown at the side of the neck, 肩井 at the shoulder top.
+    { id: "fengchi", left: "40%", top: "15%" },
+    { id: "jianjing", left: "32%", top: "21%" },
     { id: "neiguan", left: "17.5%", top: "54%" },
     { id: "hegu", left: "13%", top: "65%" },
     { id: "taichong", left: "38%", top: "95%" },

@@ -9,7 +9,7 @@ Status: ready for clinician review. Built and checked locally only. Do not merge
 4. `#shoulder` 肩頸放低 · 一分鐘: guided 8 prompts, ~8 s each, start/stop, progress dots
 5. `#park` 壓力暫存 · 揀一個細步: write a pressure + one 10-minute step. Kept in the tab only (not saved, not uploaded).
 6. `#daily` 一日嘅鬆緊節奏: 6 cards
-7. `#acu` 穴位: shared PointMap. Body: 印堂、內關、合谷、太衝. Ear: 神門、交感、皮質下. Locations and cautions come from src/lib/acupoints.ts.
+7. `#acu` 穴位: shared PointMap. Body: 印堂、風池、肩井、內關、合谷、太衝. Ear: 神門、交感、皮質下. Locations and cautions come from src/lib/acupoints.ts. 風池／肩井 dots on the front silhouette are schematic only; 肩井 gentle-only with pregnancy caution.
 8. `#play` 今日可試: 時辰 lamp (午／申／戌) + 今日小卡 (the clinic card)
 9. `#music` 靜音樂: off by default, 2 guqin + 2 piano, see docs/yali-music-licences.md
 10. `#care` 幾時要面診: urgent red flags, reasons to book soon, the FAQ crisis sentence (verbatim), a medication caution, and a link to the home 預約掛號 card. Always open, never folded.

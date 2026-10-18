@@ -35,7 +35,7 @@ test("acupoint locations live only in src/lib/acupoints.ts", () => {
     }
   }
   const a = read("src/lib/acupoints.ts");
-  for (const id of ["shenmen", "neiguan", "sanyinjiao", "yongquan", "taichong", "yintang", "baihui", "hegu", "qimen"]) {
+  for (const id of ["shenmen", "neiguan", "sanyinjiao", "yongquan", "taichong", "yintang", "baihui", "hegu", "qimen", "fengchi", "jianjing"]) {
     assert.match(a, new RegExp(`\\n  ${id}: \\{`), `missing ${id}`);
   }
   assert.match(a, /內踝尖上三寸（約四橫指）/);

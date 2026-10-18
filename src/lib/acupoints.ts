@@ -27,6 +27,8 @@
  *  - Ear 脾 CO13: yue/cmn said 「耳甲腔外上方」, EN said "posterior superior cavum conchae".
  *    Standard 耳甲腔後上部; aligned all three languages to it.
  *  - The SVG dot positions in point-map.tsx / anshen-tools.tsx are schematic and were NOT moved.
+ *  - 風池 GB20 / 肩井 GB21 added 2026-10 for 舒壓 on clinician approval: standard locations above;
+ *    both gentle-press only, 肩井 also carries the pregnancy caution and must not be pressed deeply.
  */
 import type { Lang } from "@/i18n/copy";
 
@@ -122,6 +124,34 @@ export const BODY_POINTS = {
       en: "Back of the hand, in the web between thumb and index finger, about the middle of the second metacarpal on its thumb side.",
     },
     caution: PREGNANCY,
+  },
+  fengchi: {
+    kind: "body",
+    name: { yue: "風池", cmn: "風池", en: "Fengchi (GB20)" },
+    loc: {
+      yue: "後枕骨下，胸鎖乳突肌同斜方肌之間嘅凹陷處，約同耳珠同一水平。",
+      cmn: "後枕骨下，胸鎖乳突肌與斜方肌之間的凹陷處，約與耳垂同一水平。",
+      en: "Below the occipital bone, in the depression between the sternocleidomastoid and trapezius muscles, about level with the earlobe.",
+    },
+    caution: {
+      yue: "只可輕按，唔好重按。",
+      cmn: "只可輕按，不要重按。",
+      en: "Press gently only; do not press heavily.",
+    },
+  },
+  jianjing: {
+    kind: "body",
+    name: { yue: "肩井", cmn: "肩井", en: "Jianjing (GB21)" },
+    loc: {
+      yue: "肩部最高處，大椎同肩峰（膊頭尖端）連線中點嘅凹陷處。",
+      cmn: "肩部最高處，大椎與肩峰（肩頭尖端）連線中點的凹陷處。",
+      en: "Highest point of the shoulder, in the depression at the midpoint of the line joining Dazhui (GV14) and the tip of the shoulder (acromion).",
+    },
+    caution: {
+      yue: "只可輕按，唔好深按或者重按。孕婦請勿自行按。",
+      cmn: "只可輕按，不要深按或重按。孕婦請勿自行按。",
+      en: "Press gently only; do not press deeply or heavily. Do not press this yourself in pregnancy.",
+    },
   },
   qimen: {
     kind: "body",

@@ -239,6 +239,8 @@ export const CMN = {
 				yintang: { d: "眉心皺起時，用指腹輕輕打圈，隨呼氣放鬆。" },
 				neiguan: { d: "胸口悶、胃脹、心跳快時可以輕按。心跳伴胸痛就不要等，先求醫。" },
 				hegu: { d: "頭、臉、牙關緊繃時，可以輕按半分鐘。" },
+				fengchi: { d: "頭頸緊繃時，用指腹輕輕按，隨呼氣放鬆。" },
+				jianjing: { d: "肩膀緊繃時，用指腹輕輕按，不要深按。" },
 				taichong: { d: "傳統上與合谷一起用，稱為「四關」。煩躁、肩緊時，隨呼氣輕按。" }
 			}
 		},
@@ -1589,6 +1591,8 @@ export const EN = {
 				yintang: { d: "When the brow knits, circle gently with a fingertip and let go on the out-breath." },
 				neiguan: { d: "Light press when the chest is tight, the stomach bloated or the heart racing. If a racing heart comes with chest pain, do not wait: seek medical care first." },
 				hegu: { d: "Press lightly for half a minute when the head, face or jaw feel tight." },
+				fengchi: { d: "When the head and neck feel tight, press gently with a fingertip and let go on the out-breath." },
+				jianjing: { d: "When the shoulders feel tight, press very gently with a fingertip. Do not press deeply." },
 				taichong: { d: "Traditionally used together with Hegu, called the “Four Gates”. Press on the out-breath when irritable or the shoulders are tight." }
 			}
 		},

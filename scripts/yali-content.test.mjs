@@ -123,6 +123,11 @@ test("acupoints come from the shared standard; no locations in room copy", () =>
   for (const id of Object.keys(YUE.play.maps.yali)) {
     assert.ok(id in BODY_POINTS || id in EAR_POINTS, `unknown point ${id}`);
   }
+  // Clinician-approved 2026-10: 肩井 (GB21) + 風池 (GB20) in the 舒壓 room, gentle press only.
+  for (const id of ["jianjing", "fengchi"]) assert.ok(id in BODY_POINTS && id in YUE.play.maps.yali, `missing ${id}`);
+  assert.match(BODY_POINTS.jianjing.caution.yue, /輕按/);
+  assert.match(BODY_POINTS.jianjing.caution.yue, /孕婦請勿自行按/);
+  assert.match(BODY_POINTS.fengchi.caution.yue, /輕按/);
   const LOC = /橫指|跖骨|腕橫紋|內踝|耳甲|三角窩|對耳屏|對耳輪|虎口|掌骨|finger-width|metatarsal|cun\b/;
   for (const lang of ["yue", "cmn", "en"]) {
     for (const [p, t] of leaves(COPY[lang].play.maps.yali)) assert.doesNotMatch(t, LOC, `${lang} ${p}`);
