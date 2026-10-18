@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CardGrid, ClinicLayout, QuietPhoto, Section } from "@/components/clinic-layout";
 import { HygieneList, MythFlip, SleepDiary, SleepQuiz } from "@/components/anmei-tools";
 import { FollowLessons } from "@/components/follow-lessons";
+import { CountingSheep } from "@/components/sheep-count";
 import { BreathFirst, PlayBlock } from "@/components/play-block";
 import { PointMap } from "@/components/point-map";
 import { AcuPressGrid } from "@/components/acu-info";
@@ -18,6 +19,7 @@ export const Route = createFileRoute("/anmei")({ component: AnmeiPage });
  */
 const ORDER = [
   "breath",
+  "sheep",
   "follow",
   "quiz",
   "cbti",
@@ -48,6 +50,11 @@ function AnmeiPage() {
     >
       {/* 1 · one simple breathing exercise */}
       <BreathFirst room="anmei" />
+
+      {/* gentle counting-sheep visual, right after breathing */}
+      <Section id="sheep" kicker={c.sheepK} title={c.sheepT}>
+        <CountingSheep />
+      </Section>
 
       {/* 2 · guided step-by-step */}
       <FollowLessons room="anmei" />
