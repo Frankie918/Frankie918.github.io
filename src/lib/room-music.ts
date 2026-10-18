@@ -1,8 +1,9 @@
 import type { Lang } from "@/i18n/copy";
 
 /**
- * Room music catalogue (2026-10, draft — not live).
- * Every room offers Chinese (中樂) and Western (西樂) tracks; visitors choose, nothing autoplays.
+ * Room music catalogue (2026-10, live).
+ * Every room offers exactly one Chinese (中樂) and one Western (西樂) track;
+ * all four Western tracks are different. Visitors choose, nothing autoplays.
  * Western tracks: only Bach recordings where BOTH composition (public domain) and recording
  * (Kimiko Ishizaka, CC0) are documented — see docs/yali-music-licences.md.
  * Chinese tracks keep each room's existing guqin recording and licence/credit.
@@ -58,6 +59,38 @@ const PRELUDE: MusicTrack = {
   },
 };
 
+const VAR13: MusicTrack = {
+  id: "var13",
+  src: "/audio/yali/var13.mp3",
+  group: "west",
+  title: {
+    yue: "巴赫《哥德堡變奏曲》第13變奏",
+    cmn: "巴赫《哥德堡變奏曲》第13變奏",
+    en: "Bach · Goldberg Variations, Variation 13",
+  },
+  hint: {
+    yue: "鋼琴 · 約 4 分鐘 · 慢，薩拉邦德舞步",
+    cmn: "鋼琴 · 約 4 分鐘 · 慢，薩拉邦德舞步",
+    en: "Piano · about 4 min · slow sarabande step",
+  },
+};
+
+const VAR25: MusicTrack = {
+  id: "var25",
+  src: "/audio/yali/var25.mp3",
+  group: "west",
+  title: {
+    yue: "巴赫《哥德堡變奏曲》第25變奏",
+    cmn: "巴赫《哥德堡變奏曲》第25變奏",
+    en: "Bach · Goldberg Variations, Variation 25",
+  },
+  hint: {
+    yue: "鋼琴 · 約 9 分鐘 · 很慢，音符疏落",
+    cmn: "鋼琴 · 約 9 分鐘 · 很慢，音符疏落",
+    en: "Piano · about 9 min · very slow, sparse notes",
+  },
+};
+
 const PIANO_CREDIT: Record<Lang, string> = {
   yue: "鋼琴錄音：Kimiko Ishizaka 演奏，CC0；巴赫樂曲屬公有領域。",
   cmn: "鋼琴錄音：Kimiko Ishizaka 演奏，CC0；巴赫樂曲屬公有領域。",
@@ -101,7 +134,7 @@ export const ROOM_MUSIC: Record<MusicRoom, RoomMusic> = {
           en: "Guqin · about 6 min · slow farewell tune",
         },
       },
-      PRELUDE,
+      VAR13,
     ],
     credit: {
       yue: `古琴錄音：Charlie Huang（Charles R Tsua）演奏，維基共享資源，CC BY-SA 3.0。${PIANO_CREDIT.yue}`,
@@ -123,7 +156,7 @@ export const ROOM_MUSIC: Record<MusicRoom, RoomMusic> = {
           en: "Guqin · about 5 min · slow, low register",
         },
       },
-      ARIA,
+      VAR25,
     ],
     credit: {
       yue: `古琴錄音：Charlie Huang（Charles R Tsua）演奏，維基共享資源，CC BY-SA 3.0。${PIANO_CREDIT.yue}`,
@@ -133,19 +166,10 @@ export const ROOM_MUSIC: Record<MusicRoom, RoomMusic> = {
   },
   yali: {
     room: "yali",
-    // Prelude first in 西樂: the clinician's preferred track for this room (kept, not exclusive).
+    // Exactly one Chinese + one Western. Chinese: 《孔子讀易》, chosen by the
+    // clinician 2026-10-18; 《佩蘭》 is kept out of this room's list.
+    // Western: clinician-preferred Prelude BWV 846.
     tracks: [
-      {
-        id: "peilan",
-        src: "/audio/yali/peilan.mp3",
-        group: "cn",
-        title: { yue: "《佩蘭》", cmn: "《佩蘭》", en: "Pei Lan (Admiring the Orchid)" },
-        hint: {
-          yue: "古琴（絲弦）· 約 8 分鐘 · 音色柔，起伏細",
-          cmn: "古琴（絲弦）· 約 8 分鐘 · 音色柔，起伏細",
-          en: "Guqin, silk strings · about 8 min · soft tone, small rises and falls",
-        },
-      },
       {
         id: "kongzi",
         src: "/audio/yali/kongzi.mp3",
@@ -162,12 +186,11 @@ export const ROOM_MUSIC: Record<MusicRoom, RoomMusic> = {
         },
       },
       PRELUDE,
-      ARIA,
     ],
     credit: {
-      yue: "古琴錄音：Charlie Huang 演奏，維基共享資源，CC BY 2.5；樂曲出自《天聞閣琴譜》（1876），屬公有領域。鋼琴錄音：Kimiko Ishizaka 演奏（Open Goldberg Variations／Open Well-Tempered Clavier），CC0 公有領域貢獻；巴赫樂曲屬公有領域。本站已轉檔、修剪首尾靜音、統一音量並加淡入淡出。",
-      cmn: "古琴錄音：Charlie Huang 演奏，維基共享資源，CC BY 2.5；樂曲出自《天聞閣琴譜》（1876），屬公有領域。鋼琴錄音：Kimiko Ishizaka 演奏（Open Goldberg Variations／Open Well-Tempered Clavier），CC0 公有領域貢獻；巴赫樂曲屬公有領域。本站已轉檔、修剪首尾靜音、統一音量並加淡入淡出。",
-      en: "Guqin recordings: performed by Charlie Huang, Wikimedia Commons, CC BY 2.5; the pieces come from the Tianwen Ge Qinpu (1876) and are in the public domain. Piano recordings: Kimiko Ishizaka (Open Goldberg Variations / Open Well-Tempered Clavier), CC0 public-domain dedication; Bach's music is in the public domain. This site transcoded the files, trimmed silence, matched loudness and added fades.",
+      yue: "古琴錄音：Charlie Huang 演奏，維基共享資源，CC BY 2.5；樂曲出自《天聞閣琴譜》（1876），屬公有領域。鋼琴錄音：Kimiko Ishizaka 演奏（Open Well-Tempered Clavier），CC0 公有領域貢獻；巴赫樂曲屬公有領域。本站已轉檔、修剪首尾靜音、統一音量並加淡入淡出。",
+      cmn: "古琴錄音：Charlie Huang 演奏，維基共享資源，CC BY 2.5；樂曲出自《天聞閣琴譜》（1876），屬公有領域。鋼琴錄音：Kimiko Ishizaka 演奏（Open Well-Tempered Clavier），CC0 公有領域貢獻；巴赫樂曲屬公有領域。本站已轉檔、修剪首尾靜音、統一音量並加淡入淡出。",
+      en: "Guqin recording: performed by Charlie Huang, Wikimedia Commons, CC BY 2.5; the pieces come from the Tianwen Ge Qinpu (1876) and are in the public domain. Piano recording: Kimiko Ishizaka (Open Well-Tempered Clavier), CC0 public-domain dedication; Bach's music is in the public domain. This site transcoded the file, trimmed silence, matched loudness and added fades.",
     },
   },
 };

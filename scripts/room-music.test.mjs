@@ -13,11 +13,12 @@ const { ROOM_MUSIC, MUSIC_UI } = await jiti.import(`${root}src/lib/room-music.ts
 const ROOMS = ["anshen", "jieyu", "anmei", "yali"];
 const BAD = /根治|治好|治癒|療效|保證|包好|cure|guarantee|proven|will fix/i;
 
-test("each of the four rooms offers at least one Chinese and one Western track", () => {
+test("each of the four rooms offers exactly one Chinese and one Western track", () => {
   for (const room of ROOMS) {
     const tracks = ROOM_MUSIC[room].tracks;
-    assert.ok(tracks.filter((t) => t.group === "cn").length >= 1, `${room} needs a Chinese track`);
-    assert.ok(tracks.filter((t) => t.group === "west").length >= 1, `${room} needs a Western track`);
+    assert.equal(tracks.length, 2, `${room} must have exactly 2 tracks`);
+    assert.equal(tracks.filter((t) => t.group === "cn").length, 1, `${room} needs exactly one Chinese track`);
+    assert.equal(tracks.filter((t) => t.group === "west").length, 1, `${room} needs exactly one Western track`);
     for (const lang of ["yue", "cmn", "en"]) {
       for (const t of tracks) {
         assert.ok(t.title[lang] && t.hint[lang], `${room}/${t.id} missing ${lang} title/hint`);
@@ -40,19 +41,30 @@ test("every track file exists locally and Western licences are documented", () =
       assert.match(doc, new RegExp(t.src.replace(/\//g, "\\/")), `licence doc lists ${t.src}`);
     }
   }
-  // Only the two verified CC0 Bach recordings are used as Western tracks anywhere.
-  const westSrcs = new Set(ROOMS.flatMap((r) => ROOM_MUSIC[r].tracks.filter((t) => t.group === "west").map((t) => t.src)));
-  assert.deepEqual([...westSrcs].sort(), ["/audio/yali/aria.mp3", "/audio/yali/prelude.mp3"]);
+  // Four DIFFERENT verified-CC0 Bach recordings, one Western track per room, no repeats.
+  const westSrcs = ROOMS.flatMap((r) => ROOM_MUSIC[r].tracks.filter((t) => t.group === "west").map((t) => t.src));
+  assert.equal(new Set(westSrcs).size, 4, "Western tracks must not repeat across rooms");
+  assert.deepEqual([...westSrcs].sort(), ["/audio/yali/aria.mp3", "/audio/yali/prelude.mp3", "/audio/yali/var13.mp3", "/audio/yali/var25.mp3"]);
+  assert.equal(ROOM_MUSIC.anshen.tracks.find((t) => t.group === "west").id, "aria");
+  assert.equal(ROOM_MUSIC.jieyu.tracks.find((t) => t.group === "west").id, "var13");
+  assert.equal(ROOM_MUSIC.anmei.tracks.find((t) => t.group === "west").id, "var25");
+  assert.equal(ROOM_MUSIC.yali.tracks.find((t) => t.group === "west").id, "prelude");
   // Existing Chinese tracks are reused, not replaced.
   assert.equal(ROOM_MUSIC.anshen.tracks.find((t) => t.group === "cn").src, "/audio/pingsha.mp3");
   assert.equal(ROOM_MUSIC.jieyu.tracks.find((t) => t.group === "cn").src, "/audio/yangguan.mp3");
   assert.equal(ROOM_MUSIC.anmei.tracks.find((t) => t.group === "cn").src, "/audio/zuiyu.mp3");
 });
 
-test("舒壓 keeps clinician-preferred Prelude BWV 846, listed first among Western tracks", () => {
+test("舒壓 is exactly 《孔子讀易》 + clinician-preferred Prelude BWV 846 (《佩蘭》 excluded)", () => {
   const west = ROOM_MUSIC.yali.tracks.filter((t) => t.group === "west");
+  assert.equal(west.length, 1);
   assert.equal(west[0].id, "prelude");
   assert.equal(west[0].src, "/audio/yali/prelude.mp3");
+  const cn = ROOM_MUSIC.yali.tracks.filter((t) => t.group === "cn");
+  assert.equal(cn.length, 1);
+  assert.equal(cn[0].id, "kongzi");
+  assert.equal(cn[0].src, "/audio/yali/kongzi.mp3");
+  assert.ok(!ROOM_MUSIC.yali.tracks.some((t) => t.id === "peilan"), "peilan must not be in 舒壓 room list");
 });
 
 test("player is off by default, floating like the language switch, mute stops, no room ambient", () => {
