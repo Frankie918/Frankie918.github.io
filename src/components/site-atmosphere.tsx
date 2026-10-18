@@ -4,18 +4,12 @@ import { AmbientMusic } from "@/components/ambient-music";
 import { QuietWhisper } from "@/components/quiet-whisper";
 import { useCopy } from "@/i18n/lang";
 
+const ROOM_PATHS = ["/anshen", "/jieyu", "/anmei", "/yali"];
 function musicFor(path: string, copy: ReturnType<typeof useCopy>) {
-  // 舒壓 has its own in-page player that is OFF until the visitor starts it: no ambient autoplay.
-  if (path.startsWith("/yali")) return null;
-  if (path.startsWith("/anshen")) {
-    return { src: "/audio/pingsha.mp3", onLabel: copy.anshen.musicOn };
-  }
-  if (path.startsWith("/jieyu")) {
-    return { src: "/audio/yangguan.mp3", onLabel: copy.jieyu.musicOn };
-  }
-  if (path.startsWith("/anmei")) {
-    return { src: "/audio/zuiyu.mp3", onLabel: copy.anmei.musicOn };
-  }
+  // All four rooms: no ambient autoplay. Music is OFF by default and starts only when the
+  // visitor picks 中樂／西樂 in the floating music button or the room's #music section
+  // (shared player in room-music.tsx). Other pages keep the existing ambient toggle.
+  if (ROOM_PATHS.some((r) => path.startsWith(r))) return null;
   return { src: "/audio/calm.mp3", onLabel: copy.ui.musicOn };
 }
 

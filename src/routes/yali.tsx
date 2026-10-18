@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CardGrid, ClinicLayout, Section } from "@/components/clinic-layout";
-import { BodySignals, CalmMusic, PressurePark, ShoulderDrop } from "@/components/yali-tools";
+import { BodySignals, PressurePark, ShoulderDrop } from "@/components/yali-tools";
+import { RoomMusicSection } from "@/components/room-music";
 import { FollowLessons } from "@/components/follow-lessons";
 import { BreathFirst, PlayBlock } from "@/components/play-block";
 import { PointMap } from "@/components/point-map";
@@ -89,7 +90,7 @@ function YaliPage() {
 
       <Section id="music" kicker={c.musicK} title={c.musicT}>
         <p className="text-muted">{c.musicLead}</p>
-        <CalmMusic />
+        <RoomMusicSection />
       </Section>
 
       {/* 4 · safety: always visible */}

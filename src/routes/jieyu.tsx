@@ -4,6 +4,9 @@ import { BaPlanner, WeatherPick, WoodSteps } from "@/components/jieyu-tools";
 import { FollowLessons } from "@/components/follow-lessons";
 import { BreathFirst, PlayBlock } from "@/components/play-block";
 import { PointMap } from "@/components/point-map";
+import { RoomMusicSection } from "@/components/room-music";
+import { MUSIC_UI } from "@/lib/room-music";
+import { useLang } from "@/i18n/lang";
 import { useCopy } from "@/i18n/lang";
 
 export const Route = createFileRoute("/jieyu")({ component: JieyuPage });
@@ -12,10 +15,11 @@ export const Route = createFileRoute("/jieyu")({ component: JieyuPage });
  * Patient journey (2026-10): breathe first → follow along → small steps → deeper reading.
  * Section ids are unchanged so old links and saved progress (jieyu-bloom-*) keep working.
  */
-const ORDER = ["breath", "follow", "steps", "ba", "weather", "play", "view", "types", "acu", "daily"] as const;
+const ORDER = ["breath", "follow", "steps", "ba", "weather", "play", "music", "view", "types", "acu", "daily"] as const;
 
 function JieyuPage() {
   const c = useCopy().jieyu;
+  const mui = MUSIC_UI[useLang().lang];
   return (
     <ClinicLayout
       theme="jieyu"
@@ -61,6 +65,11 @@ function JieyuPage() {
       </Section>
 
       <PlayBlock room="jieyu" />
+
+      <Section id="music" kicker={mui.sectionK} title={mui.sectionT}>
+        <p className="text-muted">{mui.lead}</p>
+        <RoomMusicSection />
+      </Section>
 
       {/* 4 · deeper reading, folded but fully present */}
       <Section id="view" kicker={c.viewK} title={c.viewT} collapsible safety={<p>{c.viewP2}</p>}>

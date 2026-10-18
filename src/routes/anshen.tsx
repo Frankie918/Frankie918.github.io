@@ -4,6 +4,9 @@ import { FivePoints, HeartScan, PmrGuide, WorryPark } from "@/components/anshen-
 import { FollowLessons } from "@/components/follow-lessons";
 import { BreathFirst, PlayBlock } from "@/components/play-block";
 import { PointMap } from "@/components/point-map";
+import { RoomMusicSection } from "@/components/room-music";
+import { MUSIC_UI } from "@/lib/room-music";
+import { useLang } from "@/i18n/lang";
 import { useCopy } from "@/i18n/lang";
 
 export const Route = createFileRoute("/anshen")({ component: AnshenPage });
@@ -12,10 +15,11 @@ export const Route = createFileRoute("/anshen")({ component: AnshenPage });
  * Patient journey (2026-10): breathe first → follow along → self-help practice → deeper reading.
  * Section ids are unchanged so old links (#view, #cbt …) and saved progress keep working.
  */
-const ORDER = ["breath", "follow", "cbt", "points", "scan", "play", "view", "types", "acu", "daily"] as const;
+const ORDER = ["breath", "follow", "cbt", "points", "scan", "play", "music", "view", "types", "acu", "daily"] as const;
 
 function AnshenPage() {
   const c = useCopy().anshen;
+  const mui = MUSIC_UI[useLang().lang];
   return (
     <ClinicLayout
       theme="anshen"
@@ -81,6 +85,11 @@ function AnshenPage() {
       </Section>
 
       <PlayBlock room="anshen" />
+
+      <Section id="music" kicker={mui.sectionK} title={mui.sectionT}>
+        <p className="text-muted">{mui.lead}</p>
+        <RoomMusicSection />
+      </Section>
 
       {/* 4 · deeper reading, folded but fully present */}
       <Section id="view" kicker={c.viewK} title={c.viewT} collapsible safety={<p>{c.viewP2}</p>}>

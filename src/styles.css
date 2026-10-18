@@ -304,6 +304,45 @@
   color: var(--color-paper);
 }
 
+/* Floating room-music button: pill in the sticky top bar, mirroring .lang-bar. */
+.music-float {
+  position: relative;
+  flex-shrink: 0;
+}
+.music-float-btn {
+  max-width: 11rem;
+  min-height: 2.5rem;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-paper) 90%, transparent);
+  padding: 0 0.9rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-ink);
+}
+.music-float-btn[aria-pressed="true"] {
+  background: var(--color-bg-deep);
+  color: var(--color-paper);
+  border-color: transparent;
+}
+.music-float-panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.5rem);
+  z-index: 60;
+  width: min(92vw, 36rem);
+  max-height: min(80vh, 42rem);
+  overflow-y: auto;
+  border: 1px solid var(--color-line);
+  border-radius: 1rem;
+  background: var(--color-paper);
+  padding: 1rem;
+  box-shadow: 0 1rem 2.5rem rgb(0 0 0 / 0.18);
+}
+
 .point-dot {
   position: absolute;
   z-index: 2;
@@ -593,6 +632,7 @@
 
 @media print {
   .lang-bar,
+  .music-float,
   .ambient-toggle,
   .quiet-orb-stage,
   .crayon-margin {

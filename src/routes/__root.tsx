@@ -1,6 +1,7 @@
 import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
 import { AuthProvider } from "@/lib/auth/provider";
 import { LanguageSwitch } from "@/components/language-switch";
+import { FloatingMusic, MusicProvider } from "@/components/room-music";
 import { HospitalMark } from "@/components/hospital-mark";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { SiteAtmosphere } from "@/components/site-atmosphere";
@@ -52,12 +53,17 @@ export const Route = createRootRoute({
         <PreviewHostBridge />
         <AuthProvider>
           <LangProvider>
-            <div className="site-top">
-              <HospitalMark />
-              <LanguageSwitch />
-            </div>
-            <Outlet />
-            <SiteAtmosphere />
+            <MusicProvider>
+              <div className="site-top">
+                <HospitalMark />
+                <div className="flex shrink-0 items-center gap-2">
+                  <FloatingMusic />
+                  <LanguageSwitch />
+                </div>
+              </div>
+              <Outlet />
+              <SiteAtmosphere />
+            </MusicProvider>
           </LangProvider>
         </AuthProvider>
         <Scripts />

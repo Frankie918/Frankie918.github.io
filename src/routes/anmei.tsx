@@ -5,7 +5,9 @@ import { FollowLessons } from "@/components/follow-lessons";
 import { BreathFirst, PlayBlock } from "@/components/play-block";
 import { PointMap } from "@/components/point-map";
 import { AcuPressGrid } from "@/components/acu-info";
-import { useCopy } from "@/i18n/lang";
+import { useCopy, useLang } from "@/i18n/lang";
+import { RoomMusicSection } from "@/components/room-music";
+import { MUSIC_UI } from "@/lib/room-music";
 
 export const Route = createFileRoute("/anmei")({ component: AnmeiPage });
 
@@ -26,10 +28,12 @@ const ORDER = [
   "myths",
   "view",
   "acu",
+  "music",
 ] as const;
 
 function AnmeiPage() {
   const c = useCopy().anmei;
+  const mui = MUSIC_UI[useLang().lang];
   return (
     <ClinicLayout
       theme="anmei"
@@ -103,6 +107,11 @@ function AnmeiPage() {
         <p>{c.acuP}</p>
         <PointMap room="anmei" />
         <CardGrid items={c.acuItems} />
+      </Section>
+
+      <Section id="music" kicker={mui.sectionK} title={mui.sectionT}>
+        <p className="text-muted">{mui.lead}</p>
+        <RoomMusicSection />
       </Section>
     </ClinicLayout>
   );

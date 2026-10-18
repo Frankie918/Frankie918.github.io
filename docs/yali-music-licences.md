@@ -1,3 +1,24 @@
+# 四間房 · 音樂來源與版權紀錄 (music sources & licences — all four rooms)
+
+2026-10 update (draft, not live): all four rooms （安神／解鬱／安寐／舒壓） now use the same
+opt-in player (floating music button in the sticky top bar + in-page #music section).
+Per-room assignment (Chinese track keeps each room's existing recording; Western track is
+one of the two CC0 Bach recordings below — no new Western downloads, no uncertain licences):
+
+| Room | 中樂 (Chinese) | 西樂 (Western) |
+|---|---|---|
+| 安神 anshen | 古琴《平沙落雁》 `public/audio/pingsha.mp3` — Charlie Huang, CC BY 2.5 (existing site track/credit) | Bach Aria BWV 988, `public/audio/yali/aria.mp3` — Kimiko Ishizaka, CC0 (below) |
+| 解鬱 jieyu | 古琴《陽關三疊》 `public/audio/yangguan.mp3` — Charlie Huang (Charles R Tsua), CC BY-SA 3.0 (existing) | Bach Prelude BWV 846, `public/audio/yali/prelude.mp3` — Kimiko Ishizaka, CC0 (below) |
+| 安寐 anmei | 古琴《醉漁唱晚》 `public/audio/zuiyu.mp3` — Charlie Huang (Charles R Tsua), CC BY-SA 3.0 (existing) | Bach Aria BWV 988, `public/audio/yali/aria.mp3` — Kimiko Ishizaka, CC0 (below) |
+| 舒壓 yali | 古琴《佩蘭》《孔子讀易》 `public/audio/yali/peilan.mp3`, `kongzi.mp3` — CC BY 2.5 (below) | Bach Prelude BWV 846 (clinician's preferred track for this room, listed first) + Aria BWV 988 — CC0 (below) |
+
+安神／安寐 share the Aria as their Western option and 解鬱／舒壓 share the Prelude, paired with
+different Chinese tracks; with only two verified-CC0 Western recordings available, no room ships
+a Western track whose composition or recording licence is uncertain. The home-page Canon
+(`public/audio/calm.mp3`) was NOT reused as a room Western track: its recording provenance is
+not documented in this repo. Behaviour in all four rooms: off/silent by default, no preload,
+one track at a time, gentle volume, 靜音 fully stops, leaving the room stops it.
+
 # 舒壓 · 音樂來源與版權紀錄 (music sources & licences)
 
 Checked 2026-10-18. Every shipped track has **two separate checks**: the composition (樂曲) and the

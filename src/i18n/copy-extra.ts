@@ -278,7 +278,7 @@ export const CMN = {
 		footerName: "身心課堂 · 安神",
 		footerNote: "內容屬傳統中醫普及教育，不構成診斷或處方。用藥必須由註冊中醫師面診。若出現持續功能受損、恐慌，請聯絡當地急症或精神健康熱線。本站不收集個人病歷。",
 		musicOn: "平沙 · 開",
-		musicCredit: "背景樂：古琴《平沙落雁》，Charlie Huang 演奏，CC BY 2.5（維基共享資源）。",
+		musicCredit: "音樂（預設靜音，可選中樂／西樂）：古琴《平沙落雁》，Charlie Huang 演奏，CC BY 2.5（維基共享資源）；巴赫《哥德堡變奏曲》詠歎調，Kimiko Ishizaka 演奏，CC0。",
 		nav: [
 			{
 				href: "#view",
@@ -485,7 +485,7 @@ export const CMN = {
 		footerName: "身心課堂 · 解鬱",
 		footerNote: "教育內容，不構成診斷或處方。用藥、針灸須由註冊中醫師執行。若抑鬱持續、功能明顯下降，請同時求助精神健康服務。本站不儲存你的選擇。",
 		musicOn: "陽關 · 開",
-		musicCredit: "背景樂：古琴《陽關三疊》，Charlie Huang（Charles R Tsua）演奏，CC BY-SA 3.0（維基共享資源）。",
+		musicCredit: "音樂（預設靜音，可選中樂／西樂）：古琴《陽關三疊》，Charlie Huang（Charles R Tsua）演奏，CC BY-SA 3.0（維基共享資源）；巴赫《平均律》C 大調前奏曲，Kimiko Ishizaka 演奏，CC0。",
 		nav: [
 			{
 				href: "#view",
@@ -672,7 +672,7 @@ export const CMN = {
 		footerName: "身心課堂 · 安寐",
 		footerNote: "教育內容，不構成診斷或處方。用藥、針灸須由註冊中醫師執行。安眠藥只宜短用，停藥須經醫生。本站不收集病歷。很大聲鼻鼾、日間控制不住打瞌睡請盡快求醫。若有自傷念頭，請打 999，或澳門明愛生命熱線 2852 5222。",
 		musicOn: "醉漁 · 開",
-		musicCredit: "背景樂：古琴《醉漁唱晚》，Charlie Huang（Charles R Tsua）演奏，CC BY-SA 3.0（維基共享資源）。",
+		musicCredit: "音樂（預設靜音，可選中樂／西樂）：古琴《醉漁唱晚》，Charlie Huang（Charles R Tsua）演奏，CC BY-SA 3.0（維基共享資源）；巴赫《哥德堡變奏曲》詠歎調，Kimiko Ishizaka 演奏，CC0。",
 		nav: [
 			{
 				href: "#view",
@@ -1239,8 +1239,8 @@ export const CMN = {
 		tracks: [
 			{ id: "peilan", group: "cn", title: "《佩蘭》", hint: "古琴（絲弦）· 約 8 分鐘 · 音色柔，起伏細" },
 			{ id: "kongzi", group: "cn", title: "《孔子讀易》", hint: "古琴 · 約 6 分鐘 · 慢而沉" },
-			{ id: "aria", group: "west", title: "巴赫《哥德堡變奏曲》詠歎調", hint: "鋼琴 · 約 5 分鐘 · 慢，規律" },
-			{ id: "prelude", group: "west", title: "巴赫《平均律》C 大調前奏曲", hint: "鋼琴 · 約 3 分鐘 · 分解和弦，像呼吸般起落" }
+			{ id: "prelude", group: "west", title: "巴赫《平均律》C 大調前奏曲", hint: "鋼琴 · 約 3 分鐘 · 分解和弦，像呼吸般起落" },
+			{ id: "aria", group: "west", title: "巴赫《哥德堡變奏曲》詠歎調", hint: "鋼琴 · 約 5 分鐘 · 慢，規律" }
 		],
 		musicCredits: "古琴錄音：Charlie Huang 演奏，維基共享資源，CC BY 2.5；樂曲出自《天聞閣琴譜》（1876），屬公有領域。鋼琴錄音：Kimiko Ishizaka 演奏（Open Goldberg Variations／Open Well-Tempered Clavier），CC0 公有領域貢獻；巴赫樂曲屬公有領域。本站已轉檔、修剪首尾靜音、統一音量並加淡入淡出。",
 		careK: "不要硬撐",
@@ -1630,7 +1630,7 @@ export const EN = {
 		footerName: "Body & Mind Classroom · Calm the Mind",
 		footerNote: "This is traditional Chinese medicine education, not a diagnosis or prescription. Herbs must be prescribed in person. If function stays impaired or panic appears, contact emergency or mental-health services. We do not collect records.",
 		musicOn: "Pingsha · on",
-		musicCredit: "Music: guqin “Pingsha Luoyan”, performed by Charlie Huang, CC BY 2.5 (Wikimedia Commons).",
+		musicCredit: "Music (off by default; choose Chinese or Western): guqin “Pingsha Luoyan”, performed by Charlie Huang, CC BY 2.5 (Wikimedia Commons); Bach, Goldberg Variations Aria, performed by Kimiko Ishizaka, CC0.",
 		nav: [
 			{
 				href: "#view",
@@ -1837,7 +1837,7 @@ export const EN = {
 		footerName: "Body & Mind Classroom · Ease the Heart",
 		footerNote: "Education, not diagnosis or prescription. Herbs and acupuncture must be given by a registered practitioner. If low mood lasts and function falls, also seek mental-health care. This site does not store your choices.",
 		musicOn: "Yangguan · on",
-		musicCredit: "Music: guqin “Yangguan Sandie”, performed by Charlie Huang (Charles R Tsua), CC BY-SA 3.0 (Wikimedia Commons).",
+		musicCredit: "Music (off by default; choose Chinese or Western): guqin “Yangguan Sandie”, performed by Charlie Huang (Charles R Tsua), CC BY-SA 3.0 (Wikimedia Commons); Bach, Prelude in C major (Well-Tempered Clavier I), performed by Kimiko Ishizaka, CC0.",
 		nav: [
 			{
 				href: "#view",
@@ -2024,7 +2024,7 @@ export const EN = {
 		footerName: "Body & Mind Classroom · Restful Sleep",
 		footerNote: "Education, not diagnosis or prescription. Herbs and acupuncture must be given by a registered practitioner. Sleeping pills are for short use; stopping them needs a doctor. We do not collect records. Loud snoring or irresistible daytime sleep: seek care soon. If there are thoughts of self-harm, call 999 or Caritas Macau Life Hotline 2852 5222.",
 		musicOn: "Zuiyu · on",
-		musicCredit: "Music: guqin “Zuiyu Changwan”, performed by Charlie Huang (Charles R Tsua), CC BY-SA 3.0 (Wikimedia Commons).",
+		musicCredit: "Music (off by default; choose Chinese or Western): guqin “Zuiyu Changwan”, performed by Charlie Huang (Charles R Tsua), CC BY-SA 3.0 (Wikimedia Commons); Bach, Goldberg Variations Aria, performed by Kimiko Ishizaka, CC0.",
 		nav: [
 			{
 				href: "#view",
@@ -2591,8 +2591,8 @@ export const EN = {
 		tracks: [
 			{ id: "peilan", group: "cn", title: "Pei Lan (Admiring the Orchid)", hint: "Guqin, silk strings · about 8 min · soft tone, small rises and falls" },
 			{ id: "kongzi", group: "cn", title: "Kongzi Duyi (Confucius Reads the Book of Changes)", hint: "Guqin · about 6 min · slow and low" },
-			{ id: "aria", group: "west", title: "Bach · Goldberg Variations, Aria", hint: "Piano · about 5 min · slow, steady" },
-			{ id: "prelude", group: "west", title: "Bach · Prelude in C major (Well-Tempered Clavier I)", hint: "Piano · about 3 min · broken chords that rise and fall like breath" }
+			{ id: "prelude", group: "west", title: "Bach · Prelude in C major (Well-Tempered Clavier I)", hint: "Piano · about 3 min · broken chords that rise and fall like breath" },
+			{ id: "aria", group: "west", title: "Bach · Goldberg Variations, Aria", hint: "Piano · about 5 min · slow, steady" }
 		],
 		musicCredits: "Guqin recordings: performed by Charlie Huang, Wikimedia Commons, CC BY 2.5; the pieces come from the Tianwen Ge Qinpu (1876) and are in the public domain. Piano recordings: Kimiko Ishizaka (Open Goldberg Variations / Open Well-Tempered Clavier), CC0 public-domain dedication; Bach’s music is in the public domain. This site transcoded the files, trimmed silence, matched loudness and added fades.",
 		careK: "No need to push through",

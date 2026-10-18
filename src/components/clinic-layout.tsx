@@ -4,7 +4,8 @@ import { ClinicContact } from "@/components/clinic-contact";
 import { CrayonFrame } from "@/components/crayon-margin";
 import { DayGuide } from "@/components/day-guide";
 import { ViewCount } from "@/components/view-count";
-import { useCopy } from "@/i18n/lang";
+import { useCopy, useLang } from "@/i18n/lang";
+import { MUSIC_UI } from "@/lib/room-music";
 
 type NavItem = { href: string; label: string };
 
@@ -128,12 +129,17 @@ export function ClinicLayout({
   order?: readonly string[];
 }) {
   const copy = useCopy();
+  const { lang } = useLang();
   const ui = copy.ui;
   useAnchorOpener();
+  const withMusic =
+    order?.includes("music") && !nav.some((n) => n.href === "#music")
+      ? [...nav, { href: "#music", label: MUSIC_UI[lang].sectionT }]
+      : nav;
   const navItems = orderNav(
-    order?.includes("breath") && !nav.some((n) => n.href === "#breath")
-      ? [{ href: "#breath", label: copy.play.breathNav }, ...nav]
-      : nav,
+    order?.includes("breath") && !withMusic.some((n) => n.href === "#breath")
+      ? [{ href: "#breath", label: copy.play.breathNav }, ...withMusic]
+      : withMusic,
     order,
   );
   const musicCredit =

@@ -153,9 +153,9 @@ test("music: every track has a local file, licences documented, nothing autoplay
   }
   const groups = YUE.yali.tracks.map((t) => t.group);
   assert.ok(groups.includes("cn") && groups.includes("west"), "Chinese and Western balance");
-  const tools = readFileSync(`${root}src/components/yali-tools.tsx`, "utf8");
-  assert.doesNotMatch(tools, /autoPlay|autoplay\s*=|\.play\(\)[^\n]*useEffect/);
+  const tools = readFileSync(`${root}src/components/room-music.tsx`, "utf8");
+  assert.doesNotMatch(tools, /autoPlay|autoplay\s*=/);
   assert.match(tools, /useState<string \| null>\(null\)/, "player starts stopped");
   const atmo = readFileSync(`${root}src/components/site-atmosphere.tsx`, "utf8");
-  assert.match(atmo, /startsWith\("\/yali"\)\) return null/, "no ambient autoplay on /yali");
+  assert.match(atmo, /ROOM_PATHS\.some/, "no ambient autoplay on any of the four rooms");
 });

@@ -204,7 +204,8 @@ for (const lang of ["yue", "cmn", "en"]) {
   const page = await c.newPage();
   for (const r of ["anshen", "jieyu", "anmei"]) {
     await page.goto(`${BASE}/${r}/`, { waitUntil: "load" });
-    ok(`${r} still has ambient toggle`, (await page.locator(".ambient-toggle").count()) === 1);
+    ok(`${r} has no ambient autoplay toggle`, (await page.locator(".ambient-toggle").count()) === 0);
+    ok(`${r} has floating music button, default off`, (await page.locator(".music-float-btn").count()) === 1 && (await page.locator(".track-btn[aria-pressed='true']").count()) === 0);
     ok(`${r} room-jump includes 舒壓`, (await page.locator("header a[href='/yali']").count()) === 1);
   }
   await page.goto(`${BASE}/anshen/`, { waitUntil: "load" });

@@ -240,7 +240,7 @@ const yue = {
     footerNote:
       "內容屬傳統中醫普及教育，唔構成診斷或處方。用藥必須由註冊中醫師面診。若出現持續功能受損、恐慌，請聯絡當地急症或精神健康熱線。本站唔收集個人病歷。",
     musicOn: "平沙 · 開",
-    musicCredit: "背景樂：古琴《平沙落雁》，Charlie Huang 演奏，CC BY 2.5（維基共享資源）。",
+    musicCredit: "音樂（預設靜音，可揀中樂／西樂）：古琴《平沙落雁》，Charlie Huang 演奏，CC BY 2.5（維基共享資源）；巴赫《哥德堡變奏曲》詠歎調，Kimiko Ishizaka 演奏，CC0。",
     nav: [
       { href: "#view", label: "中醫點睇" },
       { href: "#types", label: "常見證型" },
@@ -371,7 +371,7 @@ const jieyuYue = {
   footerName: "身心課堂 · 解鬱",
   footerNote: "教育內容，唔構成診斷或處方。用藥、針灸須由註冊中醫師執行。若抑鬱持續、功能明顯下降，請同時求助精神健康服務。本站唔儲存你嘅選擇。",
   musicOn: "陽關 · 開",
-  musicCredit: "背景樂：古琴《陽關三疊》，Charlie Huang（Charles R Tsua）演奏，CC BY-SA 3.0（維基共享資源）。",
+  musicCredit: "音樂（預設靜音，可揀中樂／西樂）：古琴《陽關三疊》，Charlie Huang（Charles R Tsua）演奏，CC BY-SA 3.0（維基共享資源）；巴赫《平均律》C 大調前奏曲，Kimiko Ishizaka 演奏，CC0。",
   nav: [
     { href: "#view", label: "中醫點睇" },
     { href: "#types", label: "常見證型" },
@@ -479,7 +479,7 @@ const anmeiYue = {
   footerNote:
     "教育內容，唔構成診斷或處方。用藥、針灸須由註冊中醫師執行。安眠藥只宜短用，停藥須經醫生。本站唔收集病歷。很大聲鼻鼾、日間控制唔住打瞌睡請盡快求醫。若有自傷念頭，請打 999，或澳門明愛生命熱線 2852 5222。",
   musicOn: "醉漁 · 開",
-  musicCredit: "背景樂：古琴《醉漁唱晚》，Charlie Huang（Charles R Tsua）演奏，CC BY-SA 3.0（維基共享資源）。",
+  musicCredit: "音樂（預設靜音，可揀中樂／西樂）：古琴《醉漁唱晚》，Charlie Huang（Charles R Tsua）演奏，CC BY-SA 3.0（維基共享資源）；巴赫《哥德堡變奏曲》詠歎調，Kimiko Ishizaka 演奏，CC0。",
   nav: [
     { href: "#view", label: "中醫點睇" },
     { href: "#quiz", label: "今晚似邊種" },
@@ -779,8 +779,8 @@ const yaliYue = {
   tracks: [
     { id: "peilan", group: "cn", title: "《佩蘭》", hint: "古琴（絲弦）· 約 8 分鐘 · 音色柔，起伏細" },
     { id: "kongzi", group: "cn", title: "《孔子讀易》", hint: "古琴 · 約 6 分鐘 · 慢而沉" },
-    { id: "aria", group: "west", title: "巴赫《哥德堡變奏曲》詠歎調", hint: "鋼琴 · 約 5 分鐘 · 慢，規律" },
     { id: "prelude", group: "west", title: "巴赫《平均律》C 大調前奏曲", hint: "鋼琴 · 約 3 分鐘 · 分解和弦，好似呼吸咁起落" },
+    { id: "aria", group: "west", title: "巴赫《哥德堡變奏曲》詠歎調", hint: "鋼琴 · 約 5 分鐘 · 慢，規律" },
   ],
   musicCredits:
     "古琴錄音：Charlie Huang 演奏，維基共享資源，CC BY 2.5；樂曲出自《天聞閣琴譜》（1876），屬公有領域。鋼琴錄音：Kimiko Ishizaka 演奏（Open Goldberg Variations／Open Well-Tempered Clavier），CC0 公有領域貢獻；巴赫樂曲屬公有領域。本站已轉檔、修剪首尾靜音、統一音量及加淡入淡出。",
