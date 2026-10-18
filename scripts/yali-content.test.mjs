@@ -13,6 +13,8 @@ const { CMN, EN } = await jiti.import(`${root}src/i18n/copy-extra.ts`);
 const { FOLLOW } = await jiti.import(`${root}src/lib/follow.ts`);
 const { FAQ_COPY } = await jiti.import(`${root}src/lib/faq.ts`);
 const { BODY_POINTS, EAR_POINTS } = await jiti.import(`${root}src/lib/acupoints.ts`);
+const { ROOM_MUSIC } = await jiti.import(`${root}src/lib/room-music.ts`);
+const { BREATH_IN_SEC, BREATH_OUT_SEC, BREATH_ROUNDS } = await jiti.import(`${root}src/lib/breath.ts`);
 const { YALI_LINES, QUIET_ACTIONS } = await jiti.import(`${root}src/lib/quiet-lines.ts`);
 
 /** Every [path, string] leaf of a value. */
@@ -106,16 +108,26 @@ test("no efficacy promises, no diagnosis labels, no scores", () => {
 });
 
 test("breathing follows the site standard (in 4, out 6, no hold)", () => {
+  assert.equal(BREATH_IN_SEC, 4); assert.equal(BREATH_OUT_SEC, 6); assert.equal(BREATH_ROUNDS, 3);
+  // The breath circle at the top is the ONE full statement in this room now.
+  for (const lang of ["yue", "cmn", "en"]) {
+    const hint = COPY[lang].play.breathHint;
+    assert.match(hint, /4/); assert.match(hint, /6/);
+  }
   const all = ["yue", "cmn", "en"].flatMap((l) => [
     ...roomText(l).map(([, t]) => t),
     ...FOLLOW[l].yali.lessons.flatMap((x) => x.steps),
   ]);
   const mentions = all.filter((t) => /[吸呼]\s*\d|(in|out) through the (nose|mouth) for \d/i.test(t));
-  assert.ok(mentions.length >= 3);
   for (const t of mentions) {
     assert.match(t, /吸 4|for 4/, t);
     assert.match(t, /呼 6|for 6/, t);
     assert.doesNotMatch(t, /停 ?\d|hold/i, t);
+  }
+  // Follow lessons and the shoulder sequence now point to the circle instead of repeating the numbers.
+  for (const lang of ["yue", "cmn", "en"]) {
+    assert.doesNotMatch(FOLLOW[lang].yali.lessons[0].steps.join(" "), /4|6/);
+    assert.doesNotMatch(FOLLOW[lang].yali.lessons[1].steps.join(" "), /4|6/);
   }
 });
 
@@ -145,13 +157,13 @@ test("short lines: Chinese sentences stay short", () => {
 
 test("music: every track has a local file, licences documented, room player attempts its remembered-group default (Chinese when none stored)", () => {
   const doc = readFileSync(`${root}docs/yali-music-licences.md`, "utf8");
-  for (const t of YUE.yali.tracks) {
+  for (const t of ROOM_MUSIC.yali.tracks) {
     const f = `${root}public/audio/yali/${t.id}.mp3`;
     assert.ok(existsSync(f), f);
     assert.ok(statSync(f).size < 7_000_000, `${t.id} too large`);
     assert.match(doc, new RegExp(`audio/yali/${t.id}\\.mp3`), `licence doc lists ${t.id}`);
   }
-  const groups = YUE.yali.tracks.map((t) => t.group);
+  const groups = ROOM_MUSIC.yali.tracks.map((t) => t.group);
   assert.ok(groups.includes("cn") && groups.includes("west"), "Chinese and Western balance");
   const tools = readFileSync(`${root}src/components/room-music.tsx`, "utf8");
   assert.doesNotMatch(tools, /autoPlay|autoplay\s*=/);
@@ -160,4 +172,49 @@ test("music: every track has a local file, licences documented, room player atte
   assert.match(tools, /pointerdown/, "blocked autoplay starts on first interaction");
   const atmo = readFileSync(`${root}src/components/site-atmosphere.tsx`, "utf8");
   assert.doesNotMatch(atmo, /AmbientMusic|calm\.mp3/, "no separate ambient track anywhere (rooms or other pages)");
+});
+
+test("de-duplication: single full versions, pointers elsewhere, daily folded, care open", () => {
+  for (const lang of ["yue", "cmn", "en"]) {
+    const y = COPY[lang].yali;
+    assert.equal(y.parkSteps, undefined, `${lang}: parkSteps folded into the tool`);
+    for (const f of ["musicPlay","musicStop","musicNow","musicVol","musicCn","musicWest","tracks","musicSafety","musicLead"]) assert.equal(y[f], undefined, `${lang}: dead music field ${f}`);
+    assert.match(y.acuNote, /點開|點開那一格|own card/, `${lang}: acuNote defers to per-point cautions`);
+    // generic body-signal seek lines point to #care; red-flag specifics stay verbatim-ish
+    assert.match(y.feel.heart.seek, /痛|pain/i); assert.match(y.feel.head.seek, /頭痛|headache/i);
+  }
+  const route = readFileSync(`${root}src/routes/yali.tsx`, "utf8");
+  assert.match(route, /id="daily"[^>]*collapsible/, "daily folded like other rooms");
+  assert.match(route, /id="care"/); assert.doesNotMatch(route, /id="care"[^>]*collapsible/, "care stays open");
+  assert.match(route, /MUSIC_UI/, "music lead uses shared MUSIC_UI");
+  assert.doesNotMatch(route, /parkSteps/, "route no longer renders the repeated park steps");
+  const follow2 = FOLLOW.yue.yali.lessons[1]; const follow3 = FOLLOW.yue.yali.lessons[2]; const follow4 = FOLLOW.yue.yali.lessons[3];
+  assert.match(follow2.steps.join(""), /下面「肩頸放低」/); assert.match(follow2.stop, /麻痺|停/);
+  assert.match(follow3.steps.join(""), /壓力暫存/); assert.match(follow3.stop, /危險/);
+  assert.match(follow4.steps.join(""), /洗手|換件衫/); assert.match(follow4.steps.join(""), /行十分鐘|望一陣遠處/);
+});
+
+test("all 8 play tools exist, trilingual, and are placed on the page", () => {
+  const toolsSrc = readFileSync(`${root}src/components/yali-tools.tsx`, "utf8");
+  const route = readFileSync(`${root}src/routes/yali.tsx`, "utf8");
+  for (const name of ["StandReset","FriendFlip","MicroDraw","SlowTrace","HandoverChecklist","TensionMap","ColourHunt"]) {
+    assert.match(toolsSrc, new RegExp(`export function ${name}`), name);
+    assert.match(route, new RegExp(`<${name}`), `${name} on page`);
+  }
+  // Tool 2 is the PressurePark upgrade itself (control sorter), in #park.
+  assert.match(toolsSrc, /export function PressurePark/); assert.match(toolsSrc, /control/);
+  assert.match(route, /<PressurePark/);
+  for (const lang of ["yue", "cmn", "en"]) {
+    const y = COPY[lang].yali;
+    assert.equal(y.stand.lines.length, 6, `${lang} stand lines`);
+    assert.equal(y.control.cats.length, 3); assert.equal(y.control.replies.length, 3);
+    assert.equal(y.friend.cards.length, 4);
+    assert.ok(y.micro.cards.length >= 10); assert.ok(y.hunt.prompts.length >= 8);
+    assert.equal(y.handover.items.length, 4); assert.equal(y.bodymap.areas.length, 5);
+  }
+  assert.match(toolsSrc, /dealFromBag/, "shuffle-bag dealing reused");
+  assert.match(toolsSrc, /BodySilhouette/, "body silhouette reused, no acupoint claims");
+  assert.match(toolsSrc, /prefers-reduced-motion/, "slow trace is reduced-motion aware");
+  assert.match(toolsSrc, /recordPlay/, "completions can be noted on today's card");
+  assert.doesNotMatch(toolsSrc, /localStorage\.setItem.*what|save.*park/i, "typed worries are not persisted");
 });

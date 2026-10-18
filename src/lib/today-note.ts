@@ -11,6 +11,7 @@ export type TodayNote = {
   diaryDays?: number;
   points?: string[];
   follow?: number[];
+  play?: string[];
 };
 
 function key() {
@@ -51,6 +52,7 @@ export function noteHas(n: TodayNote) {
       n.bloom ||
       n.diaryDays ||
       (n.points && n.points.length) ||
-      (n.follow && n.follow.length),
+      (n.follow && n.follow.length) ||
+      (n.play && n.play.length),
   );
 }

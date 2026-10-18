@@ -1,18 +1,23 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CardGrid, ClinicLayout, Section } from "@/components/clinic-layout";
-import { BodySignals, PressurePark, ShoulderDrop } from "@/components/yali-tools";
+import { BodySignals, ColourHunt, FriendFlip, HandoverChecklist, MicroDraw, PressurePark, ShoulderDrop, SlowTrace, StandReset, TensionMap } from "@/components/yali-tools";
 import { RoomMusicSection } from "@/components/room-music";
 import { FollowLessons } from "@/components/follow-lessons";
 import { BreathFirst, PlayBlock } from "@/components/play-block";
 import { PointMap } from "@/components/point-map";
-import { useCopy } from "@/i18n/lang";
+import { useCopy, useLang } from "@/i18n/lang";
+import { MUSIC_UI } from "@/lib/room-music";
 
 export const Route = createFileRoute("/yali")({ component: YaliPage });
 
 /**
- * 舒壓 · 壓力繃緊同身心反應 (2026-10 draft for clinician review).
- * Same journey as 安神／解鬱／安寐: breathe first → follow along → self-help practice →
+ * 舒壓 · 壓力繃緊同身心反應. Same journey as the other rooms:
+ * breathe first → follow along → self-help practice → play tools →
  * when to see a doctor (kept open, never folded) → deeper reading (folded).
+ * Within-page de-duplication (2026-10): PressurePark is the single full
+ * pressure-parking version, the timed ShoulderDrop is the canonical
+ * shoulder sequence, the breath circle is the one full 吸4呼6 statement,
+ * and 一日節奏 is folded like the other rooms' deeper sections.
  */
 const ORDER = [
   "breath",
@@ -20,6 +25,7 @@ const ORDER = [
   "feel",
   "shoulder",
   "park",
+  "playtools",
   "daily",
   "acu",
   "play",
@@ -30,7 +36,9 @@ const ORDER = [
 
 function YaliPage() {
   const copy = useCopy();
+  const { lang } = useLang();
   const c = copy.yali;
+  const mui = MUSIC_UI[lang];
   return (
     <ClinicLayout
       theme="yali"
@@ -43,13 +51,9 @@ function YaliPage() {
       footerName={c.footerName}
       footerNote={c.footerNote}
     >
-      {/* 1 · one simple breathing exercise (site standard rhythm) */}
       <BreathFirst room="yali" />
-
-      {/* 2 · guided step-by-step */}
       <FollowLessons room="yali" />
 
-      {/* 3 · self-help practice */}
       <Section id="feel" kicker={c.feelK} title={c.feelT}>
         <p className="text-muted">{c.feelLead}</p>
         <BodySignals />
@@ -63,20 +67,24 @@ function YaliPage() {
 
       <Section id="park" kicker={c.parkK} title={c.parkT}>
         <p>{c.parkLead}</p>
-        <ol className="mt-5 list-decimal space-y-3 pl-5 text-muted">
-          {c.parkSteps.map(([strong, rest]) => (
-            <li key={strong}>
-              <strong className="text-ink">{strong}</strong>
-              {rest}
-            </li>
-          ))}
-        </ol>
-        <p className="mt-4 text-sm text-muted">{c.parkNote}</p>
         <PressurePark />
+        <p className="mt-4 text-sm text-muted">{c.parkNote}</p>
       </Section>
 
-      <Section id="daily" kicker={c.dailyK} title={c.dailyT}>
-        <p className="text-muted">{c.dailyLead}</p>
+      <Section id="playtools" kicker={c.play2K} title={c.play2T}>
+        <p className="text-muted">{c.play2Lead}</p>
+        <div className="mt-6 grid gap-10">
+          <StandReset />
+          <FriendFlip />
+          <MicroDraw />
+          <SlowTrace />
+          <HandoverChecklist />
+          <TensionMap />
+          <ColourHunt />
+        </div>
+      </Section>
+
+      <Section id="daily" kicker={c.dailyK} title={c.dailyT} collapsible safety={<p>{c.dailyLead}</p>}>
         <CardGrid items={c.daily} />
       </Section>
 
@@ -88,12 +96,12 @@ function YaliPage() {
 
       <PlayBlock room="yali" />
 
-      <Section id="music" kicker={c.musicK} title={c.musicT}>
-        <p className="text-muted">{c.musicLead}</p>
+      <Section id="music" kicker={mui.sectionK} title={mui.sectionT}>
+        <p className="text-muted">{mui.lead}</p>
         <RoomMusicSection />
       </Section>
 
-      {/* 4 · safety: always visible */}
+      {/* Safety: always visible, never folded */}
       <Section id="care" kicker={c.careK} title={c.careT}>
         <p>{c.careLead}</p>
         <div className="mt-6 rounded-card border-2 border-accent bg-paper p-5">
@@ -123,7 +131,6 @@ function YaliPage() {
         </Link>
       </Section>
 
-      {/* 5 · deeper reading, folded but fully present */}
       <Section id="view" kicker={c.viewK} title={c.viewT} collapsible>
         <p>{c.viewP1}</p>
         <p className="mt-3 text-muted">{c.viewP2}</p>

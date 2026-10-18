@@ -10,6 +10,7 @@ function lines(
   title: string,
   followTitles: readonly string[],
   scanLabel: string = p.cardScan,
+  playLabel?: string,
 ) {
   const out: string[] = [];
   if (n.breath) out.push(`${p.cardBreath}：${n.breath}`);
@@ -19,6 +20,7 @@ function lines(
   if (n.bloom) out.push(`${p.cardBloom}：${n.bloom}`);
   if (n.diaryDays) out.push(`${p.cardDiary}：${n.diaryDays}`);
   if (n.points?.length) out.push(`${p.cardPoints}：${n.points.join("、")}`);
+  if (n.play?.length) out.push(`${playLabel ?? "Played"}: ${n.play.join(", ")}`);
   if (n.follow?.length) {
     const titles = n.follow.map((i) => followTitles[i]).filter(Boolean);
     if (titles.length) out.push(`${p.cardFollow}：${titles.join("、")}`);
@@ -47,7 +49,7 @@ export function ClinicCard({ room }: { room: RoomId }) {
     const n = loadNotes()[room];
     // 舒壓 stores its body-signal picks in `scan`; label them as such on the card.
     const scanLabel = room === "yali" ? copy.yali.cardFeel : p.cardScan;
-    setText(noteHas(n) ? lines(n, p, `${copy.ui.site} · ${title}`, followTitles, scanLabel) : "");
+    setText(noteHas(n) ? lines(n, p, `${copy.ui.site} · ${title}`, followTitles, scanLabel, room === "yali" ? copy.yali.play2Card : undefined) : "");
   }
 
   useEffect(() => {
