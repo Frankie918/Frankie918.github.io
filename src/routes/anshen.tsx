@@ -2,11 +2,17 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CardGrid, ClinicLayout, QuietPhoto, Section } from "@/components/clinic-layout";
 import { FivePoints, HeartScan, PmrGuide, WorryPark } from "@/components/anshen-tools";
 import { FollowLessons } from "@/components/follow-lessons";
-import { PlayBlock } from "@/components/play-block";
+import { BreathFirst, PlayBlock } from "@/components/play-block";
 import { PointMap } from "@/components/point-map";
 import { useCopy } from "@/i18n/lang";
 
 export const Route = createFileRoute("/anshen")({ component: AnshenPage });
+
+/**
+ * Patient journey (2026-10): breathe first → follow along → self-help practice → deeper reading.
+ * Section ids are unchanged so old links (#view, #cbt …) and saved progress keep working.
+ */
+const ORDER = ["breath", "follow", "cbt", "points", "scan", "play", "view", "types", "acu", "daily"] as const;
 
 function AnshenPage() {
   const c = useCopy().anshen;
@@ -18,29 +24,17 @@ function AnshenPage() {
       lede={c.lede}
       bgSrc="/bg-anshen.jpg?v=4"
       nav={c.nav}
+      order={ORDER}
       footerName={c.footerName}
       footerNote={c.footerNote}
     >
-      <Section id="view" kicker={c.viewK} title={c.viewT}>
-        <p>{c.viewP1}</p>
-        <p className="mt-3 text-muted">{c.viewP2}</p>
-        <QuietPhoto src="/still-anshen.jpg?v=4" alt={c.photo} />
-      </Section>
+      {/* 1 · one simple breathing exercise */}
+      <BreathFirst room="anshen" />
 
-      <Section id="types" kicker={c.typesK} title={c.typesT}>
-        <CardGrid items={c.types} />
-      </Section>
+      {/* 2 · guided step-by-step */}
+      <FollowLessons room="anshen" />
 
-      <Section id="points" kicker={c.pointsK} title={c.pointsT}>
-        <p className="text-muted">{c.pointsLead}</p>
-        <FivePoints />
-      </Section>
-
-      <Section id="scan" kicker={c.scanK} title={c.scanT}>
-        <p className="mb-2 text-muted">{c.scanLead}</p>
-        <HeartScan />
-      </Section>
-
+      {/* 3 · self-help practice */}
       <Section id="cbt" kicker={c.cbtK} title={c.cbtT}>
         <p>{c.cbtLead}</p>
 
@@ -76,18 +70,35 @@ function AnshenPage() {
         <p className="mt-3 text-muted">{c.avoidP}</p>
       </Section>
 
-      <Section id="acu" kicker={c.acuK} title={c.acuT}>
-        <p>{c.acuP}</p>
-        <PointMap room="anshen" />
-        <CardGrid items={c.acuItems} />
-        <p className="mt-5 text-muted">{c.acuNote}</p>
+      <Section id="points" kicker={c.pointsK} title={c.pointsT}>
+        <p className="text-muted">{c.pointsLead}</p>
+        <FivePoints />
       </Section>
 
-      <FollowLessons room="anshen" />
+      <Section id="scan" kicker={c.scanK} title={c.scanT}>
+        <p className="mb-2 text-muted">{c.scanLead}</p>
+        <HeartScan />
+      </Section>
 
       <PlayBlock room="anshen" />
 
-      <Section id="daily" kicker={c.dailyK} title={c.dailyT}>
+      {/* 4 · deeper reading, folded but fully present */}
+      <Section id="view" kicker={c.viewK} title={c.viewT} collapsible safety={<p>{c.viewP2}</p>}>
+        <p>{c.viewP1}</p>
+        <QuietPhoto src="/still-anshen.jpg?v=4" alt={c.photo} />
+      </Section>
+
+      <Section id="types" kicker={c.typesK} title={c.typesT} collapsible>
+        <CardGrid items={c.types} />
+      </Section>
+
+      <Section id="acu" kicker={c.acuK} title={c.acuT} collapsible safety={<p>{c.acuNote}</p>}>
+        <p>{c.acuP}</p>
+        <PointMap room="anshen" />
+        <CardGrid items={c.acuItems} />
+      </Section>
+
+      <Section id="daily" kicker={c.dailyK} title={c.dailyT} collapsible>
         <CardGrid items={c.daily} />
       </Section>
     </ClinicLayout>

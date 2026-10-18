@@ -617,3 +617,18 @@
     transition: none;
   }
 }
+
+/* 2026-10 reorganisation: anchors clear the sticky room nav; folded "deeper reading" sections. */
+section[id] {
+  scroll-margin-top: calc(var(--site-top) + 4.5rem);
+}
+.fold summary::-webkit-details-marker {
+  display: none;
+}
+.fold .fold-close,
+.fold details[open] .fold-open {
+  display: none;
+}
+.fold details[open] .fold-close {
+  display: inline;
+}

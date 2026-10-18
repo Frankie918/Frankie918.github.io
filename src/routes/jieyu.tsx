@@ -2,11 +2,17 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CardGrid, ClinicLayout, QuietPhoto, Section } from "@/components/clinic-layout";
 import { BaPlanner, WeatherPick, WoodSteps } from "@/components/jieyu-tools";
 import { FollowLessons } from "@/components/follow-lessons";
-import { PlayBlock } from "@/components/play-block";
+import { BreathFirst, PlayBlock } from "@/components/play-block";
 import { PointMap } from "@/components/point-map";
 import { useCopy } from "@/i18n/lang";
 
 export const Route = createFileRoute("/jieyu")({ component: JieyuPage });
+
+/**
+ * Patient journey (2026-10): breathe first → follow along → small steps → deeper reading.
+ * Section ids are unchanged so old links and saved progress (jieyu-bloom-*) keep working.
+ */
+const ORDER = ["breath", "follow", "steps", "ba", "weather", "play", "view", "types", "acu", "daily"] as const;
 
 function JieyuPage() {
   const c = useCopy().jieyu;
@@ -18,27 +24,20 @@ function JieyuPage() {
       lede={c.lede}
       bgSrc="/bg-jieyu.jpg?v=4"
       nav={c.nav}
+      order={ORDER}
       footerName={c.footerName}
       footerNote={c.footerNote}
     >
-      <Section id="view" kicker={c.viewK} title={c.viewT}>
-        <p>{c.viewP1}</p>
-        <p className="mt-3 text-muted">{c.viewP2}</p>
-        <QuietPhoto src="/still-jieyu.jpg?v=4" alt={c.photo} />
-      </Section>
+      {/* 1 · one simple breathing exercise */}
+      <BreathFirst room="jieyu" />
 
-      <Section id="types" kicker={c.typesK} title={c.typesT}>
-        <CardGrid items={c.types} />
-      </Section>
+      {/* 2 · guided step-by-step */}
+      <FollowLessons room="jieyu" />
 
+      {/* 3 · self-help practice */}
       <Section id="steps" kicker={c.stepsK} title={c.stepsT}>
         <p className="text-muted">{c.stepsLead}</p>
         <WoodSteps />
-      </Section>
-
-      <Section id="weather" kicker={c.weatherK} title={c.weatherT}>
-        <p className="text-muted">{c.weatherLead}</p>
-        <WeatherPick />
       </Section>
 
       <Section id="ba" kicker={c.baK} title={c.baT}>
@@ -56,18 +55,30 @@ function JieyuPage() {
         <BaPlanner />
       </Section>
 
-      <Section id="acu" kicker={c.acuK} title={c.acuT}>
-        <p>{c.acuP}</p>
-        <PointMap room="jieyu" />
-        <CardGrid items={c.acuItems} />
-        <p className="mt-5 text-muted">{c.acuNote}</p>
+      <Section id="weather" kicker={c.weatherK} title={c.weatherT}>
+        <p className="text-muted">{c.weatherLead}</p>
+        <WeatherPick />
       </Section>
-
-      <FollowLessons room="jieyu" />
 
       <PlayBlock room="jieyu" />
 
-      <Section id="daily" kicker={c.dailyK} title={c.dailyT}>
+      {/* 4 · deeper reading, folded but fully present */}
+      <Section id="view" kicker={c.viewK} title={c.viewT} collapsible safety={<p>{c.viewP2}</p>}>
+        <p>{c.viewP1}</p>
+        <QuietPhoto src="/still-jieyu.jpg?v=4" alt={c.photo} />
+      </Section>
+
+      <Section id="types" kicker={c.typesK} title={c.typesT} collapsible>
+        <CardGrid items={c.types} />
+      </Section>
+
+      <Section id="acu" kicker={c.acuK} title={c.acuT} collapsible safety={<p>{c.acuNote}</p>}>
+        <p>{c.acuP}</p>
+        <PointMap room="jieyu" />
+        <CardGrid items={c.acuItems} />
+      </Section>
+
+      <Section id="daily" kicker={c.dailyK} title={c.dailyT} collapsible>
         <CardGrid items={c.daily} />
       </Section>
     </ClinicLayout>

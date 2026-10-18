@@ -57,7 +57,7 @@ export const FOLLOW = {
           lead: "難入睡唔使再加力。力愈大，個夜愈醒。",
           steps: [
             "燈暗咗之後，唔再查「點解我仲未瞓」。",
-            "鼻吸 4、停 2、口呼 6，三輪，數住呼氣就得。",
+            "鼻吸 4、口呼 6，三輪，數住呼氣就得。",
             "三輪完仍然醒，就唔加第四輪，只係覺得被嘅重量。",
           ],
           ifNot: "數唔到三輪，就淨係覺得呼氣長過吸氣。",
@@ -139,7 +139,7 @@ export const FOLLOW = {
           lead: "日間預演嘅係身體，唔係預演成件事點贏。",
           steps: [
             "揀一個你通常會緊嘅鐘點，而家先坐低。",
-            "腳貼地，鼻吸 4、停 2、口呼 6，只做一輪。",
+            "腳貼地，鼻吸 4、口呼 6，只做一輪。",
             "預演完就返去手上嘅事，唔寫劇本。",
           ],
           ifNot: "唔知邊個鐘點會緊，就只係而家做一輪呼吸。",
@@ -206,7 +206,7 @@ export const FOLLOW = {
           lead: "難入睡不必再加力。力愈大，這個夜愈醒。",
           steps: [
             "燈暗了之後，不再查「為什麼我還沒睡著」。",
-            "鼻吸 4、停 2、口呼 6，三輪，數著呼氣就好。",
+            "鼻吸 4、口呼 6，三輪，數著呼氣就好。",
             "三輪完仍然醒，就不加第四輪，只感覺被子的重量。",
           ],
           ifNot: "數不到三輪，就只感覺呼氣長過吸氣。",
@@ -288,7 +288,7 @@ export const FOLLOW = {
           lead: "日間預演的是身體，不是預演整件事怎麼贏。",
           steps: [
             "選一個你通常會緊的鐘點，現在先坐下。",
-            "腳貼地，鼻吸 4、停 2、口呼 6，只做一輪。",
+            "腳貼地，鼻吸 4、口呼 6，只做一輪。",
             "預演完就回到手上的事，不寫劇本。",
           ],
           ifNot: "不知道哪個鐘點會緊，就只是現在做一輪呼吸。",
@@ -355,7 +355,7 @@ export const FOLLOW = {
           lead: "Do not add more effort. The harder you try, the more awake the night becomes.",
           steps: [
             "Once the light is low, stop asking why you are not asleep yet.",
-            "In through the nose for 4, hold 2, out through the mouth for 6. Three rounds, counting the out-breath.",
+            "In through the nose for 4, out through the mouth for 6. Three rounds, counting the out-breath.",
             "If you are still awake, do not add a fourth round. Only feel the weight of the cover.",
           ],
           ifNot: "If you cannot count three rounds, only notice that the out-breath is longer.",
@@ -437,7 +437,7 @@ export const FOLLOW = {
           lead: "What you rehearse by day is the body, not how to win the whole event.",
           steps: [
             "Pick the hour that usually feels tight, and sit down now.",
-            "Feet on the floor. In 4, hold 2, out 6. One round only.",
+            "Feet on the floor. In 4, out 6. One round only.",
             "Then return to what is in your hands. Do not write a script.",
           ],
           ifNot: "If you do not know which hour, only do one round of breath now.",

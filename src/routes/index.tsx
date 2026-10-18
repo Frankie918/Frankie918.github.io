@@ -12,6 +12,36 @@ import { useCopy, useLang } from "@/i18n/lang";
 
 export const Route = createFileRoute("/")({ component: Home });
 
+/** First-screen guide by feeling: straight into a room, landing on its breathing exercise. */
+function FeelingPick() {
+  const { home } = useCopy();
+  const picks = [
+    { to: "/anshen", label: home.feelAnshen, room: home.anshenT },
+    { to: "/jieyu", label: home.feelJieyu, room: home.jieyuT },
+    { to: "/anmei", label: home.feelAnmei, room: home.anmeiT },
+  ] as const;
+  return (
+    <nav aria-label={home.feelK} className="mt-7 max-w-xl">
+      <p className="font-serif text-xl text-ink">{home.feelK}</p>
+      <p className="mt-1 text-sm text-muted">{home.feelLead}</p>
+      <ul className="mt-4 grid gap-2.5 sm:grid-cols-3">
+        {picks.map((p) => (
+          <li key={p.to}>
+            <Link
+              to={p.to}
+              hash="breath"
+              className="flex min-h-14 items-center justify-between gap-2 rounded-card border border-line bg-paper px-4 py-3 text-ink no-underline shadow-sm"
+            >
+              <span className="font-serif text-lg">{p.label}</span>
+              <span className="shrink-0 text-xs tracking-[0.16em] text-accent">{p.room} →</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
 function Home() {
   const copy = useCopy();
   const { lang } = useLang();
@@ -42,6 +72,7 @@ function Home() {
           <p className="text-xs tracking-[0.32em] text-accent">{home.kicker}</p>
           <h1 className="mt-4 font-serif text-6xl font-semibold md:text-8xl">{ui.site}</h1>
           <p className="mt-5 max-w-xl text-lg text-ink">{home.lede}</p>
+          <FeelingPick />
           <div className="mt-8 max-w-xl">
             <DayGuide />
           </div>
@@ -49,29 +80,7 @@ function Home() {
       </header>
 
       <CrayonFrame theme="home">
-      <section className="px-6 pb-16 md:px-12">
-        <p className="text-xs tracking-[0.22em] text-accent">{home.aboutK}</p>
-        <h2 className="mt-2 font-serif text-3xl md:text-4xl">{home.aboutT}</h2>
-        <p className="mt-4 text-ink">{home.aboutLead}</p>
-        <p className="mt-3 text-muted">{home.aboutBody}</p>
-
-        <p className="mt-12 text-xs tracking-[0.22em] text-accent">{home.illnessK}</p>
-        <h2 className="mt-2 font-serif text-3xl md:text-4xl">{home.illnessT}</h2>
-        <p className="mt-4 text-ink">{home.illnessLead}</p>
-        <p className="mt-3 text-muted">{home.illnessBody}</p>
-        <ul className="mt-6 grid gap-3 sm:grid-cols-3">
-          {[home.illnessA, home.illnessB, home.illnessC].map((item) => (
-            <li
-              key={item}
-              className="rounded-card border border-line bg-paper px-4 py-4 text-sm text-ink"
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="grid gap-4 px-6 pb-20 md:grid-cols-3 md:px-12">
+      <section id="rooms" className="grid gap-4 px-6 pb-16 md:grid-cols-3 md:px-12">
         <Link
           to="/anshen"
           className="group overflow-hidden rounded-card border border-line bg-paper no-underline text-ink"
@@ -109,6 +118,29 @@ function Home() {
           </div>
         </Link>
       </section>
+
+      <section className="px-6 pb-20 md:px-12">
+        <p className="text-xs tracking-[0.22em] text-accent">{home.aboutK}</p>
+        <h2 className="mt-2 font-serif text-3xl md:text-4xl">{home.aboutT}</h2>
+        <p className="mt-4 text-ink">{home.aboutLead}</p>
+        <p className="mt-3 text-muted">{home.aboutBody}</p>
+
+        <p className="mt-12 text-xs tracking-[0.22em] text-accent">{home.illnessK}</p>
+        <h2 className="mt-2 font-serif text-3xl md:text-4xl">{home.illnessT}</h2>
+        <p className="mt-4 text-ink">{home.illnessLead}</p>
+        <p className="mt-3 text-muted">{home.illnessBody}</p>
+        <ul className="mt-6 grid gap-3 sm:grid-cols-3">
+          {[home.illnessA, home.illnessB, home.illnessC].map((item) => (
+            <li
+              key={item}
+              className="rounded-card border border-line bg-paper px-4 py-4 text-sm text-ink"
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+      </section>
+
 
       <section className="px-6 pb-8 md:px-12">
         <div className="grid gap-4 md:grid-cols-2">

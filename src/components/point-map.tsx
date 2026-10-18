@@ -2,6 +2,8 @@ import { useState } from "react";
 import { loadNotes, patchNote, type RoomId } from "@/lib/today-note";
 import { useCopy } from "@/i18n/lang";
 import { AcuCloseUp, AcuHint, BodySilhouette } from "@/components/acu-figure";
+import { AcuInfo } from "@/components/acu-info";
+import { useAcuName } from "@/lib/use-acu-name";
 
 type Dot = { id: string; left: string; top: string };
 
@@ -44,7 +46,8 @@ const BODY: Record<RoomId, Dot[]> = {
   ],
 };
 
-function lookup(pts: Record<string, { t: string; d: string }>, id: string) {
+// Names, locations and cautions come from src/lib/acupoints.ts; room copy only holds the use note.
+function lookup(pts: Record<string, { d: string }>, id: string) {
   return pts[id];
 }
 
@@ -83,15 +86,19 @@ function EarOutline() {
 
 export function PointMap({ room }: { room: RoomId }) {
   const p = useCopy().play;
-  const pts = p.maps[room] as Record<string, { t: string; d: string }>;
+  const pts = p.maps[room] as Record<string, { d: string }>;
+  const acuName = useAcuName();
   const [mode, setMode] = useState<"ear" | "body">(room === "jieyu" ? "body" : "ear");
   const [id, setId] = useState(room === "jieyu" ? BODY[room][0].id : EAR[room][0].id);
   const dots = mode === "ear" ? EAR[room] : BODY[room];
-  const item = lookup(pts, id) ?? lookup(pts, dots[0].id);
+  const shownId = lookup(pts, id) && dots.some((d) => d.id === id) ? id : dots[0].id;
+  const item = lookup(pts, shownId);
+  const name = (pid: string) => acuName(pid, mode);
 
   function pick(next: string) {
     setId(next);
-    const label = lookup(pts, next)?.t ?? next;
+    // Saved into the clinic card (TodayNote.points) as the display name, same as before.
+    const label = name(next);
     const prev = new Set(loadNotes()[room].points ?? []);
     prev.add(label);
     patchNote(room, { points: [...prev] });
@@ -132,7 +139,7 @@ export function PointMap({ room }: { room: RoomId }) {
                 className="point-dot"
                 data-active={id === d.id}
                 style={{ left: d.left, top: d.top }}
-                aria-label={lookup(pts, d.id)?.t}
+                aria-label={name(d.id)}
                 onClick={() => pick(d.id)}
               />
             ))}
@@ -147,7 +154,7 @@ export function PointMap({ room }: { room: RoomId }) {
                 className="point-dot"
                 data-active={id === d.id}
                 style={{ left: d.left, top: d.top }}
-                aria-label={lookup(pts, d.id)?.t}
+                aria-label={name(d.id)}
                 onClick={() => pick(d.id)}
               />
             ))}
@@ -163,16 +170,16 @@ export function PointMap({ room }: { room: RoomId }) {
               }`}
               onClick={() => pick(d.id)}
             >
-              {lookup(pts, d.id)?.t ?? d.id}
+              {name(d.id)}
             </button>
           ))}
         </div>
         {mode === "body" && <AcuHint />}
       </div>
       <div className="rounded-card border border-line bg-paper p-6">
-        <h3 className="font-serif text-xl">{item?.t}</h3>
-        <p className="mt-2 text-muted">{item?.d}</p>
-        {mode === "body" && item && <AcuCloseUp id={id} name={item.t} />}
+        <h3 className="font-serif text-xl">{name(shownId)}</h3>
+        <AcuInfo id={shownId} kind={mode} use={item?.d} />
+        {mode === "body" && <AcuCloseUp id={shownId} name={name(shownId)} />}
         <p className="mt-3 text-xs text-muted">{p.mapNote}</p>
       </div>
     </div>

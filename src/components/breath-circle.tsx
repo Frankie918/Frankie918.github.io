@@ -2,10 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { GhostButton, SolidButton } from "@/components/clinic-layout";
 import { patchNote, type RoomId } from "@/lib/today-note";
 import { useCopy } from "@/i18n/lang";
+import { BREATH_IN_SEC, BREATH_OUT_SEC, BREATH_ROUNDS } from "@/lib/breath";
 
-const IN = 4000;
-const OUT = 6000;
-const ROUNDS = 3;
+const IN = BREATH_IN_SEC * 1000;
+const OUT = BREATH_OUT_SEC * 1000;
+const ROUNDS = BREATH_ROUNDS;
 
 export function BreathCircle({ room }: { room: RoomId }) {
   const p = useCopy().play;

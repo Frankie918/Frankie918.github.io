@@ -2,14 +2,31 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CardGrid, ClinicLayout, QuietPhoto, Section } from "@/components/clinic-layout";
 import { HygieneList, MythFlip, SleepDiary, SleepQuiz } from "@/components/anmei-tools";
 import { FollowLessons } from "@/components/follow-lessons";
-import { PlayBlock } from "@/components/play-block";
+import { BreathFirst, PlayBlock } from "@/components/play-block";
 import { PointMap } from "@/components/point-map";
+import { AcuPressGrid } from "@/components/acu-info";
 import { useCopy } from "@/i18n/lang";
-import { AcuCloseUp } from "@/components/acu-figure";
-
-const PRESS_IDS = ["shenmen", "neiguan", "sanyinjiao", "yongquan"];
 
 export const Route = createFileRoute("/anmei")({ component: AnmeiPage });
+
+/**
+ * Patient journey (2026-10): breathe first → follow along → tonight's practice → deeper reading.
+ * Section ids are unchanged: the sleep quiz still links #cbti / #hygiene / #yangsheng / #view
+ * (folded sections open automatically), and anmei-diary-v1 storage is untouched.
+ */
+const ORDER = [
+  "breath",
+  "follow",
+  "quiz",
+  "cbti",
+  "hygiene",
+  "yangsheng",
+  "diary",
+  "play",
+  "myths",
+  "view",
+  "acu",
+] as const;
 
 function AnmeiPage() {
   const c = useCopy().anmei;
@@ -21,24 +38,20 @@ function AnmeiPage() {
       lede={c.lede}
       bgSrc="/bg-anmei.jpg?v=4"
       nav={c.nav}
+      order={ORDER}
       footerName={c.footerName}
       footerNote={c.footerNote}
     >
-      <Section id="view" kicker={c.viewK} title={c.viewT}>
-        <p>{c.viewP1}</p>
-        <p className="mt-3 text-muted">{c.viewP2}</p>
-        <QuietPhoto src="/still-anmei.jpg?v=4" alt={c.photo} />
-        <CardGrid items={c.soils} />
-      </Section>
+      {/* 1 · one simple breathing exercise */}
+      <BreathFirst room="anmei" />
 
+      {/* 2 · guided step-by-step */}
+      <FollowLessons room="anmei" />
+
+      {/* 3 · tonight's practice */}
       <Section id="quiz" kicker={c.quizK} title={c.quizT}>
         <p className="text-muted">{c.quizLead}</p>
         <SleepQuiz />
-      </Section>
-
-      <Section id="myths" kicker={c.mythsK} title={c.mythsT}>
-        <p className="text-muted">{c.mythsLead}</p>
-        <MythFlip />
       </Section>
 
       <Section id="cbti" kicker={c.cbtiK} title={c.cbtiT}>
@@ -65,25 +78,31 @@ function AnmeiPage() {
         <CardGrid items={c.ys} />
         <h3 className="mt-8 font-serif text-xl">{c.pressT}</h3>
         <p className="mt-2 text-sm text-muted">{c.pressLead}</p>
-        <CardGrid
-          items={c.press}
-          extra={(i, t) => <AcuCloseUp id={PRESS_IDS[i] ?? ""} name={t} />}
-        />
+        <AcuPressGrid items={c.press} />
       </Section>
-
-      <Section id="acu" kicker={c.acuK} title={c.acuT}>
-        <p>{c.acuP}</p>
-        <PointMap room="anmei" />
-        <CardGrid items={c.acuItems} />
-        <p className="mt-5 text-muted">{c.acuNote}</p>
-      </Section>
-
-      <FollowLessons room="anmei" />
-
-      <PlayBlock room="anmei" />
 
       <Section id="diary" kicker={c.diaryK} title={c.diaryT}>
         <SleepDiary />
+      </Section>
+
+      <PlayBlock room="anmei" />
+
+      {/* 4 · deeper reading */}
+      <Section id="myths" kicker={c.mythsK} title={c.mythsT}>
+        <p className="text-muted">{c.mythsLead}</p>
+        <MythFlip />
+      </Section>
+
+      <Section id="view" kicker={c.viewK} title={c.viewT} collapsible safety={<p>{c.viewP2}</p>}>
+        <p>{c.viewP1}</p>
+        <QuietPhoto src="/still-anmei.jpg?v=4" alt={c.photo} />
+        <CardGrid items={c.soils} />
+      </Section>
+
+      <Section id="acu" kicker={c.acuK} title={c.acuT} collapsible safety={<p>{c.acuNote}</p>}>
+        <p>{c.acuP}</p>
+        <PointMap room="anmei" />
+        <CardGrid items={c.acuItems} />
       </Section>
     </ClinicLayout>
   );

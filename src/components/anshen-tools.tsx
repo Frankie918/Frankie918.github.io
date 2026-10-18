@@ -3,6 +3,8 @@ import { GhostButton, SolidButton } from "@/components/clinic-layout";
 import { patchNote } from "@/lib/today-note";
 import { useCopy } from "@/i18n/lang";
 import { AcuCloseUp, AcuHint, BodySilhouette } from "@/components/acu-figure";
+import { AcuInfo } from "@/components/acu-info";
+import { useAcuName } from "@/lib/use-acu-name";
 
 const POINT_STYLE = {
   baihui: { left: "50%", top: "2%" },
@@ -17,6 +19,7 @@ const SCAN_KEYS = ["fire", "timid", "spleen", "kidney", "phlegm"] as const;
 
 export function FivePoints() {
   const c = useCopy().anshen;
+  const name = useAcuName();
   const [id, setId] = useState<PointId>("yintang");
   const [fill, setFill] = useState(0);
   const [done, setDone] = useState(false);
@@ -61,7 +64,7 @@ export function FivePoints() {
               className="point-dot"
               data-active={id === key}
               style={POINT_STYLE[key]}
-              aria-label={c.points[key].t}
+              aria-label={name(key)}
               onClick={() => setId(key)}
             />
           ))}
@@ -76,16 +79,16 @@ export function FivePoints() {
               }`}
               onClick={() => setId(key)}
             >
-              {c.points[key].t}
+              {name(key)}
             </button>
           ))}
         </div>
         <AcuHint />
       </div>
       <div className="rounded-card border border-line bg-paper p-6">
-        <h3 className="font-serif text-xl">{point.t}</h3>
-        <p className="mt-2 text-muted">{point.d}</p>
-        <AcuCloseUp id={id} name={point.t} />
+        <h3 className="font-serif text-xl">{name(id)}</h3>
+        <AcuInfo id={id} use={point.d} />
+        <AcuCloseUp id={id} name={name(id)} />
         <p className="mt-2 text-sm text-muted">{c.breath}</p>
         <div className="mt-4">
           <SolidButton onPointerDown={startHold} onPointerUp={stop} onPointerLeave={stop}>

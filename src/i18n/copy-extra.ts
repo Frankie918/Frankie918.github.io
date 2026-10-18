@@ -36,6 +36,7 @@ export const CMN = {
 		now: "此刻",
 		tap: "按我",
 		close: "收起",
+		expand: "點開看",
 		music: "背景樂",
 		musicOn: "卡農 · 開",
 		musicPlay: "播放卡農",
@@ -69,6 +70,11 @@ export const CMN = {
 		views: "瀏覽量"
 	},
 	home: {
+		feelK: "現在哪一種最像你？",
+		feelLead: "選一個，直接進房，先做半分鐘呼吸。",
+		feelAnshen: "心慌坐不住",
+		feelJieyu: "提不起勁",
+		feelAnmei: "睡不著",
 		kicker: "慢慢來，不必一次完成",
 		lede: "呼吸可以再慢一拍。這裏不趕，只陪你把心與氣，輕輕放回來。",
 		anshenK: "焦慮",
@@ -136,12 +142,18 @@ export const CMN = {
 		title: "陪你做三件很小的事",
 		lead: "呼吸、時辰、面診小卡。三間房都有，只是時辰不同。不計分，不過關。",
 		breathIdle: "圈會跟著脹縮",
-		breathHint: "吸四秒，呼六秒 · 三輪約半分鐘",
+		breathHint: "鼻吸 4 秒，口呼 6 秒 · 三輪約半分鐘",
 		breathIn: "吸",
 		breathOut: "呼",
 		breathStart: "開始半分鐘",
 		breathStop: "停",
 		breathDone: "完。隨時再來。",
+		breathSecK: "先做一件事",
+		breathSecT: "先慢慢呼吸半分鐘",
+		breathSecLead: "不用準備，坐著或躺下都可以。跟著圓圈做三輪就夠。",
+		breathNav: "先呼吸",
+		breathGo: "先呼吸半分鐘 ↓",
+		breathMoved: "呼吸圓圈在頁頂「先呼吸」↑",
 		hourNow: "現在",
 		hours: {
 			anshen: {
@@ -180,29 +192,29 @@ export const CMN = {
 		mapNote: "點一下看位置。輕按可以，不代替針灸。酸脹則停。",
 		maps: {
 			anshen: {
-				shenmen: { t: "神門", d: "耳三角窩、腕橫紋尺側。安神常用。輕按至微酸。" },
-				xin: { t: "心", d: "耳甲腔中央。心悸、易驚時可作教育標記。" },
-				pizhixia: { t: "皮質下", d: "對耳屏內側。助神識收回，不要大力揉。" },
-				yintang: { t: "印堂", d: "兩眉之間。煩時停一分鐘，隨呼氣輕按。" },
-				neiguan: { t: "內關", d: "前臂內側，腕上三橫指。心慌時可按。" },
-				taichong: { t: "太衝", d: "足背一、二跖骨之間。肝鬱煩躁可輕按。" }
+				shenmen: { d: "安神常用。輕按至微酸。" },
+				xin: { d: "心悸、易驚時可作教育標記。" },
+				pizhixia: { d: "助神識收回，不要大力揉。" },
+				yintang: { d: "煩時停一分鐘，隨呼氣輕按。" },
+				neiguan: { d: "心慌時可按。" },
+				taichong: { d: "肝鬱煩躁可輕按。" }
 			},
 			jieyu: {
-				gan: { t: "肝", d: "耳甲艇後上方。氣鬱、胸脅脹的教育標記。" },
-				shenmen: { t: "神門", d: "耳三角窩。鬱而煩、睡差可記這個位置。" },
-				jiaogan: { t: "交感", d: "對耳輪下腳前端。胸悶、氣不順時標記。" },
-				qimen: { t: "期門", d: "胸側、乳下。兩脅隨呼吸起落，不要死力。" },
-				neiguan: { t: "內關", d: "腕上內側。悶而欲嘔、心慌可輕按。" },
-				hegu: { t: "合谷", d: "手背虎口。氣滯、頭緊可記；孕婦請勿自行按。" },
-				taichong: { t: "太衝", d: "足背一、二跖骨之間。鬱而欲怒，隨呼氣按。" }
+				gan: { d: "氣鬱、胸脅脹的教育標記。" },
+				shenmen: { d: "鬱而煩、睡差可記這個位置。" },
+				jiaogan: { d: "胸悶、氣不順時標記。" },
+				qimen: { d: "兩脅隨呼吸起落，不要死力。" },
+				neiguan: { d: "悶而欲嘔、心慌可輕按。" },
+				hegu: { d: "氣滯、頭緊可記。" },
+				taichong: { d: "鬱而欲怒，隨呼氣按。" }
 			},
 			anmei: {
-				shenmen: { t: "神門", d: "耳穴和腕部都叫神門。入睡難、易驚可輕按。" },
-				zhen: { t: "枕", d: "對耳屏外後。頭未放低、醒後重可標記。" },
-				pi: { t: "脾", d: "耳甲腔外上方。多夢易醒、納差的教育標記。" },
-				neiguan: { t: "內關", d: "腕上內側。躺下心慌可按。" },
-				sanyinjiao: { t: "三陰交", d: "內踝上三橫指。陰血不足、夜醒可記；孕婦請勿自行按。" },
-				yongquan: { t: "湧泉", d: "足心凹陷。搓熱至暖，引火下行。" }
+				shenmen: { d: "耳穴和腕部都叫神門。入睡難、易驚可輕按。" },
+				zhen: { d: "頭未放低、醒後重可標記。" },
+				pi: { d: "多夢易醒、納差的教育標記。" },
+				neiguan: { d: "躺下心慌可按。" },
+				sanyinjiao: { d: "陰血不足、夜醒可記。" },
+				yongquan: { d: "搓熱至暖，引火下行。" }
 			}
 		},
 		cardK: "帶去面診",
@@ -309,7 +321,7 @@ export const CMN = {
 		],
 		pointsK: "輕按一下",
 		pointsT: "五穴安神",
-		pointsLead: "點選穴位，再按住按鈕約 20 秒——模擬輕按。配合慢呼吸：鼻吸 4、停 2、口呼 6。",
+		pointsLead: "點選穴位，再按住按鈕約 20 秒——模擬輕按。配合慢呼吸，節奏見下面提示（和頁頂呼吸圓圈一樣）。",
 		scanK: "聽一聽自己",
 		scanT: "心神掃描",
 		scanLead: "選最接近你近日狀態的一項（最多兩項），會給生活上可以跟著試的指導，不是診斷，也不是處方。",
@@ -375,27 +387,22 @@ export const CMN = {
 		],
 		points: {
 			baihui: {
-				t: "百會",
-				d: "頭頂正中。升清、定神。適合頭脹、思緒上浮。"
+				d: "升清、定神。適合頭脹、思緒上浮。"
 			},
 			yintang: {
-				t: "印堂",
-				d: "兩眉中間。收神、紓眉心緊。適合心煩、眉心繃住。"
+				d: "收神、紓眉心緊。適合心煩、眉心繃住。"
 			},
 			shenmen: {
-				t: "神門",
-				d: "手腕小指側橫紋。心經原穴，寧心安神。"
+				d: "心經原穴，寧心安神。"
 			},
 			neiguan: {
-				t: "內關",
-				d: "前臂內側、腕上兩寸。寬胸、止悸、和胃。"
+				d: "寬胸、止悸、和胃。"
 			},
 			taichong: {
-				t: "太衝",
-				d: "足背第一、二跖骨間。疏肝降逆，煩躁時用。"
+				d: "疏肝降逆，煩躁時用。"
 			}
 		},
-		breath: "呼吸提示：鼻吸 4 · 停 2 · 口呼 6",
+		breath: "呼吸提示：鼻吸 4 · 口呼 6",
 		hold: "按住輕揉 · 20 秒",
 		held: "夠了 · 換口氣",
 		scan: {
@@ -753,20 +760,20 @@ export const CMN = {
 		pressLead: "每穴約一分鐘，酸脹為度。孕婦、糖尿病足、皮膚破損者先問醫師。",
 		press: [
 			{
-				title: "神門",
-				body: "腕橫紋、小指一側。安神常用。配合慢呼吸。"
+				id: "shenmen",
+				body: "安神常用。配合慢呼吸。"
 			},
 			{
-				title: "內關",
-				body: "腕上三指、兩筋之間。思慮、心悸、胃氣上逆可按。"
+				id: "neiguan",
+				body: "思慮、心悸、胃氣上逆可按。"
 			},
 			{
-				title: "三陰交",
-				body: "內踝上四指、骨後。肝脾腎交會。孕婦避免強刺激。"
+				id: "sanyinjiao",
+				body: "肝脾腎交會。"
 			},
 			{
-				title: "湧泉",
-				body: "足底前三分一凹陷。足浴後按揉。"
+				id: "yongquan",
+				body: "足浴後按揉。"
 			}
 		],
 		acuK: "門診可以幫忙",
@@ -1183,6 +1190,7 @@ export const EN = {
 		now: "now",
 		tap: "tap",
 		close: "Close",
+		expand: "Tap to open",
 		music: "Music",
 		musicOn: "Canon · on",
 		musicPlay: "Play Canon in D",
@@ -1216,6 +1224,11 @@ export const EN = {
 		views: "Visits"
 	},
 	home: {
+		feelK: "Which feels closest right now?",
+		feelLead: "Pick one to go straight into a room and start with half a minute of breathing.",
+		feelAnshen: "Heart racing, can’t sit still",
+		feelJieyu: "No energy to get going",
+		feelAnmei: "Can’t fall asleep",
 		kicker: "Slow is allowed. Nothing has to be finished today.",
 		lede: "Let the breath drop one beat slower. No rush here — only a place to set the heart and the qi down again.",
 		anshenK: "Anxiety",
@@ -1283,12 +1296,18 @@ export const EN = {
 		title: "Three small things, with you",
 		lead: "Breath, the hours, and a clinic card. Every room has them; only the hours change. No scores, no levels.",
 		breathIdle: "The circle grows and settles with you",
-		breathHint: "In for four, out for six · three rounds, about half a minute",
+		breathHint: "In through the nose for 4, out through the mouth for 6 · three rounds, about half a minute",
 		breathIn: "in",
 		breathOut: "out",
 		breathStart: "Begin half a minute",
 		breathStop: "Stop",
 		breathDone: "Done. Come back whenever.",
+		breathSecK: "One thing first",
+		breathSecT: "Half a minute of slow breathing",
+		breathSecLead: "No preparation needed — sitting or lying down is fine. Follow the circle for three rounds; that is enough.",
+		breathNav: "Breathe",
+		breathGo: "Breathe for half a minute ↓",
+		breathMoved: "The breathing circle is at the top: “Breathe” ↑",
 		hourNow: "now",
 		hours: {
 			anshen: {
@@ -1327,29 +1346,29 @@ export const EN = {
 		mapNote: "Tap a point to see where it is. Light pressure is fine; this is not acupuncture. Stop if it aches.",
 		maps: {
 			anshen: {
-				shenmen: { t: "Shenmen", d: "Triangular fossa of the ear, and the ulnar wrist crease. Often used to calm the mind. Press until a mild ache." },
-				xin: { t: "Heart (Xin)", d: "Centre of the cavum conchae. An educational mark when the heart startles or races." },
-				pizhixia: { t: "Subcortex", d: "Inner wall of the antitragus. Helps awareness settle. Do not rub hard." },
-				yintang: { t: "Yintang", d: "Between the brows. When restless, pause one minute; press lightly on the out-breath." },
-				neiguan: { t: "Neiguan", d: "Inner forearm, three finger-widths above the wrist. Press when the chest races." },
-				taichong: { t: "Taichong", d: "On the foot, between the first and second metatarsals. Light press when liver qi is irritable." }
+				shenmen: { d: "Often used to calm the mind. Press until a mild ache." },
+				xin: { d: "An educational mark when the heart startles or races." },
+				pizhixia: { d: "Helps awareness settle. Do not rub hard." },
+				yintang: { d: "When restless, pause one minute; press lightly on the out-breath." },
+				neiguan: { d: "Press when the chest races." },
+				taichong: { d: "Light press when liver qi is irritable." }
 			},
 			jieyu: {
-				gan: { t: "Liver (Gan)", d: "Posterior superior cymba conchae. An educational mark for stuck qi and tightness in the chest and sides." },
-				shenmen: { t: "Shenmen", d: "Triangular fossa. Note this place when heaviness comes with restlessness and poor sleep." },
-				jiaogan: { t: "Sympathetic", d: "Front of the inferior antihelix crus. Mark it when the chest is tight and qi will not move." },
-				qimen: { t: "Qimen", d: "Side of the chest, below the breast. Let the ribs follow the breath; do not press hard." },
-				neiguan: { t: "Neiguan", d: "Inner wrist. Light press when tightness comes with nausea or a racing chest." },
-				hegu: { t: "Hegu", d: "The web of the hand. Note it for stuck qi and a tight head. Do not press this yourself in pregnancy." },
-				taichong: { t: "Taichong", d: "On the foot, between the first and second metatarsals. Press on the out-breath when heaviness turns toward anger." }
+				gan: { d: "An educational mark for stuck qi and tightness in the chest and sides." },
+				shenmen: { d: "Note this place when heaviness comes with restlessness and poor sleep." },
+				jiaogan: { d: "Mark it when the chest is tight and qi will not move." },
+				qimen: { d: "Let the ribs follow the breath; do not press hard." },
+				neiguan: { d: "Light press when tightness comes with nausea or a racing chest." },
+				hegu: { d: "Note it for stuck qi and a tight head." },
+				taichong: { d: "Press on the out-breath when heaviness turns toward anger." }
 			},
 			anmei: {
-				shenmen: { t: "Shenmen", d: "Both the ear point and the wrist point share this name. Light press when sleep will not come, or startles easily." },
-				zhen: { t: "Occiput (Zhen)", d: "Outer posterior antitragus. Mark it when the head will not lower, or feels heavy on waking." },
-				pi: { t: "Spleen (Pi)", d: "Posterior superior cavum conchae. An educational mark for dream-filled nights and a poor appetite." },
-				neiguan: { t: "Neiguan", d: "Inner wrist. Press if the chest races once you lie down." },
-				sanyinjiao: { t: "Sanyinjiao", d: "Three finger-widths above the inner ankle. Note it for yin-blood shortage and night waking. Do not press this yourself in pregnancy." },
-				yongquan: { t: "Yongquan", d: "The hollow of the sole. Rub until warm, to draw fire downward." }
+				shenmen: { d: "Both the ear point and the wrist point share this name. Light press when sleep will not come, or startles easily." },
+				zhen: { d: "Mark it when the head will not lower, or feels heavy on waking." },
+				pi: { d: "An educational mark for dream-filled nights and a poor appetite." },
+				neiguan: { d: "Press if the chest races once you lie down." },
+				sanyinjiao: { d: "Note it for yin-blood shortage and night waking." },
+				yongquan: { d: "Rub until warm, to draw fire downward." }
 			}
 		},
 		cardK: "Take to clinic",
@@ -1456,7 +1475,7 @@ export const EN = {
 		],
 		pointsK: "A light press",
 		pointsT: "Five points to settle spirit",
-		pointsLead: "Choose a point, then hold the button about 20 seconds — a stand-in for a light press. Breathe: nose in 4, hold 2, mouth out 6.",
+		pointsLead: "Choose a point, then hold the button about 20 seconds — a stand-in for a light press. Breathe slowly — the rhythm is in the hint below (the same as the breathing circle at the top).",
 		scanK: "Listen inward",
 		scanT: "Heart-spirit scan",
 		scanLead: "Pick what is closest to recent days (up to two). You will get living guidance — not a diagnosis, not a prescription.",
@@ -1522,27 +1541,22 @@ export const EN = {
 		],
 		points: {
 			baihui: {
-				t: "Baihui (GV20)",
-				d: "Crown of the head. Raises the clear and steadies spirit. For a heavy head and thoughts floating up."
+				d: "Raises the clear and steadies spirit. For a heavy head and thoughts floating up."
 			},
 			yintang: {
-				t: "Yintang (EX-HN3)",
-				d: "Between the brows. Gathers spirit, eases the frown. For restlessness and a tight brow."
+				d: "Gathers spirit, eases the frown. For restlessness and a tight brow."
 			},
 			shenmen: {
-				t: "Shenmen (HT7)",
-				d: "Wrist crease on the little-finger side. Source point of the heart channel; calms the heart."
+				d: "Source point of the heart channel; calms the heart."
 			},
 			neiguan: {
-				t: "Neiguan (PC6)",
-				d: "Inner forearm, two thumb-widths above the wrist. Opens the chest, stills palpitations, settles the stomach."
+				d: "Opens the chest, stills palpitations, settles the stomach."
 			},
 			taichong: {
-				t: "Taichong (LR3)",
-				d: "Top of the foot, between the first and second long bones. Courses liver and brings uprising qi down. For irritability."
+				d: "Courses liver and brings uprising qi down. For irritability."
 			}
 		},
-		breath: "Breath: nose in 4 · hold 2 · mouth out 6",
+		breath: "Breath: nose in 4 · mouth out 6",
 		hold: "Hold and rub · 20 s",
 		held: "Enough · change the breath",
 		scan: {
@@ -1900,20 +1914,20 @@ export const EN = {
 		pressLead: "About a minute each point, to a sore-distending feel. Pregnancy, diabetic feet, broken skin: ask a practitioner first.",
 		press: [
 			{
-				title: "Shenmen (HT7)",
-				body: "Wrist crease, little-finger side. Often used to calm spirit. Pair with slow breath."
+				id: "shenmen",
+				body: "Often used to calm spirit. Pair with slow breath."
 			},
 			{
-				title: "Neiguan (PC6)",
-				body: "Three fingers above the wrist, between the two tendons. For overthinking, palpitations, rebellious stomach qi."
+				id: "neiguan",
+				body: "For overthinking, palpitations, rebellious stomach qi."
 			},
 			{
-				title: "Sanyinjiao (SP6)",
-				body: "Four fingers above the inner ankle, behind the bone. Meeting of liver, spleen and kidney. Avoid strong stimulation in pregnancy."
+				id: "sanyinjiao",
+				body: "Meeting of liver, spleen and kidney."
 			},
 			{
-				title: "Yongquan (KI1)",
-				body: "Depression in the front third of the sole. Rub after a foot bath."
+				id: "yongquan",
+				body: "Rub after a foot bath."
 			}
 		],
 		acuK: "Clinic can help",

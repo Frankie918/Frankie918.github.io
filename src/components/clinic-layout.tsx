@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { ClinicContact } from "@/components/clinic-contact";
 import { CrayonFrame } from "@/components/crayon-margin";
 import { DayGuide } from "@/components/day-guide";
@@ -7,6 +7,62 @@ import { ViewCount } from "@/components/view-count";
 import { useCopy } from "@/i18n/lang";
 
 type NavItem = { href: string; label: string };
+
+/**
+ * Open any collapsed <details> section that contains (or is) the anchor target, so in-page
+ * links such as the nav bar or the sleep quiz's "#view" still land on visible content.
+ */
+function openAnchor(hash: string) {
+  if (!hash || hash.length < 2) return;
+  let el: HTMLElement | null = null;
+  try {
+    el = document.getElementById(decodeURIComponent(hash.slice(1)));
+  } catch {
+    return;
+  }
+  if (!el) return;
+  el.querySelectorAll<HTMLDetailsElement>(":scope > details").forEach((d) => (d.open = true));
+  let up: HTMLElement | null = el;
+  while (up) {
+    if (up instanceof HTMLDetailsElement) up.open = true;
+    up = up.parentElement;
+  }
+}
+
+function useAnchorOpener() {
+  useEffect(() => {
+    openAnchor(window.location.hash);
+    if (window.location.hash) {
+      const id = window.location.hash.slice(1);
+      window.requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView());
+    }
+    const onClick = (e: MouseEvent) => {
+      const a = (e.target as HTMLElement | null)?.closest?.("a[href^='#']");
+      if (a) openAnchor(a.getAttribute("href") ?? "");
+    };
+    const onHash = () => openAnchor(window.location.hash);
+    document.addEventListener("click", onClick, true);
+    window.addEventListener("hashchange", onHash);
+    return () => {
+      document.removeEventListener("click", onClick, true);
+      window.removeEventListener("hashchange", onHash);
+    };
+  }, []);
+}
+
+/** Put nav items in page order; items not listed keep their relative order at the end. */
+function orderNav(nav: readonly NavItem[], order?: readonly string[]): NavItem[] {
+  const items = [...nav];
+  if (!order) return items;
+  const rank = (href: string) => {
+    const i = order.indexOf(href.replace(/^#/, ""));
+    return i < 0 ? order.length : i;
+  };
+  return items
+    .map((item, i) => ({ item, i }))
+    .sort((a, b) => rank(a.item.href) - rank(b.item.href) || a.i - b.i)
+    .map(({ item }) => item);
+}
 
 const ROOMS = [
   { id: "anshen", to: "/anshen" },
@@ -55,6 +111,7 @@ export function ClinicLayout({
   children,
   footerName,
   footerNote,
+  order,
 }: {
   theme: "anshen" | "jieyu" | "anmei";
   title: string;
@@ -65,9 +122,18 @@ export function ClinicLayout({
   children: ReactNode;
   footerName: string;
   footerNote: string;
+  /** Section ids in page order; the nav bar follows it and gains a "#breath" entry first. */
+  order?: readonly string[];
 }) {
   const copy = useCopy();
   const ui = copy.ui;
+  useAnchorOpener();
+  const navItems = orderNav(
+    order?.includes("breath") && !nav.some((n) => n.href === "#breath")
+      ? [{ href: "#breath", label: copy.play.breathNav }, ...nav]
+      : nav,
+    order,
+  );
   const musicCredit =
     theme === "anshen"
       ? copy.anshen.musicCredit
@@ -103,6 +169,14 @@ export function ClinicLayout({
           <p className="text-xs tracking-[0.28em] text-accent">{kicker}</p>
           <h1 className="mt-3 font-serif text-6xl font-semibold md:text-7xl">{title}</h1>
           <p className="mt-4 max-w-xl text-lg text-ink">{lede}</p>
+          {order?.includes("breath") && (
+            <a
+              href="#breath"
+              className="mt-6 inline-flex min-h-12 items-center rounded-full bg-bg-deep px-6 py-3 text-base text-paper no-underline shadow-sm"
+            >
+              {copy.play.breathGo}
+            </a>
+          )}
           <div className="mt-8 max-w-xl">
             <DayGuide />
           </div>
@@ -124,7 +198,7 @@ export function ClinicLayout({
             <RoomJump theme={theme} tone="solid" />
           </div>
           <ul className="flex gap-5 overflow-x-auto py-1 text-sm whitespace-nowrap">
-            {nav.map((item) => (
+            {navItems.map((item) => (
               <li key={item.href}>
                 <a href={item.href} className="text-ink no-underline">
                   {item.label}
@@ -174,17 +248,61 @@ export function Section({
   kicker,
   title,
   children,
+  collapsible = false,
+  safety,
 }: {
   id: string;
   kicker: string;
   title: string;
   children: ReactNode;
+  /** Deeper reading: rendered (and prerendered) in full, but folded under its heading. */
+  collapsible?: boolean;
+  /** Safety / caution text of a folded section; always shown, never folded away. */
+  safety?: ReactNode;
 }) {
+  if (collapsible)
+    return (
+      <FoldSection id={id} kicker={kicker} title={title} safety={safety}>
+        {children}
+      </FoldSection>
+    );
   return (
     <section id={id} className="border-t border-line py-16">
       <p className="mb-2 text-xs tracking-[0.22em] text-accent">{kicker}</p>
       <h2 className="mb-4 font-serif text-3xl">{title}</h2>
       {children}
+    </section>
+  );
+}
+
+function FoldSection({
+  id,
+  kicker,
+  title,
+  children,
+  safety,
+}: {
+  id: string;
+  kicker: string;
+  title: string;
+  children: ReactNode;
+  safety?: ReactNode;
+}) {
+  const ui = useCopy().ui;
+  return (
+    <section id={id} className="fold border-t border-line py-10">
+      <details>
+        <summary className="cursor-pointer list-none">
+          <p className="mb-2 text-xs tracking-[0.22em] text-accent">{kicker}</p>
+          <h2 className="font-serif text-3xl">{title}</h2>
+          <p className="fold-hint mt-3 inline-flex min-h-11 items-center rounded-full border border-line bg-paper px-4 py-2 text-sm text-ink">
+            <span className="fold-open">{ui.expand}</span>
+            <span className="fold-close">{ui.close}</span>
+          </p>
+        </summary>
+        <div className="pt-4">{children}</div>
+      </details>
+      {safety && <div className="mt-5 text-sm text-muted">{safety}</div>}
     </section>
   );
 }
