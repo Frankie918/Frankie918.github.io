@@ -27,7 +27,7 @@ export type SeasonFood = {
 };
 
 /** 每個節氣嘅時令飲食（只引用已核對嘅《隨息居飲食譜》原文）。 */
-export const JIEQI_FOOD: Record<string, { yue: SeasonFood; cmn: SeasonFood; urls: string[] }> = {
+export const JIEQI_FOOD: Record<string, { yue: SeasonFood; cmn: SeasonFood; en: SeasonFood; urls: string[] }> = {
   寒露: {
     urls: ["https://ctext.org/wiki.pl?chapter=903886&if=gb"],
     yue: {
@@ -85,6 +85,34 @@ export const JIEQI_FOOD: Record<string, { yue: SeasonFood; cmn: SeasonFood; urls
       },
       note: "以上是傳統飲食文化介紹，不是食療處方，也不保證任何效果。飲食因人而異，有病情或正在服藥，請先問醫師。",
       source: "原文出處：王士雄《隨息居飲食譜》果食類「梨」「百合」。",
+    },
+    en: {
+      kicker: "Seasonal food · Suixiju",
+      intro: "The Qing-dynasty doctor Wang Shixiong's Suixiju Yinshipu (隨息居飲食譜) records the nature and flavour of many everyday foods. Pear and lily bulb are in season in autumn; below are the book's original words, and one way of preparing them that can be done at home.",
+      foods: [
+        {
+          name: "Pear",
+          quote: "「梨甘涼。潤肺，清胃，涼心，滌熱息風，化痰已嗽，養陰濡燥……中虛寒瀉、乳婦、金瘡忌之。新產及病後，須蒸熟食之。」",
+          explain: "The book says pear is sweet in flavour and cool in nature, a moistening kind of fruit; it also warns that people with a weak, cold stomach who are prone to loose stools should avoid it, and that after childbirth or illness it should be steamed before eating.",
+        },
+        {
+          name: "Lily bulb",
+          quote: "「百合甘平。潤肺，補胃，清心，定魄，息驚，澤膚……或蒸或煮，而淡食之……風寒痰嗽、中寒便滑者勿食。」",
+          explain: "The book says lily bulb is sweet and neutral in nature, and suggests steaming or boiling it and eating it plainly; it should not be eaten during a wind-cold cough, a cold stomach or loose stools.",
+        },
+      ],
+      recipe: {
+        title: "Steamed Snow Pear with Lily Bulb",
+        ingredients: ["1 snow pear", "Half a fresh lily bulb (about 20 g; soak dried lily bulb until soft first)", "A little water", "A little rock sugar (optional)"],
+        steps: [
+          "Wash the snow pear, cut off the top to use as a lid, and scoop out the core with a small spoon.",
+          "Separate and wash the fresh lily bulb petals, place them inside the pear, and add a little water and rock sugar.",
+          "Put the lid back on, place the pear in a bowl, and steam over water on medium heat for about 30 to 40 minutes, until the pear is soft.",
+          "Let it cool until warm before eating, and drink the juice with it.",
+        ],
+      },
+      note: "The above introduces traditional food culture. It is not a dietary-therapy prescription and does not guarantee any effect. Food affects people differently; if you have a medical condition or are taking medication, please ask a doctor first.",
+      source: "Source: Wang Shixiong, Suixiju Yinshipu (隨息居飲食譜), fruit section, \u201cPear\u201d and \u201cLily bulb\u201d.",
     },
   },
   霜降: {
@@ -145,6 +173,34 @@ export const JIEQI_FOOD: Record<string, { yue: SeasonFood; cmn: SeasonFood; urls
       note: "以上是傳統飲食文化介紹，不是食療處方，也不保證任何效果。飲食因人而異，有病情或正在服藥，請先問醫師。",
       source: "原文出處：王士雄《隨息居飲食譜》果食類「柿」。",
     },
+    en: {
+      kicker: "Seasonal food · Suixiju",
+      intro: "The Qing-dynasty doctor Wang Shixiong's Suixiju Yinshipu (隨息居飲食譜) records the nature and flavour of many everyday foods. Persimmons are in season around Frost's Descent, and fresh persimmon and dried persimmon are recorded separately in the book; below are the original words, and one way of preparing them that can be done at home.",
+      foods: [
+        {
+          name: "Fresh persimmon",
+          quote: "「鮮柿甘寒。養肺胃之陰，宜於火燥津枯之體。以大而無核，熟透不澀者良……凡中氣虛寒，痰濕內盛，外感風寒，胸腹痞悶，產後，病後，瀉痢……皆忌之。不可與蟹同食。」",
+          explain: "The book says fresh persimmon is sweet and cold in nature, and to choose large, seedless fruit that is fully ripe and not astringent; it also warns that people with a weak, cold stomach, those with a cold, and those after childbirth or illness should avoid it, and that it should not be eaten together with crab.",
+        },
+        {
+          name: "Dried persimmon",
+          quote: "「乾柿甘平。健脾補胃，潤肺澀腸……老稚咸宜，果中聖品……柿餅、柿花功用相似，體堅耐久。」",
+          explain: "The book says dried persimmon is sweet and neutral in nature, gentler than fresh persimmon, and suitable for old and young alike; dried persimmons keep well, which makes them convenient to eat in autumn and winter.",
+        },
+      ],
+      recipe: {
+        title: "Dried Persimmon Steamed on Rice",
+        ingredients: ["1 to 2 dried persimmons", "A pot of white rice that is cooking (or steam in a bowl over water)"],
+        steps: [
+          "Rinse the dried persimmons briefly in clean water and wipe off any dust beyond the white bloom on the surface (the bloom can be kept).",
+          "When the rice has absorbed its water and small steam holes appear on the surface, lay the persimmons on top of the rice and put the lid back on.",
+          "Let them cook with the rice for about 10 to 15 minutes; if you are not cooking rice, steam them in a bowl over water for 10 minutes.",
+          "Let them cool until warm before eating, and chew slowly.",
+        ],
+      },
+      note: "The above introduces traditional food culture. It is not a dietary-therapy prescription and does not guarantee any effect. Food affects people differently; if you have a medical condition or are taking medication, please ask a doctor first.",
+      source: "Source: Wang Shixiong, Suixiju Yinshipu (隨息居飲食譜), fruit section, \u201cPersimmon\u201d.",
+    },
   },
 };
 
@@ -154,6 +210,7 @@ export type JieqiArticle = {
   card?: string;
   yue: { title: string; paras: string[]; roomLine: string; source: string };
   cmn: { title: string; paras: string[]; roomLine: string; source: string };
+  en: { title: string; paras: string[]; roomLine: string; source: string };
 };
 
 export const JIEQI_ARTICLES: Record<string, JieqiArticle> = {
@@ -182,6 +239,17 @@ export const JIEQI_ARTICLES: Record<string, JieqiArticle> = {
       roomLine: "進入安寐 →",
       source: "引文：《月令七十二候集解》；《黃帝內經素問·四氣調神大論》。",
     },
+    en: {
+      title: "Cold Dew: the dew turns cold, and the heart wants to gather in earlier",
+      paras: [
+        "Cold Dew is the fifth solar term of autumn. The Yueling Qishier Hou Jijie (月令七十二候集解) says: \u201cIn the ninth-month term, the dew's qi is cold and about to congeal.\u201d From White Dew to Cold Dew, the dew changes from clear and cool to carrying a chill; the days grow shorter and the nights longer.",
+        "At this time of year, some people notice that they settle down especially easily in the evening, while others find their worries multiply and they toss and turn at night. As the light fades earlier and the temperature turns, body and mood adjust along with it. This is common and does not necessarily mean anything is wrong.",
+        "The Suwen's Sishi Tiaoshen Dalun (《素問·四氣調神大論》) says that in the three months of autumn one should \u201csleep early and rise early, rising with the chickens, and keep the will calm\u201d, and speaks of \u201cgathering in the spirit-qi\u201d. In today's terms, that might mean turning the lights off a little earlier, and at night asking yourself a little less often whether you did enough today — letting the heart gather in together with the season.",
+        "If lately the main thing is being unable to fall asleep or waking easily, you can walk slowly into Restful Sleep and look at routines and ways of relaxing. This is educational content, not a diagnosis; if it keeps affecting your life, please see a doctor in person.",
+      ],
+      roomLine: "Enter Restful Sleep →",
+      source: "Quotations: Yueling Qishier Hou Jijie; Huangdi Neijing Suwen, Sishi Tiaoshen Dalun.",
+    },
   },
   霜降: {
     room: "/jieyu",
@@ -207,6 +275,17 @@ export const JIEQI_ARTICLES: Record<string, JieqiArticle> = {
       ],
       roomLine: "進入解鬱 →",
       source: "引文：《月令七十二候集解》；《黃帝內經素問·四氣調神大論》。",
+    },
+    en: {
+      title: "Frost's Descent: plants yellow and fall, and worries can land too",
+      paras: [
+        "Frost's Descent is the last solar term of autumn. The Yueling Qishier Hou Jijie (月令七十二候集解) says: \u201cFrost's Descent, in the middle of the ninth month: the qi is stern and congeals, and dew freezes into frost.\u201d It also records one of the term's three pentads as \u201cplants yellow and fall\u201d — leaves turn yellow and slowly come down.",
+        "At this time of year, some people feel a sense of loss watching the leaves fall, or find their energy low for no clear reason; others feel the year-end approaching and the pressure on their heart growing. As the season turns cold and daylight shortens, mood dipping a little along with it is common and does not necessarily mean anything is wrong.",
+        "The Suwen's Sishi Tiaoshen Dalun (《素問·四氣調神大論》) says that in the three months of autumn one should \u201cgather in the spirit-qi, keep the autumn qi calm, and not let the will turn outward\u201d. In today's terms, that might mean comparing yourself with others a little less, and drawing your attention back to the small things beside you — like falling leaves, letting suspended worries slowly land.",
+        "If lately the main thing is a low, stuck mood and little energy to move, you can walk slowly into Ease the Heart and look at ways of adjusting your mood. This is educational content, not a diagnosis; if it keeps affecting your life, please see a doctor in person.",
+      ],
+      roomLine: "Enter Ease the Heart →",
+      source: "Quotations: Yueling Qishier Hou Jijie; Huangdi Neijing Suwen, Sishi Tiaoshen Dalun.",
     },
   },
 };

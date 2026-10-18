@@ -19,16 +19,16 @@ function JieqiPage() {
     setHan(jieqiOf(d.getMonth() + 1, d.getDate(), "yue").han);
   }, []);
   const art = JIEQI_ARTICLES[han];
-  const A = art ? art[lang === "yue" ? "yue" : "cmn"] : null;
+  const A = art ? art[lang] : null;
   const foodEntry = JIEQI_FOOD[han];
-  const F = foodEntry ? foodEntry[lang === "yue" ? "yue" : "cmn"] : null;
+  const F = foodEntry ? foodEntry[lang] : null;
   return (
     <main className="min-h-screen bg-bg px-6 py-16 text-ink">
       <article className="mx-auto max-w-xl">
         <Link to="/" className="text-xs tracking-[0.22em] text-accent no-underline">
           {copy.ui.back}
         </Link>
-        <p className="mt-10 text-xs tracking-[0.28em] text-accent">{lang === "yue" ? "節氣 · 形神" : "節氣 · 形神"}</p>
+        <p className="mt-10 text-xs tracking-[0.28em] text-accent">{lang === "en" ? "Solar Terms · Body and Spirit" : "節氣 · 形神"}</p>
         {A && art ? (
           <>
             <h1 className="mt-3 font-serif text-4xl leading-snug">{A.title}</h1>
@@ -75,8 +75,8 @@ function JieqiPage() {
           </>
         ) : (
           <>
-            <h1 className="mt-3 font-serif text-4xl">{han}</h1>
-            <p className="mt-6 text-muted">{lang === "yue" ? "呢個節氣嘅短文整理緊。" : "這個節氣的短文整理中。"}</p>
+            <h1 className="mt-3 font-serif text-4xl">{lang === "en" ? jieqiOf(new Date().getMonth() + 1, new Date().getDate(), "en").name : han}</h1>
+            <p className="mt-6 text-muted">{lang === "en" ? "This solar term's short article is still being prepared." : lang === "yue" ? "呢個節氣嘅短文整理緊。" : "這個節氣的短文整理中。"}</p>
           </>
         )}
       </article>

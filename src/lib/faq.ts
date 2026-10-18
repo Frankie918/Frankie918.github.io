@@ -1,6 +1,6 @@
 export type QA = { q: string; a: string };
 
-export const FAQ_COPY: Record<"yue" | "cmn", { kicker: string; title: string; lede: string; items: QA[] }> = {
+export const FAQ_COPY: Record<"yue" | "cmn" | "en", { kicker: string; title: string; lede: string; items: QA[] }> = {
   yue: {
     kicker: "常見問題",
     title: "問與答",
@@ -76,6 +76,45 @@ export const FAQ_COPY: Record<"yue" | "cmn", { kicker: string; title: string; le
       {
         q: "什麼情況要盡快求助？",
         a: "如果你有傷害自己或不想再活下去的念頭，或者情緒、行為突然有很大轉變，影響到安全，請不要等預約，盡快聯絡緊急服務、到急症室，或找身邊信任的人陪你。",
+      },
+    ],
+  },
+  en: {
+    kicker: "Common questions",
+    title: "Questions & Answers",
+    lede: "It is normal to have questions before your first visit to a Chinese medicine body–mind clinic. What follows is general information only. It is not a diagnosis and does not replace an in-person consultation.",
+    items: [
+      {
+        q: "What does a Chinese medicine body–mind clinic mainly deal with?",
+        a: "If lately you have felt panicky, caught in too many thoughts, low in mood or unable to sleep, or your body has felt unwell but tests have not found a cause, Chinese medicine looks at heart and body together. The doctor will talk with you about your daily life, routines and directions for care, according to your situation.",
+      },
+      {
+        q: "How is it different from psychiatry?",
+        a: "The two take different angles and can work alongside each other. Psychiatry belongs to modern medicine and is responsible for diagnosis and related treatment; Chinese medicine works from the unity of form and spirit and from regulating the whole person. If you are already attending psychiatric follow-up or taking medication, please do not stop your medication on your own, and tell your Chinese medicine doctor about it.",
+      },
+      {
+        q: "What should I prepare for my first visit?",
+        a: "You can bring recent test reports and a list of any medicines or supplements you are taking. You can also write down a few lines beforehand: when the discomfort began, how you have been sleeping, and when it tends to feel worse. It does not need to be complete — write as much as you remember.",
+      },
+      {
+        q: "What is a first visit usually like?",
+        a: "The doctor will first ask about your situation and daily habits, then look at your tongue and take your pulse as needed. Afterwards they will talk with you about initial directions for care. Whether medicine or acupuncture is used is decided by the doctor after the in-person consultation, and it differs for everyone.",
+      },
+      {
+        q: "What are the questionnaires or scales the doctor uses at a visit for?",
+        a: "At a visit, the doctor may sometimes ask you to fill in a few short questionnaires, for example about anxiety, mood and sleep. They are meant to help you organise how you have been feeling lately, and to make it easier to see at later follow-up visits whether anything has changed. A score is not a diagnosis; the doctor reads it together with the in-person consultation.",
+      },
+      {
+        q: "Will this website record my information?",
+        a: "This site does not collect medical records and will not ask you to provide personal information.",
+      },
+      {
+        q: "Can the breathing, timing and dietary content on this website replace seeing a doctor?",
+        a: "No. These are educational materials you can try in daily life to help you live with your body. Medicine and acupuncture must be decided by a registered Chinese medicine doctor after an in-person consultation.",
+      },
+      {
+        q: "When should I seek help as soon as possible?",
+        a: "If you have thoughts of harming yourself or of not wanting to go on living, or if your emotions or behaviour change suddenly in a big way that affects your safety, please do not wait for an appointment. Contact emergency services, go to an emergency department, or ask someone you trust to stay with you, as soon as possible.",
       },
     ],
   },

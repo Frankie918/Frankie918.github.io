@@ -164,15 +164,15 @@ function Home() {
                 <img src={`${termCard}.jpg`} alt="" loading="lazy" className="mb-5 aspect-video w-full rounded-card border border-line object-cover" />
               </picture>
             ) : null}
-            <p className="text-xs tracking-[0.22em] text-accent">節氣 · 形神</p>
-            <h2 className="mt-2 font-serif text-2xl">{lang === "yue" ? "呢個節氣，心點過" : "這個節氣，心怎麼過"}</h2>
-            <p className="mt-4 text-sm text-accent">{lang === "yue" ? "睇節氣短文 →" : "看節氣短文 →"}</p>
+            <p className="text-xs tracking-[0.22em] text-accent">{lang === "en" ? "Solar Terms · Body and Spirit" : "節氣 · 形神"}</p>
+            <h2 className="mt-2 font-serif text-2xl">{lang === "en" ? "How the heart passes this solar term" : lang === "yue" ? "呢個節氣，心點過" : "這個節氣，心怎麼過"}</h2>
+            <p className="mt-4 text-sm text-accent">{lang === "en" ? "Read the solar-term note →" : lang === "yue" ? "睇節氣短文 →" : "看節氣短文 →"}</p>
           </Link>
           <Link to="/faq" className="rounded-card border border-line bg-paper p-7 text-ink no-underline">
             <img src="/faq-tea-2.webp" alt="" loading="lazy" className="mb-5 aspect-video w-full rounded-card border border-line object-cover" />
-            <p className="text-xs tracking-[0.22em] text-accent">{lang === "yue" ? "常見問題" : "常見問題"}</p>
-            <h2 className="mt-2 font-serif text-2xl">{lang === "yue" ? "第一次面診之前" : "第一次面診之前"}</h2>
-            <p className="mt-4 text-sm text-accent">{lang === "yue" ? "睇問與答 →" : "看問與答 →"}</p>
+            <p className="text-xs tracking-[0.22em] text-accent">{lang === "en" ? "Common Questions" : "常見問題"}</p>
+            <h2 className="mt-2 font-serif text-2xl">{lang === "en" ? "Before your first visit" : "第一次面診之前"}</h2>
+            <p className="mt-4 text-sm text-accent">{lang === "en" ? "Read the Q&A →" : lang === "yue" ? "睇問與答 →" : "看問與答 →"}</p>
           </Link>
           <MonthlyPracticeCard />
         </div>

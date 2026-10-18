@@ -7,7 +7,7 @@ export const Route = createFileRoute("/faq")({ component: FaqPage });
 function FaqPage() {
   const copy = useCopy();
   const { lang } = useLang();
-  const F = FAQ_COPY[lang === "yue" ? "yue" : "cmn"];
+  const F = FAQ_COPY[lang];
   return (
     <main className="min-h-screen bg-bg px-6 py-16 text-ink">
       <div className="mx-auto max-w-xl">

@@ -23,6 +23,11 @@ export const Route = createRootRoute({
         name: "description",
         content: "身心課堂：安神、解鬱、安寐、舒壓。中醫教育，慢慢嚟。",
       },
+      { property: "og:title", content: APP_NAME },
+      {
+        property: "og:description",
+        content: "身心課堂：安神、解鬱、安寐、舒壓。中醫教育，慢慢嚟。",
+      },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },

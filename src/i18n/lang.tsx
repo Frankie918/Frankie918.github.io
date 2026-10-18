@@ -29,6 +29,23 @@ export function LangProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     document.documentElement.lang = htmlLang(lang);
+    const meta: Record<Lang, { title: string; desc: string }> = {
+      yue: { title: "身心課堂", desc: "身心課堂：安神、解鬱、安寐、舒壓。中醫教育，慢慢嚟。" },
+      cmn: { title: "身心課堂", desc: "身心課堂：安神、解鬱、安寐、舒壓。中醫教育，慢慢來。" },
+      en: {
+        title: "Body & Mind Classroom",
+        desc: "Body & Mind Classroom: Calm the Mind, Ease the Heart, Restful Sleep, Stress Relief. Chinese medicine education, at an unhurried pace.",
+      },
+    };
+    document.title = meta[lang].title;
+    for (const [sel, val] of [
+      ['meta[name="description"]', meta[lang].desc],
+      ['meta[property="og:title"]', meta[lang].title],
+      ['meta[property="og:description"]', meta[lang].desc],
+    ] as const) {
+      const el = document.querySelector(sel);
+      if (el) el.setAttribute("content", val);
+    }
   }, [lang]);
 
   function setLang(next: Lang) {
