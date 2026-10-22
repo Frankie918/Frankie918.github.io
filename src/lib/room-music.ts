@@ -193,7 +193,7 @@ const GYMNOPEDIE: MusicTrack = {
     en: "Satie · Gymnopédie No. 1",
   },
   hint: {
-    yue: "鋼琴 · 約 3 分鐘 · 很慢，音符疏落、安靜",
+    yue: "鋼琴 · 約 3 分鐘 · 好慢，音符疏落、安靜",
     cmn: "鋼琴 · 約 3 分鐘 · 很慢，音符疏落、安靜",
     en: "Piano · about 3 min · very slow, sparse and quiet",
   },

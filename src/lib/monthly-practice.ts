@@ -11,13 +11,13 @@ export const MONTHLY_PRACTICE: Record<number, MonthlyPractice> = {
   },
   2: {
     seconds: 90, room: "/jieyu",
-    yue: { title: "開一條窗縫，深吸慢呼", why: "立春之後，讓空氣流一流，當係一個放鬆練習。", steps: ["開一條窗縫，坐低或者企定。", "用鼻慢慢吸氣，數四下。", "用口慢慢呼氣，數六下，做五輪。"] },
+    yue: { title: "打開少少窗，深吸慢呼", why: "立春之後，等屋企空氣流通吓，當係一個放鬆練習。", steps: ["打開少少窗，坐低或者企定。", "用鼻慢慢吸氣，數四下。", "用口慢慢呼氣，數六下，做五輪。"] },
     cmn: { title: "開一條窗縫，深吸慢呼", why: "立春之後，讓空氣流一流，當作一個放鬆練習。", steps: ["開一條窗縫，坐下或站穩。", "用鼻慢慢吸氣，數四下。", "用口慢慢呼氣，數六下，做五輪。"] },
     en: { title: "A crack of window, slow breaths", why: "After Start of Spring, let the air move — a simple relaxation practice.", steps: ["Open a window a crack; sit or stand steady.", "Breathe in through the nose for a count of four.", "Breathe out through the mouth for six. Five rounds."] },
   },
   3: {
     seconds: 120, room: "/jieyu",
-    yue: { title: "行一段慢路", why: "春分晝夜平，慢慢行幾步，係日常保養嘅小習慣。", steps: ["揀一段短路，屋企走廊都得。", "每一步留意腳掌落地。", "行完停一停，慢呼一口氣。"] },
+    yue: { title: "行一段慢路", why: "春分日夜一樣長，慢慢行幾步，係日常保養嘅小習慣。", steps: ["揀一段短路，屋企走廊都得。", "每一步留意腳掌落地。", "行完停一停，慢呼一口氣。"] },
     cmn: { title: "走一段慢路", why: "春分晝夜平，慢慢走幾步，是日常保養的小習慣。", steps: ["選一段短路，家中走廊也可以。", "每一步留意腳掌落地。", "走完停一停，慢呼一口氣。"] },
     en: { title: "A slow short walk", why: "At the Spring Equinox, a few slow steps make a small daily-care habit.", steps: ["Pick a short path — a hallway is fine.", "Notice each foot landing.", "Pause at the end; breathe out slowly once."] },
   },
@@ -35,7 +35,7 @@ export const MONTHLY_PRACTICE: Record<number, MonthlyPractice> = {
   },
   6: {
     seconds: 90, room: "/anshen",
-    yue: { title: "午後留白一分鐘", why: "夏至日長，午後停一停，當係日常保養。", steps: ["放低手頭嘢，眼望遠處。", "肩膊沉一沉，牙關鬆一鬆。", "慢呼三口氣先返去做嘢。"] },
+    yue: { title: "下晝停一分鐘", why: "夏至日頭長，下晝停一停，當係日常保養。", steps: ["放低手頭嘢，眼望遠處。", "肩膊沉一沉，牙關鬆一鬆。", "慢呼三口氣先返去做嘢。"] },
     cmn: { title: "午後留白一分鐘", why: "夏至日長，午後停一停，當作日常保養。", steps: ["放下手上的事，眼望遠處。", "肩膀沉一沉，牙關鬆一鬆。", "慢呼三口氣再回去工作。"] },
     en: { title: "One blank minute after lunch", why: "In the long days of summer, an afternoon pause is simple daily care.", steps: ["Put things down; look into the distance.", "Drop the shoulders; unclench the jaw.", "Three slow exhales, then return."] },
   },
@@ -47,7 +47,7 @@ export const MONTHLY_PRACTICE: Record<number, MonthlyPractice> = {
   },
   8: {
     seconds: 90, room: "/jieyu",
-    yue: { title: "開窗迎一絲涼", why: "立秋之後，讓少少涼風入屋，係日常保養嘅小動作。", steps: ["傍晚開窗，企喺窗邊。", "感受空氣嘅溫度，慢慢吸氣。", "慢呼氣，肩膊同時放鬆。"] },
+    yue: { title: "開窗吹吓涼風", why: "立秋之後，等少少涼風入屋，係日常保養嘅小動作。", steps: ["傍晚開窗，企喺窗邊。", "感受空氣嘅溫度，慢慢吸氣。", "慢呼氣，肩膊同時放鬆。"] },
     cmn: { title: "開窗迎一絲涼", why: "立秋之後，讓一點涼風進屋，是日常保養的小動作。", steps: ["傍晚開窗，站在窗邊。", "感受空氣的溫度，慢慢吸氣。", "慢呼氣，同時放鬆肩膀。"] },
     en: { title: "Open the window to a thread of cool", why: "After Start of Autumn, letting a little cool air in is a small daily-care habit.", steps: ["Open a window in the evening; stand by it.", "Feel the air; breathe in slowly.", "Breathe out slowly, letting the shoulders soften."] },
   },
