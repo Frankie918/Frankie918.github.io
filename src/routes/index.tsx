@@ -175,6 +175,12 @@ function Home() {
             <p className="mt-4 text-sm text-accent">{lang === "en" ? "Read the Q&A →" : lang === "yue" ? "睇問與答 →" : "看問與答 →"}</p>
           </Link>
           <MonthlyPracticeCard />
+          <a href="https://forms.gle/ouKYDBNUYqCYUoeBA" target="_blank" rel="noopener noreferrer" className="rounded-card border border-line bg-paper p-7 text-ink no-underline">
+            <p className="text-xs tracking-[0.22em] text-accent">{lang === "en" ? "A Note to the Author" : lang === "yue" ? "給作者的話" : "給作者的話"}</p>
+            <h2 className="mt-2 font-serif text-2xl">{lang === "en" ? "Did this site help you?" : lang === "yue" ? "呢個站有冇幫到你？" : "這個網站有沒有幫到你？"}</h2>
+            <p className="mt-3 text-sm text-muted">{lang === "en" ? "No name needed. Please don't include medical records or contact details." : lang === "yue" ? "唔使留名，請唔好寫病歷或者聯絡資料。" : "不用留名，請不要寫病歷或聯絡資料。"}</p>
+            <p className="mt-4 text-sm text-accent">{lang === "en" ? "Leave a few words →" : lang === "yue" ? "留低幾句 →" : "留下幾句 →"}</p>
+          </a>
         </div>
       </section>
 
