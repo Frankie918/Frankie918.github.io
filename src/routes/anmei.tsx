@@ -52,7 +52,7 @@ function AnmeiPage() {
       <BreathFirst room="anmei" />
 
       {/* gentle counting-sheep visual, right after breathing */}
-      <Section id="sheep" kicker={c.sheepK} title={c.sheepT}>
+      <Section id="sheep" fav="anmei#sheep" kicker={c.sheepK} title={c.sheepT}>
         <CountingSheep />
       </Section>
 
@@ -60,12 +60,12 @@ function AnmeiPage() {
       <FollowLessons room="anmei" />
 
       {/* 3 · tonight's practice */}
-      <Section id="quiz" kicker={c.quizK} title={c.quizT}>
+      <Section id="quiz" fav="anmei#quiz" kicker={c.quizK} title={c.quizT}>
         <p className="text-muted">{c.quizLead}</p>
         <SleepQuiz />
       </Section>
 
-      <Section id="cbti" kicker={c.cbtiK} title={c.cbtiT}>
+      <Section id="cbti" fav="anmei#cbti" kicker={c.cbtiK} title={c.cbtiT}>
         <p>{c.cbtiP}</p>
         <ol className="mt-5 list-decimal space-y-3 pl-5 text-muted">
           {c.cbtiSteps.map(([strong, rest]) => (
@@ -78,13 +78,13 @@ function AnmeiPage() {
         <p className="mt-4 text-sm text-muted">{c.cbtiNote}</p>
       </Section>
 
-      <Section id="hygiene" kicker={c.hyK} title={c.hyT}>
+      <Section id="hygiene" fav="anmei#hygiene" kicker={c.hyK} title={c.hyT}>
         <p>{c.hyP1}</p>
         <p className="mt-3 text-muted">{c.hyP2}</p>
         <HygieneList />
       </Section>
 
-      <Section id="yangsheng" kicker={c.ysK} title={c.ysT}>
+      <Section id="yangsheng" fav="anmei#yangsheng" kicker={c.ysK} title={c.ysT}>
         <p className="text-muted">{c.ysLead}</p>
         <CardGrid items={c.ys} />
         <h3 className="mt-8 font-serif text-xl">{c.pressT}</h3>
@@ -92,7 +92,7 @@ function AnmeiPage() {
         <AcuPressGrid items={c.press} />
       </Section>
 
-      <Section id="diary" kicker={c.diaryK} title={c.diaryT}>
+      <Section id="diary" fav="anmei#diary" kicker={c.diaryK} title={c.diaryT}>
         <SleepDiary />
       </Section>
 

@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 import { ClinicContact } from "@/components/clinic-contact";
 import { CrayonFrame } from "@/components/crayon-margin";
+import { FavStar } from "@/components/fav-star";
 import { DayGuide } from "@/components/day-guide";
 import { ViewCount } from "@/components/view-count";
 import { useCopy, useLang } from "@/i18n/lang";
@@ -260,8 +261,11 @@ export function Section({
   children,
   collapsible = false,
   safety,
+  fav,
 }: {
   id: string;
+  /** "room#anchor" key: shows a 我的收藏 star beside the heading. */
+  fav?: string;
   kicker: string;
   title: string;
   children: ReactNode;
@@ -279,7 +283,14 @@ export function Section({
   return (
     <section id={id} className="border-t border-line py-16">
       <p className="mb-2 text-xs tracking-[0.22em] text-accent">{kicker}</p>
-      <h2 className="mb-4 font-serif text-3xl">{title}</h2>
+      {fav ? (
+        <div className="mb-4 flex items-start justify-between gap-3">
+          <h2 className="min-w-0 font-serif text-3xl">{title}</h2>
+          <FavStar fav={fav} label={title} />
+        </div>
+      ) : (
+        <h2 className="mb-4 font-serif text-3xl">{title}</h2>
+      )}
       {children}
     </section>
   );

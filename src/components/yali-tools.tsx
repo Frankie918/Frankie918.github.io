@@ -1,3 +1,4 @@
+import { FavHeading } from "@/components/fav-star";
 import { useEffect, useRef, useState } from "react";
 import { GhostButton, SolidButton } from "@/components/clinic-layout";
 import { BodySilhouette } from "@/components/acu-figure";
@@ -115,7 +116,7 @@ export function StandReset() {
   const t = useCopy().yali.stand;
   return (
     <div id="stand">
-      <h3 className="font-serif text-xl">{t.title}</h3>
+      <FavHeading fav="yali#stand" label={t.title} className="font-serif text-xl">{t.title}</FavHeading>
       <p className="mt-2 text-sm text-muted">{t.lead}</p>
       <TimedLines lines={t.lines} idle={t.idle} stopped={t.stopped} doneText={t.done} startLabel={t.start} stopLabel={t.stop} stepMs={15000} />
     </div>
@@ -195,7 +196,7 @@ export function FriendFlip() {
   const [own, setOwn] = useState("");
   return (
     <div id="friend">
-      <h3 className="font-serif text-xl">{t.title}</h3>
+      <FavHeading fav="yali#friend" label={t.title} className="font-serif text-xl">{t.title}</FavHeading>
       <p className="mt-2 text-sm text-muted">{t.lead}</p>
       <div className="mt-4 grid gap-2.5">
         {t.cards.map((m, i) => (
@@ -223,7 +224,7 @@ export function MicroDraw() {
   function redraw() { if (swaps >= 2) return; setSwaps((n) => n + 1); draw(); }
   return (
     <div id="micro">
-      <h3 className="font-serif text-xl">{t.title}</h3>
+      <FavHeading fav="yali#micro" label={t.title} className="font-serif text-xl">{t.title}</FavHeading>
       <p className="mt-2 text-sm text-muted">{t.lead}</p>
       <div className="mt-4 rounded-card border border-line bg-paper p-5" aria-live="polite">
         <p className="min-h-12 font-serif text-xl">{idx === null ? t.idle : t.cards[idx]}</p>
@@ -263,7 +264,7 @@ export function SlowTrace() {
   const cy = 30 + 14 * Math.sin(stepFrac * Math.PI * 2);
   return (
     <div id="trace">
-      <h3 className="font-serif text-xl">{t.title}</h3>
+      <FavHeading fav="yali#trace" label={t.title} className="font-serif text-xl">{t.title}</FavHeading>
       <p className="mt-2 text-sm text-muted">{t.lead}</p>
       <div className="mt-4 rounded-card border border-line bg-paper p-5">
         <svg viewBox="0 0 100 60" className="w-full" role="img" aria-label={t.title}>
@@ -291,7 +292,7 @@ export function HandoverChecklist() {
   useEffect(() => { if (all) recordPlay(t.title); }, [all, t.title]);
   return (
     <div id="handover">
-      <h3 className="font-serif text-xl">{t.title}</h3>
+      <FavHeading fav="yali#handover" label={t.title} className="font-serif text-xl">{t.title}</FavHeading>
       <p className="mt-2 text-sm text-muted">{t.lead}</p>
       <div className="mt-3 grid gap-2">
         {t.items.map((item, i) => (
@@ -325,7 +326,7 @@ export function TensionMap() {
   const done = left === 0;
   return (
     <div id="bodymap">
-      <h3 className="font-serif text-xl">{t.title}</h3>
+      <FavHeading fav="yali#bodymap" label={t.title} className="font-serif text-xl">{t.title}</FavHeading>
       <p className="mt-2 text-sm text-muted">{t.lead}</p>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         <div className="relative mx-auto h-72 w-44">
@@ -374,7 +375,7 @@ export function ColourHunt() {
   useEffect(() => { if (all) recordPlay(t.title); }, [all, t.title]);
   return (
     <div id="colourhunt">
-      <h3 className="font-serif text-xl">{t.title}</h3>
+      <FavHeading fav="yali#colourhunt" label={t.title} className="font-serif text-xl">{t.title}</FavHeading>
       <p className="mt-2 text-sm text-muted">{t.lead}</p>
       {round.length === 0 ? (
         <div className="mt-3"><SolidButton onClick={deal}>{t.start}</SolidButton></div>

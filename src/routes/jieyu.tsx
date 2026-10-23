@@ -39,12 +39,12 @@ function JieyuPage() {
       <FollowLessons room="jieyu" />
 
       {/* 3 · self-help practice */}
-      <Section id="steps" kicker={c.stepsK} title={c.stepsT}>
+      <Section id="steps" fav="jieyu#steps" kicker={c.stepsK} title={c.stepsT}>
         <p className="text-muted">{c.stepsLead}</p>
         <WoodSteps />
       </Section>
 
-      <Section id="ba" kicker={c.baK} title={c.baT}>
+      <Section id="ba" fav="jieyu#ba" kicker={c.baK} title={c.baT}>
         <p>{c.baLead}</p>
         <ol className="mt-5 list-decimal space-y-3 pl-5 text-muted">
           {c.baSteps.map(([strong, rest]) => (
@@ -59,7 +59,7 @@ function JieyuPage() {
         <BaPlanner />
       </Section>
 
-      <Section id="weather" kicker={c.weatherK} title={c.weatherT}>
+      <Section id="weather" fav="jieyu#weather" kicker={c.weatherK} title={c.weatherT}>
         <p className="text-muted">{c.weatherLead}</p>
         <WeatherPick />
       </Section>

@@ -24,7 +24,7 @@ export function FollowLessons({ room }: { room: Room }) {
   }
 
   return (
-    <Section id="follow" kicker={f.kicker} title={f.title}>
+    <Section id="follow" fav={`${room}#follow`} kicker={f.kicker} title={f.title}>
       <p className="text-muted">{f.lead}</p>
       <div className="mt-6 grid gap-4">
         {f.lessons.map((lesson, i) => {

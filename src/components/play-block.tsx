@@ -12,7 +12,7 @@ import { useCopy } from "@/i18n/lang";
 export function BreathFirst({ room }: { room: RoomId }) {
   const p = useCopy().play;
   return (
-    <Section id="breath" kicker={p.breathSecK} title={p.breathSecT}>
+    <Section id="breath" fav={`${room}#breath`} kicker={p.breathSecK} title={p.breathSecT}>
       <p className="text-muted">{p.breathSecLead}</p>
       <div className="mt-6">
         <BreathCircle room={room} />

@@ -9,6 +9,7 @@ import { jieqiOf } from "@/lib/jieqi";
 import { JIEQI_ARTICLES } from "@/lib/jieqi-articles";
 import { ViewCount } from "@/components/view-count";
 import { useCopy, useLang } from "@/i18n/lang";
+import { FavList } from "@/components/fav-list";
 
 export const Route = createFileRoute("/")({ component: Home });
 
@@ -181,6 +182,7 @@ function Home() {
             <p className="mt-3 text-sm text-muted">{lang === "en" ? "No name needed. Please don't include medical records or contact details." : lang === "yue" ? "唔使留名，請唔好寫病歷或者聯絡資料。" : "不用留名，請不要寫病歷或聯絡資料。"}</p>
             <p className="mt-4 text-sm text-accent">{lang === "en" ? "Leave a few words →" : lang === "yue" ? "留低幾句 →" : "留下幾句 →"}</p>
           </a>
+          <FavList />
         </div>
       </section>
 

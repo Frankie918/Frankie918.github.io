@@ -673,7 +673,8 @@
 }
 
 /* 2026-10 reorganisation: anchors clear the sticky room nav; folded "deeper reading" sections. */
-section[id] {
+section[id],
+section div[id] {
   scroll-margin-top: calc(var(--site-top) + 4.5rem);
 }
 .fold summary::-webkit-details-marker {

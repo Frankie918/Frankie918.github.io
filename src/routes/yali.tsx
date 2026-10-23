@@ -54,18 +54,18 @@ function YaliPage() {
       <BreathFirst room="yali" />
       <FollowLessons room="yali" />
 
-      <Section id="feel" kicker={c.feelK} title={c.feelT}>
+      <Section id="feel" fav="yali#feel" kicker={c.feelK} title={c.feelT}>
         <p className="text-muted">{c.feelLead}</p>
         <BodySignals />
       </Section>
 
-      <Section id="shoulder" kicker={c.shoulderK} title={c.shoulderT}>
+      <Section id="shoulder" fav="yali#shoulder" kicker={c.shoulderK} title={c.shoulderT}>
         <p className="text-muted">{c.shoulderLead}</p>
         <p className="mt-2 text-sm text-muted">{c.shoulderPrep}</p>
         <ShoulderDrop />
       </Section>
 
-      <Section id="park" kicker={c.parkK} title={c.parkT}>
+      <Section id="park" fav="yali#park" kicker={c.parkK} title={c.parkT}>
         <p>{c.parkLead}</p>
         <PressurePark />
         <p className="mt-4 text-sm text-muted">{c.parkNote}</p>

@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CardGrid, ClinicLayout, QuietPhoto, Section } from "@/components/clinic-layout";
 import { FivePoints, HeartScan, PmrGuide, WorryPark } from "@/components/anshen-tools";
 import { FollowLessons } from "@/components/follow-lessons";
+import { FavHeading } from "@/components/fav-star";
 import { BreathFirst, PlayBlock } from "@/components/play-block";
 import { PointMap } from "@/components/point-map";
 import { RoomMusicSection } from "@/components/room-music";
@@ -42,7 +43,9 @@ function AnshenPage() {
       <Section id="cbt" kicker={c.cbtK} title={c.cbtT}>
         <p>{c.cbtLead}</p>
 
-        <h3 className="mt-10 font-serif text-2xl">{c.worryT}</h3>
+        <div id="worry" className="mt-10">
+          <FavHeading fav="anshen#worry" label={c.worryT} className="font-serif text-2xl">{c.worryT}</FavHeading>
+        </div>
         <p className="mt-3">{c.worryP}</p>
         <ol className="mt-5 list-decimal space-y-3 pl-5 text-muted">
           {c.worrySteps.map(([strong, rest]) => (
@@ -56,7 +59,9 @@ function AnshenPage() {
         <p className="mt-6 font-serif text-lg">{c.worryTry}</p>
         <WorryPark />
 
-        <h3 className="mt-12 font-serif text-2xl">{c.pmrT}</h3>
+        <div id="pmr" className="mt-12">
+          <FavHeading fav="anshen#pmr" label={c.pmrT} className="font-serif text-2xl">{c.pmrT}</FavHeading>
+        </div>
         <p className="mt-3">{c.pmrP}</p>
         <p className="mt-3 text-muted">{c.pmrPrep}</p>
         <ol className="mt-5 list-decimal space-y-3 pl-5 text-muted">
@@ -74,12 +79,12 @@ function AnshenPage() {
         <p className="mt-3 text-muted">{c.avoidP}</p>
       </Section>
 
-      <Section id="points" kicker={c.pointsK} title={c.pointsT}>
+      <Section id="points" fav="anshen#points" kicker={c.pointsK} title={c.pointsT}>
         <p className="text-muted">{c.pointsLead}</p>
         <FivePoints />
       </Section>
 
-      <Section id="scan" kicker={c.scanK} title={c.scanT}>
+      <Section id="scan" fav="anshen#scan" kicker={c.scanK} title={c.scanT}>
         <p className="mb-2 text-muted">{c.scanLead}</p>
         <HeartScan />
       </Section>
