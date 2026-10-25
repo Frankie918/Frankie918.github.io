@@ -23,6 +23,7 @@ const ORDER = [
   "breath",
   "follow",
   "feel",
+  "comic",
   "shoulder",
   "park",
   "playtools",
@@ -57,6 +58,21 @@ function YaliPage() {
       <Section id="feel" fav="yali#feel" kicker={c.feelK} title={c.feelT}>
         <p className="text-muted">{c.feelLead}</p>
         <BodySignals />
+      </Section>
+
+      <Section id="comic" fav="yali#comic" kicker={c.comicK} title={c.comicT}>
+        <p className="mb-4 inline-flex items-center rounded-full border border-line bg-paper px-4 py-1.5 text-xs tracking-[0.14em] text-accent">
+          {c.comicBadge}
+        </p>
+        <figure className="overflow-hidden rounded-card border border-line bg-paper">
+          <img
+            src="/comics/ease-shoulders.jpg?v=1"
+            alt={c.comicAlt}
+            loading="lazy"
+            decoding="async"
+            className="block h-auto w-full"
+          />
+        </figure>
       </Section>
 
       <Section id="shoulder" fav="yali#shoulder" kicker={c.shoulderK} title={c.shoulderT}>

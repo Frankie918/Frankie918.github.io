@@ -663,6 +663,7 @@ const yaliYue = {
     "音樂（入房先播中樂，可轉西樂／靜音）：古琴《孔子讀易》，Charlie Huang 演奏，CC BY 2.5（維基共享資源，已轉檔及加淡入淡出）；巴赫《平均律》第一冊 C 大調前奏曲，Kimiko Ishizaka 演奏，CC0。",
   nav: [
     { href: "#feel", label: "身體訊號" },
+    { href: "#comic", label: "漫畫" },
     { href: "#shoulder", label: "肩頸放低" },
     { href: "#park", label: "壓力暫存" },
     { href: "#playtools", label: "一齊玩吓" },
@@ -718,6 +719,11 @@ const yaliYue = {
       seek: "同下面「幾時面診」嗰啲情況一樣。可以預約面診。",
     },
   },
+  comicK: "四格漫畫",
+  comicT: "放低膊頭 · 阿力同豆豆",
+  comicBadge: "逢周六更新",
+  comicAlt:
+    "四格漫畫：阿力同豆豆喺露台放低膊頭。阿力仲有三件事未搞；豆豆提醒嘢永遠做唔晒，放鬆啲；阿力呼一口氣，決定聽日嘅事先聽日諗。",
   shoulderK: "鬆一鬆",
   shoulderT: "肩頸放低 · 一分鐘",
   shoulderLead: "跟住提示做。每段大約 8 秒。坐定或者企定都得。",
