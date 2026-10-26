@@ -66,7 +66,7 @@ function YaliPage() {
         </p>
         <figure className="overflow-hidden rounded-card border border-line bg-paper">
           <img
-            src="/comics/ease-shoulders.jpg?v=1"
+            src="/comics/office-kids-loosen-up.jpg?v=2"
             alt={c.comicAlt}
             loading="lazy"
             decoding="async"

@@ -1166,9 +1166,9 @@ export const CMN = {
 			}
 		},
 		comicK: "四格漫畫",
-		comicT: "放下肩膀 · 阿力與豆豆",
+		comicT: "打工仔，放鬆啲 · 阿力與豆豆",
 		comicBadge: "逢周六更新",
-		comicAlt: "四格漫畫：阿力與豆豆在露台放下肩膀。阿力還有三件事沒做完；豆豆提醒事情永遠做不完，放鬆一點；阿力呼一口氣，決定明天的事先明天再想。",
+		comicAlt: "四格漫畫：阿力與豆豆在寫字樓後樓梯。阿力說肩膀硬得像混凝土；豆豆說他是涼了的蛋撻，叫他試著放鬆一下肩膀；阿力試著放下；豆豆說打工仔，放鬆啲——工作不會因為你鬆了就做不完。",
 		shoulderK: "鬆一鬆",
 		shoulderT: "肩頸放下 · 一分鐘",
 		shoulderLead: "跟著提示做。每段約 8 秒。坐著或站著都可以。",
@@ -2633,9 +2633,9 @@ export const EN = {
 			}
 		},
 		comicK: "Four-panel comic",
-		comicT: "Ease the shoulders · Alex & Dodo",
+		comicT: "Office kids, loosen up · Alex & Dodo",
 		comicBadge: "Updates every Saturday",
-		comicAlt: "Four-panel comic: Alex and Dodo ease the shoulders on a balcony. Alex still has three things left; Dodo says there is always more to do—ease up a bit; Alex breathes out and decides tomorrow’s things can wait until tomorrow.",
+		comicAlt: "Four-panel comic: Alex and Dodo on an office back stair. Alex says his shoulders are as hard as concrete; Dodo says he is a chilled egg tart and tells him to try easing his shoulders; Alex tries; Dodo says office kids, loosen up—the work will not fail just because you eased up.",
 		shoulderK: "Loosen",
 		shoulderT: "Let the shoulders drop · one minute",
 		shoulderLead: "Follow the prompts. Each lasts about 8 seconds. Sitting or standing is fine.",
