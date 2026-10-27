@@ -1109,7 +1109,6 @@ export const CMN = {
 		musicCredit: "音樂（入房先播中樂，可轉西樂／靜音）：古琴《孔子讀易》，Charlie Huang 演奏，CC BY 2.5（維基共享資源，已轉檔並加淡入淡出）；巴赫《平均律》第一冊 C 大調前奏曲，Kimiko Ishizaka 演奏，CC0。",
 		nav: [
 			{ href: "#feel", label: "身體訊號" },
-			{ href: "#comic", label: "漫畫" },
 			{ href: "#shoulder", label: "肩頸放下" },
 			{ href: "#park", label: "壓力暫存" },
 			{ href: "#playtools", label: "一起玩玩" },
@@ -1165,10 +1164,6 @@ export const CMN = {
 				seek: "同下面「何時面診」的情況一樣。可以預約面診。"
 			}
 		},
-		comicK: "四格漫畫",
-		comicT: "打工仔，放鬆啲 · 阿力與豆豆",
-		comicBadge: "逢周六更新",
-		comicAlt: "四格漫畫：阿力與豆豆在寫字樓後樓梯。阿力說肩膀硬得像混凝土；豆豆說他是涼了的蛋撻，叫他試著放鬆一下肩膀；阿力試著放下；豆豆說打工仔，放鬆啲——工作不會因為你鬆了就做不完。",
 		shoulderK: "鬆一鬆",
 		shoulderT: "肩頸放下 · 一分鐘",
 		shoulderLead: "跟著提示做。每段約 8 秒。坐著或站著都可以。",
@@ -2576,7 +2571,6 @@ export const EN = {
 		musicCredit: "Music (Chinese music starts on entry): guqin “Kongzi Duyi”, performed by Charlie Huang, CC BY 2.5 (Wikimedia Commons; transcoded, fades added). Bach, Well-Tempered Clavier I Prelude in C major, performed by Kimiko Ishizaka, CC0.",
 		nav: [
 			{ href: "#feel", label: "Body signals" },
-			{ href: "#comic", label: "Comic" },
 			{ href: "#shoulder", label: "Shoulders" },
 			{ href: "#park", label: "Park it" },
 			{ href: "#playtools", label: "Play a little" },
@@ -2632,10 +2626,6 @@ export const EN = {
 				seek: "The same kinds of signs as under When to see a doctor below. You can book a visit."
 			}
 		},
-		comicK: "Four-panel comic",
-		comicT: "Office kids, loosen up · Alex & Dodo",
-		comicBadge: "Updates every Saturday",
-		comicAlt: "Four-panel comic: Alex and Dodo on an office back stair. Alex says his shoulders are as hard as concrete; Dodo says he is a chilled egg tart and tells him to try easing his shoulders; Alex tries; Dodo says office kids, loosen up—the work will not fail just because you eased up.",
 		shoulderK: "Loosen",
 		shoulderT: "Let the shoulders drop · one minute",
 		shoulderLead: "Follow the prompts. Each lasts about 8 seconds. Sitting or standing is fine.",

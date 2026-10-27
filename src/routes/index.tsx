@@ -10,6 +10,7 @@ import { JIEQI_ARTICLES } from "@/lib/jieqi-articles";
 import { ViewCount } from "@/components/view-count";
 import { useCopy, useLang } from "@/i18n/lang";
 import { FavList } from "@/components/fav-list";
+import { HomeComic } from "@/components/home-comic";
 
 export const Route = createFileRoute("/")({ component: Home });
 
@@ -132,6 +133,8 @@ function Home() {
           </div>
         </Link>
       </section>
+
+      <HomeComic />
 
       <section className="px-6 pb-20 md:px-12">
         <p className="text-xs tracking-[0.22em] text-accent">{home.aboutK}</p>
