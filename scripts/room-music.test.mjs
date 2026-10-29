@@ -122,18 +122,20 @@ test("homepage: single Canon track only, default on entry, shared player stops i
   assert.equal(HOME_MUSIC.tracks.length, 1, "homepage must have exactly one track (no Chinese/Western choice)");
   const canon = HOME_MUSIC.tracks[0];
   assert.equal(canon.id, "canon");
-  assert.equal(canon.src, "/audio/calm.mp3");
-  assert.ok(existsSync(`${root}public/audio/calm.mp3`), "pre-existing calm.mp3 restored");
+  assert.equal(canon.src, "/audio/canon-soft.mp3");
+  assert.ok(existsSync(`${root}public/audio/canon-soft.mp3`), "Kevin MacLeod Canon file present");
+  assert.ok(existsSync(`${root}public/audio/calm.mp3`), "old calm.mp3 kept for rollback");
   for (const lang of ["yue", "cmn", "en"]) {
     assert.ok(canon.title[lang] && canon.hint[lang], `canon missing ${lang}`);
-    // No homepage explanatory music copy (clinician 2026-10-18): no credit,
-    // no home lead/safety text — only the floating button, track name, mute.
-    assert.equal(HOME_MUSIC.credit, undefined, `home must carry no rendered credit copy (${lang})`);
+    // CC BY 4.0 attribution required for Kevin MacLeod; no home lead/safety text.
+    assert.ok(HOME_MUSIC.credit?.[lang], `home must carry CC BY credit (${lang})`);
+    assert.match(HOME_MUSIC.credit[lang], /Kevin MacLeod/);
+    assert.match(HOME_MUSIC.credit[lang], /CC BY 4\.0/);
     assert.equal(MUSIC_UI[lang].homeLead, undefined, `MUSIC_UI ${lang} must have no homepage lead copy`);
     assert.equal(MUSIC_UI[lang].homeSafety, undefined, `MUSIC_UI ${lang} must have no homepage safety copy`);
   }
   const homeRoute = readFileSync(`${root}src/routes/index.tsx`, "utf8");
-  assert.doesNotMatch(homeRoute, /musicCredit/, "homepage route must not render any music credit/explanation");
+  assert.match(homeRoute, /HOME_MUSIC\.credit/, "homepage footer shows CC BY music credit");
   const catalogue = readFileSync(`${root}src/lib/room-music.ts`, "utf8");
   assert.doesNotMatch(catalogue, /homeLead|homeSafety|首頁只播|首页只播|homepage plays only/i, "no homepage music explanation copy left in catalogue");
   assert.equal(defaultTrackFor("home").id, "canon", "homepage default is Canon");
@@ -156,7 +158,8 @@ test("homepage: single Canon track only, default on entry, shared player stops i
   assert.match(player, /isHome/, "homepage panel copy is scoped out");
   // Rooms keep their panel lead/safety/credit; homepage renders none of it.
   assert.match(player, /\{!isHome && \(/, "lead/safety only for rooms");
-  assert.match(player, /!isHome && musicSetFor\(context\)\.credit/, "credit only for rooms");
+  assert.match(player, /musicSetFor\(context\)\.credit && \(/, "credit renders when present (incl. homepage CC BY)");
+  assert.doesNotMatch(player, /!isHome && musicSetFor\(context\)\.credit/, "homepage credit no longer gated behind !isHome");
   assert.doesNotMatch(player, /AmbientMusic/, "legacy ambient player must not be resurrected");
   assert.ok(!existsSync(`${root}src/components/ambient-music.tsx`), "ambient-music.tsx stays deleted");
   const doc = readFileSync(`${root}docs/yali-music-licences.md`, "utf8");

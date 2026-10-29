@@ -342,6 +342,60 @@
   padding: 1rem;
   box-shadow: 0 1rem 2.5rem rgb(0 0 0 / 0.18);
 }
+.music-float-label-short {
+  display: none;
+}
+.music-float-label-full {
+  display: inline;
+}
+
+/* Narrow screens: shorter music pill + panel that stays fully on-screen. */
+@media (max-width: 640px) {
+  .site-top {
+    overflow: visible;
+    gap: 0.4rem;
+    padding: 0 0.5rem;
+  }
+  .music-float-btn {
+    max-width: 5.75rem;
+    min-height: 2.25rem;
+    padding: 0 0.55rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+  }
+  .music-float-label-full {
+    display: none;
+  }
+  .music-float-label-short {
+    display: inline;
+  }
+  .music-float-panel {
+    position: fixed;
+    left: 0.5rem;
+    right: 0.5rem;
+    top: calc(var(--site-top) + 0.35rem);
+    width: auto;
+    max-width: none;
+    max-height: min(70vh, 28rem);
+    padding: 0.75rem;
+    border-radius: 0.85rem;
+    box-shadow: 0 0.75rem 1.75rem rgb(0 0 0 / 0.16);
+  }
+  .music-float-panel .track-btn {
+    min-height: 2.75rem;
+    padding: 0.55rem 0.75rem;
+    gap: 0.5rem;
+  }
+  .music-float-panel .track-btn .font-serif {
+    font-size: 0.9rem;
+  }
+  .lang-bar button {
+    min-width: 2.2rem;
+    min-height: 2.25rem;
+    padding: 0 0.5rem;
+    font-size: 0.7rem;
+  }
+}
 
 .point-dot {
   position: absolute;

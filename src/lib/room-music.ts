@@ -16,9 +16,10 @@ import type { Lang } from "@/i18n/copy";
  * Both composition and recording are licence-verified — see docs/yali-music-licences.md.
  * Chinese tracks keep each room's existing guqin recording and licence/credit.
  * Track titles/hints carry no efficacy promise: tempo/timbre/length only.
- * Homepage (clinician override 2026-10-18): ONLY the pre-existing Canon track
- * (`public/audio/calm.mp3`) — no Chinese/Western choice there. It shares the
- * same single player; entering a room stops it and the room default takes over.
+ * Homepage: ONLY one Canon track (`public/audio/canon-soft.mp3`, Kevin MacLeod,
+ * CC BY 4.0) — no Chinese/Western choice there. It shares the same single
+ * player; entering a room stops it and the room default takes over. Old
+ * `calm.mp3` is kept for rollback.
  */
 export type MusicRoom = "anshen" | "jieyu" | "anmei" | "yali";
 /** Pages with music: the four rooms plus the homepage (single Canon track). */
@@ -324,29 +325,32 @@ export const ROOM_MUSIC: Record<MusicRoom, RoomMusic> = {
 };
 
 /**
- * Homepage music: exactly ONE track, the site's pre-existing Canon file restored
- * as it was before the legacy AmbientMusic removal. No 中樂／西樂 choice here.
- * No explanatory/credit copy is rendered for it on the homepage (clinician,
- * 2026-10-18: keep only the floating button, the track name and mute/stop);
- * licence/provenance notes live only in docs/yali-music-licences.md (the
- * recording's provenance was never documented in this repo — see flag there).
+ * Homepage music: exactly ONE track — Kevin MacLeod's quieter Canon in D Major
+ * (CC BY 4.0; replaces the older undocumented calm.mp3 piano take, kept in
+ * public/audio/ for rollback). No 中樂／西樂 choice here. Credit is shown in
+ * the floating panel and homepage footer (CC BY attribution required).
  */
-export const HOME_MUSIC: { tracks: MusicTrack[] } = {
+export const HOME_MUSIC: { tracks: MusicTrack[]; credit: Record<Lang, string> } = {
   tracks: [
     {
       id: "canon",
-      src: "/audio/calm.mp3",
+      src: "/audio/canon-soft.mp3",
       group: "home",
       composer: "Johann Pachelbel",
       workId: "pachelbel-canon-in-d",
       title: { yue: "Pachelbel《D 大調卡農》", cmn: "Pachelbel《D 大调卡农》", en: "Pachelbel · Canon in D" },
       hint: {
-        yue: "鋼琴 · 約 7 分半鐘 · 慢，規律循環",
-        cmn: "钢琴 · 约 7 分半钟 · 慢，规律循环",
-        en: "Piano · about 7½ min · slow, steady loop",
+        yue: "弦樂＋豎琴 · 約 6 分鐘 · 慢，中段較平",
+        cmn: "弦乐＋竖琴 · 约 6 分钟 · 慢，中段较平",
+        en: "Strings + harp · about 6 min · slow, steadier middle",
       },
     },
   ],
+  credit: {
+    yue: "Music: Canon in D Major by Kevin MacLeod (incompetech.com), Licensed under CC BY 4.0。Pachelbel 樂曲屬公有領域。",
+    cmn: "Music: Canon in D Major by Kevin MacLeod (incompetech.com), Licensed under CC BY 4.0。Pachelbel 乐曲属公有领域。",
+    en: "Music: Canon in D Major by Kevin MacLeod (incompetech.com), Licensed under CC BY 4.0. Pachelbel's composition is in the public domain.",
+  },
 };
 
 export const MUSIC_UI: Record<

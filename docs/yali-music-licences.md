@@ -29,24 +29,23 @@ Western tracks — very slow, sparse notes, about 3 minutes. 舒壓 Chinese choi
 is the clinician's: 《孔子讀易》 (slow, low register); 《佩蘭》
 (`public/audio/yali/peilan.mp3`, licence below) is retained in the repo but is
 NOT offered in any room list.
-The home-page Canon (`public/audio/calm.mp3`) was NOT reused as a room Western track: its recording provenance is
-not documented in this repo.
+The home-page Canon was NOT reused as a room Western track.
 
-## Homepage Canon restoration (2026-10-18, clinician override)
-The homepage again plays ONLY its pre-existing single Canon track
-`public/audio/calm.mp3` (Pachelbel, Canon in D, piano; about 7½ min) via the
-shared room-music player — no 中樂／西樂 choice on the homepage, default-play
-on entry (first tap/keypress if autoplay is blocked), floating button to
-stop/mute or replay, and it stops when a visitor enters a room (that room's
-default takes over, single shared <audio>, no double audio).
-Licence flag: the composition is public domain (Pachelbel, d. 1706) and the
-site previously credited the recording itself as "Pachelbel《D 大調卡農》鋼琴，
-公有領域 / Canon in D, piano, public domain". However the recording's
-performer/source provenance was never documented in this repo, so that
-recording-level public-domain claim cannot be re-verified here. It is restored
-as-is as the site's pre-existing track per the clinician's instruction; no new
-file was added. If provenance verification is required later, replace this
-file with a verifiably licensed Canon recording and update this note. Behaviour in all four rooms: on entry the player attempts the room's Chinese
+## Homepage Canon (2026-10-29, quieter Kevin MacLeod take)
+The homepage plays ONLY one Canon track via the shared room-music player —
+no 中樂／西樂 choice, default-play on entry (first tap/keypress if autoplay is
+blocked), floating button to stop/mute or replay, and it stops when a visitor
+enters a room (that room's default takes over, single shared <audio>).
+
+| File | Detail |
+|---|---|
+| `public/audio/canon-soft.mp3` | **Live** homepage track. Kevin MacLeod, *Canon in D Major*, ~5:56, strings + harp. **CC BY 4.0** (https://incompetech.com/). Attribution shown in the floating music panel and homepage footer. Composition (Pachelbel) is public domain. |
+| `public/audio/calm.mp3` | Previous piano take (~7½ min); kept for rollback. Recording provenance was never documented in this repo. |
+
+Credit line (EN licence text, also used in yue/cmn with a short PD note):
+`Music: Canon in D Major by Kevin MacLeod (incompetech.com), Licensed under CC BY 4.0`
+
+Behaviour in all four rooms: on entry the player attempts the room's Chinese
 default (autoplay attempt, otherwise first-tap/keypress start), one track at a
 time, gentle volume (20% default, max 50%), 靜音 stops it for that room visit,
 switching rooms resets to the new room's default, leaving the rooms stops it.

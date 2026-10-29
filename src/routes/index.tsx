@@ -10,6 +10,7 @@ import { JIEQI_ARTICLES } from "@/lib/jieqi-articles";
 import { ViewCount } from "@/components/view-count";
 import { useCopy, useLang } from "@/i18n/lang";
 import { FavList } from "@/components/fav-list";
+import { HOME_MUSIC } from "@/lib/room-music";
 import { HomeComic } from "@/components/home-comic";
 
 export const Route = createFileRoute("/")({ component: Home });
@@ -198,6 +199,7 @@ function Home() {
           <p className="font-serif font-semibold">{ui.site}</p>
           <ClinicContact />
           <p className="mt-3 opacity-80">{ui.footerHome}</p>
+          <p className="mt-3 text-xs leading-relaxed opacity-70">{HOME_MUSIC.credit[lang]}</p>
           <ViewCount page="home" />
         </div>
       </footer>

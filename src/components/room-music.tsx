@@ -27,12 +27,12 @@ import {
 /**
  * One shared player for the homepage and all four rooms (安神／解鬱／安寐／舒壓).
  * HOMEPAGE (clinician override, 2026-10-18): only the pre-existing Canon track
- * (/audio/calm.mp3), no 中樂／西樂 choice. On entering the homepage the player
+ * (/audio/canon-soft.mp3), no 中樂／西樂 choice. On entering the homepage the player
  * calls play() IMMEDIATELY on mount (no panel interaction needed), exactly as
  * on the old site; if the browser rejects it, it retries on pageshow / when
  * the page becomes visible again, and stays armed for the first tap/keypress.
  * No muted-autoplay trick is used. No explanatory music copy is rendered on
- * the homepage — only the floating button, the Canon track name and mute/stop.
+ * the homepage — floating button, Canon track name, mute/stop, plus CC BY credit.
  * Entering a room stops it so the room's own default takes over (single shared
  * <audio>, never double audio).
  * DEFAULT (clinician, 2026-10-18, amended same day): on entering a room,
@@ -458,7 +458,7 @@ export function RoomMusicSection() {
  * Floating music button, mirroring LanguageSwitch: a pill in the sticky top bar
  * (.site-top in __root.tsx, next to .lang-bar), visible on the homepage and the
  * four room pages. Rooms: 中樂 / 西樂 choices + 靜音. Homepage: only its single
- * Canon track + 靜音. Tap again (or 靜音) closes/stops.
+ * Canon track + 靜音. Picking a track or 靜音 auto-closes the panel; tap the pill again to reopen.
  */
 export function FloatingMusic() {
   const { lang } = useLang();
@@ -466,8 +466,8 @@ export function FloatingMusic() {
   const { context, playingId, stop, panelOpen, setPanelOpen } = useMusic();
   if (!context) return null;
   const now = musicSetFor(context).tracks.find((t) => t.id === playingId);
-  // Homepage: NO explanatory music copy at all (clinician, 2026-10-18) — only
-  // the track name and mute/stop below. Rooms keep their lead/safety/credit.
+  // Homepage: no lead/safety copy (clinician 2026-10-18), but CC BY credit for
+  // the Kevin MacLeod Canon is shown. Rooms keep lead/safety/credit.
   const isHome = context === "home";
   return (
     <div className="music-float">
@@ -479,7 +479,14 @@ export function FloatingMusic() {
         aria-label={playingId ? `${ui.now}${now?.title[lang] ?? ""}` : ui.music}
         onClick={() => setPanelOpen(!panelOpen)}
       >
-        {playingId ? `♪ ${ui.now}${now?.title[lang] ?? ""}` : `♪ ${ui.music}`}
+        {/* Desktop keeps the long "playing: title" label; mobile uses a short
+            pill so the top bar stays fully visible on narrow screens. */}
+        <span className="music-float-label-full">
+          {playingId ? `♪ ${ui.now}${now?.title[lang] ?? ""}` : `♪ ${ui.music}`}
+        </span>
+        <span className="music-float-label-short" aria-hidden="true">
+          {`♪ ${ui.music}`}
+        </span>
       </button>
       {panelOpen && (
         <div className="music-float-panel" role="group" aria-label={ui.music}>
@@ -490,7 +497,7 @@ export function FloatingMusic() {
             </>
           )}
           <div className="mt-4">
-            <TrackGroups />
+            <TrackGroups onPick={() => setPanelOpen(false)} />
           </div>
           <div className="mt-4 flex flex-wrap items-center gap-3">
             <GhostButton
@@ -505,7 +512,7 @@ export function FloatingMusic() {
               {now ? `${ui.now}${now.title[lang]}` : ""}
             </p>
           </div>
-          {!isHome && musicSetFor(context).credit && (
+          {musicSetFor(context).credit && (
             <p className="mt-3 text-xs leading-relaxed text-muted">{musicSetFor(context).credit?.[lang]}</p>
           )}
         </div>
