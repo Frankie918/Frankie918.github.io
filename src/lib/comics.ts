@@ -37,10 +37,26 @@ export const COMIC_THEME_ROOM: Record<ComicTheme, "/anshen" | "/jieyu" | "/anmei
 };
 
 /**
- * Catalog. Current featured: 舒壓「打工仔，放鬆啲」 (was on /yali).
+ * Catalog. Current featured: 安神「學識放下，孑然一身」; prior 舒壓「打工仔，放鬆啲」.
  * Next weeks can add anshen / jieyu / anmei entries without touching the rooms.
  */
 export const COMICS: readonly ComicEntry[] = [
+  {
+    id: "cloud-no-rush",
+    theme: "anshen",
+    image: "/comics/cloud-no-rush.jpg?v=1",
+    published: "2026-11-01",
+    title: {
+      yue: "學識放下，孑然一身 · 阿力同豆豆",
+      cmn: "學識放下，孑然一身 · 阿力與豆豆",
+      en: "Clouds don’t rush · Alex & Dodo",
+    },
+    alt: {
+      yue: "四格漫畫：阿力坐喺霧山邊，話心跳嚟跳去停唔到；豆豆叫佢唔使趕，坐一陣睇下雲；阿力問係咪只係睇，豆豆應嗯；最後阿力話靜咗少少，豆豆話慢慢嚟就得。",
+      cmn: "四格漫畫：阿力坐在霧山邊，說心跳來跳去停不了；豆豆叫他不用趕，坐一会儿看看云；阿力问是不是只是看，豆豆应嗯；最后阿力说静了一点点，豆豆说慢慢来就行。",
+      en: "Four-panel comic: Alex sits by misty mountains; his heart won’t settle. Dodo says no rush—sit and watch the clouds. Alex asks if it’s just looking; Dodo says mm. Alex notices a little quiet; Dodo says slow is enough.",
+    },
+  },
   {
     id: "office-kids-loosen-up",
     theme: "yali",
