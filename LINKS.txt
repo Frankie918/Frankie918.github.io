@@ -21,8 +21,9 @@ https://lion-amber-lion-mist.grok.me/qr-frame.jpg
 https://lion-amber-lion-mist.grok.me/favicon.svg
 
 音樂
-https://lion-amber-lion-mist.grok.me/audio/canon-soft.mp3    首頁卡農（Kevin MacLeod），CC BY 4.0
-https://lion-amber-lion-mist.grok.me/audio/calm.mp3          舊首頁鋼琴卡農（保留回滾），錄音來源未核實
+https://lion-amber-lion-mist.grok.me/audio/when-the-sky-rests.mp3  首頁《When the Sky Rests》（Matthew C. Wright），CC BY 4.0
+https://lion-amber-lion-mist.grok.me/audio/canon-soft.mp3    前一版首頁卡農（Kevin MacLeod，保留回滾），CC BY 4.0
+https://lion-amber-lion-mist.grok.me/audio/calm.mp3          更早首頁鋼琴（保留回滾），錄音來源未核實
 https://lion-amber-lion-mist.grok.me/audio/pingsha.mp3       安神《平沙落雁》古琴，Charlie Huang，CC BY 2.5
 https://lion-amber-lion-mist.grok.me/audio/yangguan.mp3      解鬱《陽關三疊》古琴，Charlie Huang，CC BY-SA 3.0
 https://lion-amber-lion-mist.grok.me/audio/zuiyu.mp3         安寐《醉漁唱晚》古琴，Charlie Huang，CC BY-SA 3.0

@@ -118,18 +118,19 @@ test("player defaults to the room's Chinese track on entry when no preference is
   }
 });
 
-test("homepage: single Canon track only, default on entry, shared player stops it on room entry", () => {
+test("homepage: single quiet piano track only, default on entry, shared player stops it on room entry", () => {
   assert.equal(HOME_MUSIC.tracks.length, 1, "homepage must have exactly one track (no Chinese/Western choice)");
-  const canon = HOME_MUSIC.tracks[0];
-  assert.equal(canon.id, "canon");
-  assert.equal(canon.src, "/audio/canon-soft.mp3");
-  assert.ok(existsSync(`${root}public/audio/canon-soft.mp3`), "Kevin MacLeod Canon file present");
+  const home = HOME_MUSIC.tracks[0];
+  assert.equal(home.id, "sky-rests");
+  assert.equal(home.src, "/audio/when-the-sky-rests.mp3");
+  assert.ok(existsSync(`${root}public/audio/when-the-sky-rests.mp3`), "Matthew C. Wright track present");
+  assert.ok(existsSync(`${root}public/audio/canon-soft.mp3`), "previous Canon kept for rollback");
   assert.ok(existsSync(`${root}public/audio/calm.mp3`), "old calm.mp3 kept for rollback");
   for (const lang of ["yue", "cmn", "en"]) {
-    assert.ok(canon.title[lang] && canon.hint[lang], `canon missing ${lang}`);
-    // CC BY 4.0 attribution required for Kevin MacLeod; no home lead/safety text.
+    assert.ok(home.title[lang] && home.hint[lang], `home track missing ${lang}`);
+    // CC BY 4.0 attribution required for Matthew C. Wright; no home lead/safety text.
     assert.ok(HOME_MUSIC.credit?.[lang], `home must carry CC BY credit (${lang})`);
-    assert.match(HOME_MUSIC.credit[lang], /Kevin MacLeod/);
+    assert.match(HOME_MUSIC.credit[lang], /Matthew C\. Wright/);
     assert.match(HOME_MUSIC.credit[lang], /CC BY 4\.0/);
     assert.equal(MUSIC_UI[lang].homeLead, undefined, `MUSIC_UI ${lang} must have no homepage lead copy`);
     assert.equal(MUSIC_UI[lang].homeSafety, undefined, `MUSIC_UI ${lang} must have no homepage safety copy`);
@@ -138,14 +139,13 @@ test("homepage: single Canon track only, default on entry, shared player stops i
   assert.match(homeRoute, /HOME_MUSIC\.credit/, "homepage footer shows CC BY music credit");
   const catalogue = readFileSync(`${root}src/lib/room-music.ts`, "utf8");
   assert.doesNotMatch(catalogue, /homeLead|homeSafety|首頁只播|首页只播|homepage plays only/i, "no homepage music explanation copy left in catalogue");
-  assert.equal(defaultTrackFor("home").id, "canon", "homepage default is Canon");
+  assert.equal(defaultTrackFor("home").id, "sky-rests", "homepage default is When the Sky Rests");
   assert.equal(contextFromPath("/"), "home");
   assert.equal(contextFromPath("/anshen"), "anshen");
   assert.equal(contextFromPath("/yali"), "yali");
   assert.equal(contextFromPath("/faq"), null);
-  // No Canon/Canon-choice leakage into rooms: rooms keep exactly cn+west above,
-  // and homepage track must not appear in any room list.
-  for (const room of ROOMS) assert.ok(!ROOM_MUSIC[room].tracks.some((t) => t.id === "canon"), `${room} must not list Canon`);
+  // Homepage track must not appear in any room list.
+  for (const room of ROOMS) assert.ok(!ROOM_MUSIC[room].tracks.some((t) => t.id === "sky-rests"), `${room} must not list homepage track`);
   const player = readFileSync(`${root}src/components/room-music.tsx`, "utf8");
   assert.match(player, /contextFromPath\(path\)/, "player derives homepage/room context from path");
   assert.match(player, /context === "home"/, "homepage renders single-track (ungrouped) panel");
@@ -163,8 +163,9 @@ test("homepage: single Canon track only, default on entry, shared player stops i
   assert.doesNotMatch(player, /AmbientMusic/, "legacy ambient player must not be resurrected");
   assert.ok(!existsSync(`${root}src/components/ambient-music.tsx`), "ambient-music.tsx stays deleted");
   const doc = readFileSync(`${root}docs/yali-music-licences.md`, "utf8");
-  assert.match(doc, /calm\.mp3/, "licence doc lists homepage Canon file");
-  assert.match(doc, /never documented/, "licence doc flags undocumented Canon recording provenance");
+  assert.match(doc, /when-the-sky-rests\.mp3/, "licence doc lists live homepage track");
+  assert.match(doc, /Matthew C\. Wright/, "licence doc credits Matthew C. Wright");
+  assert.match(doc, /canon-soft\.mp3/, "licence doc lists previous Canon rollback");
 });
 
 test("remembered music group persists across room leave/re-enter (global, per device)", () => {
@@ -214,8 +215,8 @@ test("remembered music group persists across room leave/re-enter (global, per de
   const lib = readFileSync(`${root}src/lib/room-music.ts`, "utf8");
   assert.match(lib, /typeof localStorage !== "undefined"/, "storage access is SSR/prerender-guarded");
   assert.match(lib, /catch \{/, "storage access is try/catch-guarded");
-  // Homepage Canon never overwrites the remembered room group.
-  assert.equal(preferenceForTrack(HOME_MUSIC.tracks[0]), null, "Canon pick writes no room-group preference");
-  assert.equal(defaultTrackFor("home", "western").id, "canon", "homepage stays Canon-only regardless of remembered group");
-  assert.equal(defaultTrackFor("home", "chinese").id, "canon");
+  // Homepage track never overwrites the remembered room group.
+  assert.equal(preferenceForTrack(HOME_MUSIC.tracks[0]), null, "homepage pick writes no room-group preference");
+  assert.equal(defaultTrackFor("home", "western").id, "sky-rests", "homepage stays single-track regardless of remembered group");
+  assert.equal(defaultTrackFor("home", "chinese").id, "sky-rests");
 });

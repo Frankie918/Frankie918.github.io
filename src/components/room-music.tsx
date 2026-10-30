@@ -26,13 +26,13 @@ import {
 
 /**
  * One shared player for the homepage and all four rooms (安神／解鬱／安寐／舒壓).
- * HOMEPAGE (clinician override, 2026-10-18): only the pre-existing Canon track
- * (/audio/canon-soft.mp3), no 中樂／西樂 choice. On entering the homepage the player
+ * HOMEPAGE (clinician override): only one quiet piano track
+ * (/audio/when-the-sky-rests.mp3), no 中樂／西樂 choice. On entering the homepage the player
  * calls play() IMMEDIATELY on mount (no panel interaction needed), exactly as
  * on the old site; if the browser rejects it, it retries on pageshow / when
  * the page becomes visible again, and stays armed for the first tap/keypress.
  * No muted-autoplay trick is used. No explanatory music copy is rendered on
- * the homepage — floating button, Canon track name, mute/stop, plus CC BY credit.
+ * the homepage — floating button, track name, mute/stop, plus CC BY credit.
  * Entering a room stops it so the room's own default takes over (single shared
  * <audio>, never double audio).
  * DEFAULT (clinician, 2026-10-18, amended same day): on entering a room,
@@ -45,7 +45,7 @@ import {
  * stored muted → nothing starts or is armed, on any room or the homepage,
  * until the visitor explicitly picks a track again. Picking a room track or
  * pressing 靜音/mute writes the preference immediately; picking homepage
- * Canon writes nothing (it must not overwrite the room group), while muting
+ * Homepage track writes nothing (it must not overwrite the room group), while muting
  * on the homepage stores muted like anywhere else. The preference is read
  * lazily inside the client-only entry effect (no SSR/prerender read, no
  * hydration mismatch), guarded by try/catch in the lib helpers, with an
@@ -257,7 +257,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
         return;
       }
       // Room picks update the global remembered group immediately; homepage
-      // Canon (group "home") must not overwrite it, so it writes nothing.
+      // Homepage track (group "home") must not overwrite it, so it writes nothing.
       const preference = preferenceForTrack(track);
       if (preference) rememberPreference(preference);
       void startTrack(track);
@@ -273,7 +273,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
 
   // Context entry / switching: stop the previous context, close the panel,
   // then attempt the new context's default in the REMEMBERED group (room:
-  // that room's Chinese/Western track; homepage: its sole Canon track,
+  // that room's Chinese/Western track; homepage: its sole quiet piano track,
   // regardless of group). Stored muted starts and arms nothing. Leaving a
   // context stops the sound but never clears the remembered preference.
   useEffect(() => {
@@ -328,7 +328,7 @@ function TrackGroups({ onPick }: { onPick?: () => void }) {
   const { context, playingId, play } = useMusic();
   if (!context) return null;
   const data = musicSetFor(context);
-  // Homepage: exactly one Canon track — no 中樂／西樂 grouping.
+  // Homepage: exactly one quiet piano track — no 中樂／西樂 grouping.
   if (context === "home") {
     return (
       <div className="grid gap-2.5">
@@ -458,7 +458,7 @@ export function RoomMusicSection() {
  * Floating music button, mirroring LanguageSwitch: a pill in the sticky top bar
  * (.site-top in __root.tsx, next to .lang-bar), visible on the homepage and the
  * four room pages. Rooms: 中樂 / 西樂 choices + 靜音. Homepage: only its single
- * Canon track + 靜音. Picking a track or 靜音 auto-closes the panel; tap the pill again to reopen.
+ * homepage track + 靜音. Picking a track or 靜音 auto-closes the panel; tap the pill again to reopen.
  */
 export function FloatingMusic() {
   const { lang } = useLang();
@@ -467,7 +467,7 @@ export function FloatingMusic() {
   if (!context) return null;
   const now = musicSetFor(context).tracks.find((t) => t.id === playingId);
   // Homepage: no lead/safety copy (clinician 2026-10-18), but CC BY credit for
-  // the Kevin MacLeod Canon is shown. Rooms keep lead/safety/credit.
+  // the homepage quiet piano track is shown. Rooms keep lead/safety/credit.
   const isHome = context === "home";
   return (
     <div className="music-float">

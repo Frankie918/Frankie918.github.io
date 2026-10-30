@@ -16,13 +16,13 @@ import type { Lang } from "@/i18n/copy";
  * Both composition and recording are licence-verified — see docs/yali-music-licences.md.
  * Chinese tracks keep each room's existing guqin recording and licence/credit.
  * Track titles/hints carry no efficacy promise: tempo/timbre/length only.
- * Homepage: ONLY one Canon track (`public/audio/canon-soft.mp3`, Kevin MacLeod,
- * CC BY 4.0) — no Chinese/Western choice there. It shares the same single
- * player; entering a room stops it and the room default takes over. Old
- * `calm.mp3` is kept for rollback.
+ * Homepage: ONLY one quiet piano track (`public/audio/when-the-sky-rests.mp3`,
+ * Matthew C. Wright, CC BY 4.0) — no Chinese/Western choice there. It shares
+ * the same single player; entering a room stops it and the room default takes
+ * over. Previous `canon-soft.mp3` and older `calm.mp3` are kept for rollback.
  */
 export type MusicRoom = "anshen" | "jieyu" | "anmei" | "yali";
-/** Pages with music: the four rooms plus the homepage (single Canon track). */
+/** Pages with music: the four rooms plus the homepage (single quiet piano track). */
 export type MusicContext = MusicRoom | "home";
 export type MusicGroup = "cn" | "west" | "home";
 
@@ -32,7 +32,7 @@ export type MusicGroup = "cn" | "west" | "home";
  * words required by the clinician request (2026-10-18), distinct from the
  * per-track MusicGroup codes above. "muted" is stored too, so a visitor who
  * pressed 靜音 stays silent on re-entry until they pick a track again.
- * Homepage Canon is unaffected as a choice: playing it never overwrites the
+ * Homepage track is unaffected as a choice: playing it never overwrites the
  * remembered room group (preferenceForTrack returns null for it), though
  * muting on the homepage stores "muted" globally, like muting anywhere.
  */
@@ -44,7 +44,7 @@ export function parseMusicPreference(value: unknown): MusicPreference {
   return value === "western" || value === "muted" ? value : "chinese";
 }
 
-/** Preference implied by explicitly picking a track; homepage Canon has none (null = keep remembered group). */
+/** Preference implied by explicitly picking a track; homepage track has none (null = keep remembered group). */
 export function preferenceForTrack(track: MusicTrack): MusicPreference | null {
   if (track.group === "cn") return "chinese";
   if (track.group === "west") return "western";
@@ -110,7 +110,7 @@ export function defaultTrack(room: MusicRoom): MusicTrack {
   return t;
 }
 
-/** The track a music context starts with: rooms → the room's track in the remembered group (default Chinese guqin); homepage → its sole Canon track, regardless of the room group preference. */
+/** The track a music context starts with: rooms → the room's track in the remembered group (default Chinese guqin); homepage → its sole track, regardless of the room group preference. */
 export function defaultTrackFor(context: MusicContext, preference: MusicPreference = "chinese"): MusicTrack {
   if (context === "home") return HOME_MUSIC.tracks[0];
   return trackForPreference(context, preference);
@@ -325,31 +325,31 @@ export const ROOM_MUSIC: Record<MusicRoom, RoomMusic> = {
 };
 
 /**
- * Homepage music: exactly ONE track — Kevin MacLeod's quieter Canon in D Major
- * (CC BY 4.0; replaces the older undocumented calm.mp3 piano take, kept in
+ * Homepage music: exactly ONE track — Matthew C. Wright's When the Sky Rests
+ * (CC BY 4.0; replaces Kevin MacLeod Canon / older calm.mp3, both kept in
  * public/audio/ for rollback). No 中樂／西樂 choice here. Credit is shown in
  * the floating panel and homepage footer (CC BY attribution required).
  */
 export const HOME_MUSIC: { tracks: MusicTrack[]; credit: Record<Lang, string> } = {
   tracks: [
     {
-      id: "canon",
-      src: "/audio/canon-soft.mp3",
+      id: "sky-rests",
+      src: "/audio/when-the-sky-rests.mp3",
       group: "home",
-      composer: "Johann Pachelbel",
-      workId: "pachelbel-canon-in-d",
-      title: { yue: "Pachelbel《D 大調卡農》", cmn: "Pachelbel《D 大调卡农》", en: "Pachelbel · Canon in D" },
+      composer: "Matthew C. Wright",
+      workId: "matthew-c-wright-when-the-sky-rests",
+      title: { yue: "Wright《When the Sky Rests》", cmn: "Wright《When the Sky Rests》", en: "Wright · When the Sky Rests" },
       hint: {
-        yue: "弦樂＋豎琴 · 約 6 分鐘 · 慢，中段較平",
-        cmn: "弦乐＋竖琴 · 约 6 分钟 · 慢，中段较平",
-        en: "Strings + harp · about 6 min · slow, steadier middle",
+        yue: "慢速鋼琴 · 約 5 分半 · 疏、靜",
+        cmn: "慢速钢琴 · 约 5 分半 · 疏、静",
+        en: "Slow piano · about 5½ min · sparse and quiet",
       },
     },
   ],
   credit: {
-    yue: "Music: Canon in D Major by Kevin MacLeod (incompetech.com), Licensed under CC BY 4.0。Pachelbel 樂曲屬公有領域。",
-    cmn: "Music: Canon in D Major by Kevin MacLeod (incompetech.com), Licensed under CC BY 4.0。Pachelbel 乐曲属公有领域。",
-    en: "Music: Canon in D Major by Kevin MacLeod (incompetech.com), Licensed under CC BY 4.0. Pachelbel's composition is in the public domain.",
+    yue: "Music by Matthew C. Wright (matthewcwright.com), Licensed under CC BY 4.0。",
+    cmn: "Music by Matthew C. Wright (matthewcwright.com), Licensed under CC BY 4.0。",
+    en: "Music by Matthew C. Wright (matthewcwright.com), Licensed under CC BY 4.0.",
   },
 };
 
@@ -426,7 +426,7 @@ export function roomFromPath(path: string): MusicRoom | null {
   return null;
 }
 
-/** Music context for a path: "/" is the homepage (single Canon), rooms are themselves, else none. */
+/** Music context for a path: "/" is the homepage (single quiet piano), rooms are themselves, else none. */
 export function contextFromPath(path: string): MusicContext | null {
   if (path === "/") return "home";
   return roomFromPath(path);

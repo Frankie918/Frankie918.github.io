@@ -31,19 +31,20 @@ is the clinician's: 《孔子讀易》 (slow, low register); 《佩蘭》
 NOT offered in any room list.
 The home-page Canon was NOT reused as a room Western track.
 
-## Homepage Canon (2026-10-29, quieter Kevin MacLeod take)
-The homepage plays ONLY one Canon track via the shared room-music player —
+## Homepage quiet piano (2026-10-30, Matthew C. Wright)
+The homepage plays ONLY one quiet piano track via the shared room-music player —
 no 中樂／西樂 choice, default-play on entry (first tap/keypress if autoplay is
 blocked), floating button to stop/mute or replay, and it stops when a visitor
 enters a room (that room's default takes over, single shared <audio>).
 
 | File | Detail |
 |---|---|
-| `public/audio/canon-soft.mp3` | **Live** homepage track. Kevin MacLeod, *Canon in D Major*, ~5:56, strings + harp. **CC BY 4.0** (https://incompetech.com/). Attribution shown in the floating music panel and homepage footer. Composition (Pachelbel) is public domain. |
-| `public/audio/calm.mp3` | Previous piano take (~7½ min); kept for rollback. Recording provenance was never documented in this repo. |
+| `public/audio/when-the-sky-rests.mp3` | **Live** homepage track. Matthew C. Wright, *When the Sky Rests*, ~5:28, solo piano. **CC BY 4.0** (https://matthewcwright.com/; Archive.org `matthew-c-wright-113-when-the-sky-rests`). Attribution shown in the floating music panel and homepage footer. |
+| `public/audio/canon-soft.mp3` | Previous homepage track (Kevin MacLeod *Canon in D Major*, CC BY 4.0); kept for rollback. |
+| `public/audio/calm.mp3` | Older piano take (~7½ min); kept for rollback. Recording provenance was never documented in this repo. |
 
-Credit line (EN licence text, also used in yue/cmn with a short PD note):
-`Music: Canon in D Major by Kevin MacLeod (incompetech.com), Licensed under CC BY 4.0`
+Credit line:
+`Music by Matthew C. Wright (matthewcwright.com), Licensed under CC BY 4.0`
 
 Behaviour in all four rooms: on entry the player attempts the room's Chinese
 default (autoplay attempt, otherwise first-tap/keypress start), one track at a

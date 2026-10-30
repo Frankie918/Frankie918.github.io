@@ -16,7 +16,7 @@ const yue = {
     close: "收起",
     expand: "撳開睇",
     music: "背景樂",
-    musicOn: "卡農 · 開",
+    musicOn: "天息 · 開",
     musicPlay: "播放背景樂",
     musicPause: "關閉背景樂",
     today: "今日",
