@@ -84,6 +84,28 @@ function Home() {
       </header>
 
       <CrayonFrame theme="home">
+      <section className="px-6 pb-20 md:px-12">
+        <p className="text-xs tracking-[0.22em] text-accent">{home.aboutK}</p>
+        <h2 className="mt-2 font-serif text-3xl md:text-4xl">{home.aboutT}</h2>
+        <p className="mt-4 text-ink">{home.aboutLead}</p>
+        <p className="mt-3 text-muted">{home.aboutBody}</p>
+
+        <p className="mt-12 text-xs tracking-[0.22em] text-accent">{home.illnessK}</p>
+        <h2 className="mt-2 font-serif text-3xl md:text-4xl">{home.illnessT}</h2>
+        <p className="mt-4 text-ink">{home.illnessLead}</p>
+        <p className="mt-3 text-muted">{home.illnessBody}</p>
+        <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+          {[home.illnessA, home.illnessB, home.illnessC, home.illnessD].map((item) => (
+            <li
+              key={item}
+              className="rounded-card border border-line bg-paper px-4 py-4 text-sm text-ink"
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <section id="rooms" className="grid gap-4 px-6 pb-16 md:grid-cols-2 md:px-12">
         <Link
           to="/anshen"
@@ -136,29 +158,6 @@ function Home() {
       </section>
 
       <HomeComic />
-
-      <section className="px-6 pb-20 md:px-12">
-        <p className="text-xs tracking-[0.22em] text-accent">{home.aboutK}</p>
-        <h2 className="mt-2 font-serif text-3xl md:text-4xl">{home.aboutT}</h2>
-        <p className="mt-4 text-ink">{home.aboutLead}</p>
-        <p className="mt-3 text-muted">{home.aboutBody}</p>
-
-        <p className="mt-12 text-xs tracking-[0.22em] text-accent">{home.illnessK}</p>
-        <h2 className="mt-2 font-serif text-3xl md:text-4xl">{home.illnessT}</h2>
-        <p className="mt-4 text-ink">{home.illnessLead}</p>
-        <p className="mt-3 text-muted">{home.illnessBody}</p>
-        <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-          {[home.illnessA, home.illnessB, home.illnessC, home.illnessD].map((item) => (
-            <li
-              key={item}
-              className="rounded-card border border-line bg-paper px-4 py-4 text-sm text-ink"
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      </section>
-
 
       <section className="px-6 pb-8 md:px-12">
         <div className="grid gap-4 md:grid-cols-2">
