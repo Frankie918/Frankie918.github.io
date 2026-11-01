@@ -202,6 +202,93 @@ export const JIEQI_FOOD: Record<string, { yue: SeasonFood; cmn: SeasonFood; en: 
       source: "Source: Wang Shixiong, Suixiju Yinshipu (隨息居飲食譜), fruit section, \u201cPersimmon\u201d.",
     },
   },
+  立冬: {
+    urls: ["https://ctext.org/wiki.pl?chapter=903886&if=gb", "https://jicheng.tw/tcm/book/%E9%9A%A8%E6%81%AF%E5%B1%85%E9%A3%B2%E9%A3%9F%E8%AD%9C/index.html"],
+    yue: {
+      kicker: "時令飲食 · 隨息居",
+      intro: "清代王士雄嘅《隨息居飲食譜》，記錄咗好多日常食材嘅性味。立冬前後天氣轉寒，栗同乾棗係書中常見嘅秋冬果食，以下係原文，同一個屋企做得到嘅食法。",
+      foods: [
+        {
+          name: "栗",
+          quote: "「栗甘平。補腎，益氣，厚腸，止瀉，耐飢，最利腰腳，解羊肉毒。……凡食均須細嚼，連液吞咽，則有益。若頓食至飽，反壅氣傷脾。……以生極難化，熟最滯氣也。」",
+          explain: "書中話栗味甘、性平，要慢慢咀嚼連汁吞；亦提醒唔好一次食飽，外感未清、產後同病後嘅人唔宜。生栗難消化，熟栗又容易滯氣。",
+        },
+        {
+          name: "乾棗",
+          quote: "「乾者甘溫。補脾養胃，滋營充液，潤肺安神。食之耐飢，亦可浸酒。……多食皆能生蟲、助熱、損齒、生痰。凡小兒、產後，及溫熱、暑濕諸病前後、黃疸、腫脹、疳積、痰滯，並忌之。」",
+          explain: "書中話乾棗味甘、性溫，比鮮棗溫和；亦提醒小兒、產後同埋濕熱病前後唔宜多食。",
+        },
+      ],
+      recipe: {
+        title: "紅棗煨栗",
+        ingredients: ["板栗 約 150 克（約 12 至 15 粒）", "紅棗 6 至 8 粒（去核更好）", "清水 適量", "冰糖 少許（可以唔放）"],
+        steps: [
+          "板栗殼劃一刀，放入滾水煮約 3 至 5 分鐘，撈起剝殼同衣。",
+          "紅棗洗淨；想淡啲可以去核。",
+          "鍋入栗肉、紅棗同清水，水蓋過面約一指，大火滾起轉中細火煨約 25 至 30 分鐘，至栗身軟身。",
+          "可加少許冰糖再煨數分鐘；攤暖先食，連汁一齊飲。",
+        ],
+      },
+      note: "以上係傳統飲食文化介紹，唔係食療處方，亦唔保證有任何效果。飲食因人而異，有病情或者食緊藥，請先問醫師。",
+      source: "原文出處：王士雄《隨息居飲食譜》果食類「栗」「棗」。",
+    },
+    cmn: {
+      kicker: "時令飲食 · 隨息居",
+      intro: "清代王士雄的《隨息居飲食譜》，記錄了許多日常食材的性味。立冬前後天氣轉寒，栗與乾棗是書中常見的秋冬果食，以下是原文，和一個在家做得到的食法。",
+      foods: [
+        {
+          name: "栗",
+          quote: "「栗甘平。補腎，益氣，厚腸，止瀉，耐飢，最利腰腳，解羊肉毒。……凡食均須細嚼，連液吞咽，則有益。若頓食至飽，反壅氣傷脾。……以生極難化，熟最滯氣也。」",
+          explain: "書中說栗味甘、性平，要細細咀嚼連汁吞下；也提醒不要一次吃太飽，外感未清、產後與病後的人不宜。生栗難消化，熟栗又容易滯氣。",
+        },
+        {
+          name: "乾棗",
+          quote: "「乾者甘溫。補脾養胃，滋營充液，潤肺安神。食之耐飢，亦可浸酒。……多食皆能生蟲、助熱、損齒、生痰。凡小兒、產後，及溫熱、暑濕諸病前後、黃疸、腫脹、疳積、痰滯，並忌之。」",
+          explain: "書中說乾棗味甘、性溫，比鮮棗溫和；也提醒小兒、產後以及濕熱病前後不宜多吃。",
+        },
+      ],
+      recipe: {
+        title: "紅棗煨栗",
+        ingredients: ["板栗 約 150 克（約 12 至 15 粒）", "紅棗 6 至 8 粒（去核更好）", "清水 適量", "冰糖 少許（可不放）"],
+        steps: [
+          "板栗殼上劃一刀，放入沸水煮約 3 至 5 分鐘，撈起剝去殼與衣。",
+          "紅棗洗淨；想淡一些可以去核。",
+          "鍋中放入栗肉、紅棗與清水，水蓋過面約一指，大火煮開後轉中小火煨約 25 至 30 分鐘，至栗身變軟。",
+          "可加少許冰糖再煨數分鐘；放至溫熱再吃，連汁一起喝。",
+        ],
+      },
+      note: "以上是傳統飲食文化介紹，不是食療處方，也不保證任何效果。飲食因人而異，有病情或正在服藥，請先問醫師。",
+      source: "原文出處：王士雄《隨息居飲食譜》果食類「栗」「棗」。",
+    },
+    en: {
+      kicker: "Seasonal food · Suixiju",
+      intro: "The Qing-dynasty doctor Wang Shixiong's Suixiju Yinshipu (隨息居飲食譜) records the nature and flavour of many everyday foods. Around the Start of Winter, chestnut and dried jujube are common autumn–winter fruits in the book; below are the original words, and one way of preparing them that can be done at home.",
+      foods: [
+        {
+          name: "Chestnut",
+          quote: "「栗甘平。補腎，益氣，厚腸，止瀉，耐飢，最利腰腳，解羊肉毒。……凡食均須細嚼，連液吞咽，則有益。若頓食至飽，反壅氣傷脾。……以生極難化，熟最滯氣也。」",
+          explain: "The book says chestnut is sweet and neutral in nature, and should be chewed finely and swallowed with its juice; it also warns against eating until full in one sitting, and that people still clearing an external cold, after childbirth or illness should avoid it. Raw chestnut is hard to digest; cooked chestnut tends to stagnate qi.",
+        },
+        {
+          name: "Dried jujube",
+          quote: "「乾者甘溫。補脾養胃，滋營充液，潤肺安神。食之耐飢，亦可浸酒。……多食皆能生蟲、助熱、損齒、生痰。凡小兒、產後，及溫熱、暑濕諸病前後、黃疸、腫脹、疳積、痰滯，並忌之。」",
+          explain: "The book says dried jujube is sweet and warm in nature, milder than fresh dates; it also warns that children, those after childbirth, and those around damp-heat illnesses should not eat much of it.",
+        },
+      ],
+      recipe: {
+        title: "Chestnuts Simmered with Red Dates",
+        ingredients: ["About 150 g chestnuts (about 12 to 15)", "6 to 8 red dates (better pitted)", "Water as needed", "A little rock sugar (optional)"],
+        steps: [
+          "Score each chestnut shell, boil in water for about 3 to 5 minutes, then peel off the shell and inner skin.",
+          "Wash the red dates; pit them if you want a milder taste.",
+          "Put the chestnut meat, dates and water in a pot, covering by about a finger's width; bring to a boil, then simmer on medium-low for about 25 to 30 minutes, until the chestnuts are soft.",
+          "Add a little rock sugar and simmer a few more minutes if you like; let cool until warm before eating, and drink the broth with it.",
+        ],
+      },
+      note: "The above introduces traditional food culture. It is not a dietary-therapy prescription and does not guarantee any effect. Food affects people differently; if you have a medical condition or are taking medication, please ask a doctor first.",
+      source: "Source: Wang Shixiong, Suixiju Yinshipu (隨息居飲食譜), fruit section, \u201cChestnut\u201d and \u201cJujube\u201d.",
+    },
+  },
 };
 
 export type JieqiArticle = {
@@ -285,6 +372,42 @@ export const JIEQI_ARTICLES: Record<string, JieqiArticle> = {
         "If lately the main thing is a low, stuck mood and little energy to move, you can walk slowly into Ease the Heart and look at ways of adjusting your mood. This is educational content, not a diagnosis; if it keeps affecting your life, please see a doctor in person.",
       ],
       roomLine: "Enter Ease the Heart →",
+      source: "Quotations: Yueling Qishier Hou Jijie; Huangdi Neijing Suwen, Sishi Tiaoshen Dalun.",
+    },
+  },
+  立冬: {
+    room: "/anshen",
+    yue: {
+      title: "立冬：萬物收藏，心也可以藏一藏",
+      paras: [
+        "立冬係冬天第一個節氣。《月令七十二候集解》講：「立冬，十月節。……冬，終也，萬物收藏也。」又記立冬三候之一係「水始冰」，水面開始結薄冰，未到堅硬。",
+        "呢個時候，有啲人會覺得日短夜長，夜晚想早啲收工；亦有人因為天氣轉凍、行程密，個心收唔到，夜晚仍然掛住日頭未做完嘅事。季節入藏、日照變短，想靜、想收，係常見嘅事，唔一定代表有問題。",
+        "《素問·四氣調神大論》講冬三月「此謂閉藏」，又講「早臥晚起，必待日光」「使志若伏若匿」。放喺今日，可以係早少少熄燈、朝早唔使爭住第一個起身，等個志意好似冬天咁，伏低、藏起，留返啲氣力畀自己。",
+        "如果近排主要係心神散、靜唔落嚟，可以慢慢行入安神，睇下收神同放鬆嘅做法。呢度係教育內容，唔係診斷；持續影響生活嘅話，請搵醫師面診。",
+      ],
+      roomLine: "進入安神 →",
+      source: "引文：《月令七十二候集解》；《黃帝內經素問·四氣調神大論》。",
+    },
+    cmn: {
+      title: "立冬：萬物收藏，心也可以藏一藏",
+      paras: [
+        "立冬是冬天第一個節氣。《月令七十二候集解》說：「立冬，十月節。……冬，終也，萬物收藏也。」又記立冬三候之一是「水始冰」，水面開始結薄冰，還未到堅硬。",
+        "這個時候，有些人會覺得日短夜長，晚上想早些收工；也有人因為天氣轉冷、行程密，心收不住，夜裏仍然掛着白天未做完的事。季節入藏、日照變短，想靜、想收，是常見的事，不一定代表有問題。",
+        "《素問·四氣調神大論》說冬三月「此謂閉藏」，又說「早臥晚起，必待日光」「使志若伏若匿」。放在今天，可以是早一點熄燈、早晨不必爭着第一個起身，讓志意像冬天一樣，伏低、藏起，留一點氣力給自己。",
+        "如果近來主要是心神散、靜不下來，可以慢慢走進安神，看看收神與放鬆的做法。這裏是教育內容，不是診斷；持續影響生活的話，請找醫師面診。",
+      ],
+      roomLine: "進入安神 →",
+      source: "引文：《月令七十二候集解》；《黃帝內經素問·四氣調神大論》。",
+    },
+    en: {
+      title: "Start of Winter: all things store away, and the heart can store a little too",
+      paras: [
+        "Start of Winter is the first solar term of winter. The Yueling Qishier Hou Jijie (月令七十二候集解) says: \u201cStart of Winter, the tenth-month term. \u2026 Winter means ending; all things store and gather in.\u201d It also records one of the term's three pentads as \u201cwater begins to freeze\u201d — a thin ice forms on the surface, not yet hard.",
+        "At this time of year, some people notice the days shortening and want to finish earlier in the evening; others, with the cold and a packed schedule, cannot gather the heart in, and at night still hang onto what was left unfinished by day. As the season turns to storage and daylight shortens, wanting quiet and wanting to gather in is common and does not necessarily mean anything is wrong.",
+        "The Suwen's Sishi Tiaoshen Dalun (《素問·四氣調神大論》) calls the three months of winter \u201cclosed storage\u201d, and says one should \u201csleep early and rise late, waiting for the sunlight\u201d and \u201cmake the will as if hiding, as if concealed\u201d. In today's terms, that might mean turning the lights off a little earlier, and not racing to be first out of bed — letting the will, like winter, crouch and store, keeping a little strength for yourself.",
+        "If lately the main thing is a scattered spirit that will not settle, you can walk slowly into Calm the Mind and look at ways of gathering the mind and relaxing. This is educational content, not a diagnosis; if it keeps affecting your life, please see a doctor in person.",
+      ],
+      roomLine: "Enter Calm the Mind →",
       source: "Quotations: Yueling Qishier Hou Jijie; Huangdi Neijing Suwen, Sishi Tiaoshen Dalun.",
     },
   },
